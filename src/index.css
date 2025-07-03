@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 5.1% 12%; /* Dark Background from original theme, close to user's Black (29,29,27) */
+    --foreground: 0 0% 98%; /* White */
+
+    --card: 260 5.1% 15%; /* Slightly lighter dark for cards */
+    --card-foreground: 0 0% 98%; /* White */
+
+    --popover: 260 5.1% 10%; /* Darker for popovers */
+    --popover-foreground: 0 0% 98%; /* White */
+
+    /* Primary Palette from user */
+    --primary: 279 64% 32%; /* Purple: 88, 28, 135 */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 165 100% 29%; /* Pink (using as user requested Teal): 0, 149, 110 */
+    --secondary-foreground: 0 0% 100%; /* White */
+    
+    --accent: 200 54% 32%; /* Blue: 37, 99, 125 */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --highlight: 173 80% 53%; /* Green: 37, 235, 209 */
+    --highlight-foreground: 260 11% 11%; /* Black */
+    
+    /* Secondary Palette from user */
+    --muted: 0 0% 61.6%; /* Gray: 157, 157, 156 */
+    --muted-foreground: 0 0% 98%; /* White */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 260 5% 25%; /* Adjusted border for dark theme */
+    --input: 260 5% 25%;
+    --ring: 279 64% 45%; /* Lighter purple for ring */
+
+    --radius: 0.75rem;
+  }
+
+  /* .dark class is not strictly necessary if dark is default, but good for consistency if light mode is ever added */
+  .dark {
+    --background: 260 5.1% 12%; /* Black: 29, 29, 27 (approximated) */
+    --foreground: 0 0% 98%; /* White */
+
+    --card: 260 5.1% 15%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 260 5.1% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 279 64% 32%; 
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 165 100% 29%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 200 54% 32%;
+    --accent-foreground: 0 0% 100%;
+
+    --highlight: 173 80% 53%;
+    --highlight-foreground: 260 11% 11%;
+
+    --muted: 0 0% 61.6%; 
+    --muted-foreground: 0 0% 98%;
+
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 260 5% 25%;
+    --input: 260 5% 25%;
+    --ring: 279 64% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, .font-heading {
+    @apply font-black; /* Montserrat Black */
+  }
+  h4, h5, h6, .font-subheading {
+    @apply font-semibold; /* Montserrat SemiBold */
+  }
+  p, span, div, a, button, li, label, input, textarea, select, .font-body {
+     /* Default to Montserrat Regular, specific weights can be applied via Tailwind utilities like font-normal, font-medium etc. */
+    @apply font-normal; /* Montserrat Regular */
+  }
+}
+
+/* Keeping dark background consistent with user request */
+body {
+  background-color: hsl(var(--background));
+}
+
+/* Custom scrollbar for a more modern look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background) / 0.8); /* Darker track */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.7);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* Global style for gradient text padding */
+span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highlight.to-secondary {
+  padding-bottom: 20px;
+}
