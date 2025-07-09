@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/use-toast';
 const professionals = [
   { icon: <BrainCircuit size={48} className="text-white" />, name: 'Therapists & Counselors', description: 'Focus on your clients while we handle your digital presence.' },
   { icon: <Wrench size={48} className="text-white" />, name: 'Electricians & Plumbers', description: 'We wire up your marketing so you can focus on the job.' },
-  { icon: <HeartPulse size={48} className="text-white" />, name: 'Veterinarians', description: 'Care for pets, and we’ll fetch new clients for you.' },
+  { icon: <HeartPulse size={48} className="text-white" />, name: 'Global Veterinarians', description: 'If you care for pets outside of the US, and we’ll fetch new clients for you.' },
   { icon: <Calculator size={48} className="text-white" />, name: 'Accountants & Financial Pros', description: 'We crunch the marketing numbers so you can focus on the real ones.' },
   { icon: <ShieldCheck size={48} className="text-white" />, name: 'Other Licensed Professionals', description: 'You have the expertise. We have the marketing engine.' },
 ];
