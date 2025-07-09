@@ -113,7 +113,7 @@
   }
 
   ul, ol {
-    @apply list-disc pl-6 mb-4;
+    @apply list-disc pl-6 mb-4 mt-4;
   }
 
   ol {
