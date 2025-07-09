@@ -2,11 +2,11 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Rocket, Target, PartyPopper } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import { caseStudies } from '@/data/caseStudiesData.jsx';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const CaseStudyDetailPage = () => {
   const { slug } = useParams();
@@ -30,7 +30,7 @@ const CaseStudyDetailPage = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
     },
   };
 
@@ -42,8 +42,16 @@ const CaseStudyDetailPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>{study.title} | Marketing Car Case Study</title>
-        <meta name="description" content={`Read the full case study for ${study.title} and see how we helped ${study.client} achieve ${study.result}.`} />
+        <title>{study.meta.title}</title>
+        <meta name="description" content={study.meta.description} />
+        <meta property="og:title" content={study.meta.ogTitle} />
+        <meta property="og:description" content={study.meta.ogDescription} />
+        <meta property="og:image" content={study.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={study.meta.ogTitle} />
+        <meta name="twitter:description" content={study.meta.ogDescription} />
+        <meta name="twitter:image" content={study.image} />
+        <meta name="twitter:image:alt" content={study.meta.ogImageAlt} />
       </Helmet>
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-primary/10">
         <div className="container mx-auto px-4">
@@ -82,36 +90,50 @@ const CaseStudyDetailPage = () => {
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <motion.div variants={itemVariants}>
-              <h2 className="text-3xl font-bold font-heading mb-4">The Challenge</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">{study.challenge}</p>
+            <motion.div variants={itemVariants} className="mb-12">
+              <img src={study.image} alt={study.imageAlt} className="rounded-lg shadow-xl w-full" />
             </motion.div>
 
-            <motion.div variants={itemVariants} className="mt-12">
-              <h2 className="text-3xl font-bold font-heading mb-4">Our Solution</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">{study.solution}</p>
+            <motion.div variants={itemVariants} className="mb-12">
+              <h2 className="text-3xl font-bold font-heading mb-4 flex items-center"><Target className="mr-3 h-8 w-8 text-primary"/>Marketing Goal</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">{study.marketingGoal}</p>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="mt-12">
-              <h2 className="text-3xl font-bold font-heading mb-4">Client Testimonial</h2>
-              <Card className="bg-secondary/10 border-l-4 border-secondary">
-                <CardContent className="pt-6">
-                  <blockquote className="text-lg italic text-foreground">
-                    "{study.testimonial.quote}"
-                  </blockquote>
-                  <p className="text-right mt-4 font-semibold">- {study.testimonial.author}</p>
-                </CardContent>
-              </Card>
+            <motion.div variants={itemVariants} className="mb-12">
+              <h2 className="text-3xl font-bold font-heading mb-6 flex items-center"><Rocket className="mr-3 h-8 w-8 text-primary"/>Process to Get There</h2>
+              <ul className="space-y-4">
+                {study.process.map((step, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <p className="text-lg text-muted-foreground">{step}</p>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
+
+            {study.successStory && (
+              <motion.div variants={itemVariants}>
+                <h2 className="text-3xl font-bold font-heading mb-4 flex items-center"><PartyPopper className="mr-3 h-8 w-8 text-primary"/>{study.successStory.title}</h2>
+                <Card className="bg-secondary/10 border-l-4 border-secondary">
+                  <CardContent className="pt-6">
+                    <blockquote className="text-lg italic text-foreground">
+                      "{study.successStory.content}"
+                    </blockquote>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
           </div>
 
           <aside className="lg:col-span-1">
             <motion.div variants={itemVariants} className="sticky top-28">
-              <Card className="shadow-lg">
-                <CardContent className="pt-6">
-                  <h3 className="text-2xl font-bold font-heading mb-6 text-center">Key Results</h3>
+              <Card className="shadow-lg bg-secondary/20">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold font-heading text-center">Key Results</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <ul className="space-y-4">
-                    {study.results.map((res, index) => (
+                    {study.resultsSummary.map((res, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
                         <div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -77,7 +76,7 @@ const ServicesPage = () => {
                 <Card className="h-full transform hover:-translate-y-2 transition-transform duration-300 ease-in-out shadow-lg hover:shadow-primary/20">
                   <CardHeader>
                     <div className="text-4xl mb-4">{service.icon}</div>
-                    <CardTitle className="font-heading text-2xl">{service.title}</CardTitle>
+                    <CardTitle className="font-heading text-2xl text-white">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-base">{service.description}</CardDescription>

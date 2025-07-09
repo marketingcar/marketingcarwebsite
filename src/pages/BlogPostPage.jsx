@@ -67,7 +67,7 @@ const BlogPostPage = () => {
           <img 
             alt={post.title}
             className="w-full h-full object-cover"
-           src="https://images.unsplash.com/photo-1597096337857-1de36e3ae34b" />
+           src={post.image_url} />
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

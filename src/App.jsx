@@ -11,6 +11,7 @@ import CaseStudyDetailPage from '@/pages/CaseStudyDetailPage';
 import BlogPage from '@/pages/BlogPage';
 import BlogPostPage from '@/pages/BlogPostPage';
 import ScrollToTop from '@/components/ScrollToTop';
+import WhoWeHelpPage from '@/pages/WhoWeHelpPage';
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const App = () => {
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/who-we-help" element={<WhoWeHelpPage />} />
               <Route path="/case-studies" element={<CaseStudiesPage />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
               <Route path="/blog" element={<BlogPage />} />

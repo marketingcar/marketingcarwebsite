@@ -1,59 +1,49 @@
 import React from 'react';
-import { TrendingUp, Target, Award } from 'lucide-react';
+import { Store } from 'lucide-react';
 
 export const caseStudies = [
   {
-    slug: "ecommerce-seo-overhaul",
-    title: "E-commerce SEO Overhaul",
-    client: "Global Retailer",
-    result: "+250% Organic Traffic",
-    icon: <TrendingUp className="h-8 w-8 text-primary" />,
-    challenge: "A major global retailer was facing stagnant organic growth and declining visibility in a competitive online market. Their outdated SEO strategy was failing to attract qualified traffic, leading to missed revenue opportunities.",
-    solution: "We conducted a comprehensive technical SEO audit, revamped their content strategy to target high-intent keywords, and built a high-quality backlink profile. The focus was on improving site speed, mobile-friendliness, and creating valuable, shareable content.",
-    results: [
-      { metric: "250%", description: "Increase in organic search traffic in 6 months." },
-      { metric: "Top 3 Rankings", description: "For 50+ high-value commercial keywords." },
-      { metric: "40%", description: "Increase in organic revenue contribution." },
+    slug: "crow-river-market-launch",
+    title: "Case Study: Launching The Crow River Market",
+    client: "The Crow River Market, Hanover, MN",
+    result: "600+ Opening Day Attendees",
+    icon: <Store className="h-8 w-8 text-primary" />,
+    oneLiner: "From zero presence to a buzzing Saturday destination—The Crow River Market proves that small-town roots and savvy storytelling go hand-in-hand.",
+    
+    marketingGoal: "To launch and grow awareness for a brand-new seasonal farmers market in Hanover, MN, driving weekly foot traffic, encouraging vendor participation, and building a loyal local following through grassroots and digital marketing.",
+    
+    process: [
+      "Launched a branded Facebook and Instagram presence.",
+      "Wrote fun, shareable weekly social posts with weather tie-ins, vendor highlights, and humor.",
+      "Created an email list and weekly newsletters.",
+      "Crafted and launched Meta Ads.",
+      "Developed a clean, vendor-focused website with a gallery and application process.",
+      "Promoted the market through local Facebook groups, a ribbon-cutting event, and signage around town.",
+      "Encouraged community engagement through like/share/comment CTAs and vendor cross-promotion."
     ],
-    testimonial: {
-      quote: "Marketing Car didn't just get us more traffic; they got us the right traffic. Their strategic approach to SEO has become a cornerstone of our growth.",
-      author: "CEO, Global Retailer"
-    }
-  },
-  {
-    slug: "targeted-ppc-campaign",
-    title: "Targeted PPC Campaign",
-    client: "Local Service Provider",
-    result: "4.5x Return on Ad Spend",
-    icon: <Target className="h-8 w-8 text-highlight" />,
-    challenge: "A local service provider struggled to generate qualified leads through digital advertising. Their previous campaigns had high costs per click and low conversion rates, making it difficult to justify the ad spend.",
-    solution: "We developed a hyper-targeted PPC strategy across Google Ads and social media. This involved deep keyword research, compelling ad copy, A/B testing landing pages, and implementing conversion tracking to optimize for lead generation.",
-    results: [
-      { metric: "4.5x", description: "Return on Ad Spend (ROAS) within the first quarter." },
-      { metric: "60%", description: "Decrease in cost-per-lead." },
-      { metric: "300%", description: "Increase in qualified monthly leads." },
+    
+    resultsSummary: [
+      { metric: "Almost 600", description: "Attendees at opening market day." },
+      { metric: "Rapid Growth", description: "Of local email subscribers and social followers within the first month." },
+      { metric: "Fully Booked", description: "Vendor schedule of 30+ vendors for the opening weeks." },
+      { metric: "Strong Buzz", description: "And repeat foot traffic fueled by regular content updates and word-of-mouth." },
     ],
-    testimonial: {
-      quote: "The results were almost immediate. We're now getting a steady stream of high-quality leads at a fraction of our previous cost. It's been a game-changer for our business.",
-      author: "Owner, Local Service Provider"
-    }
-  },
-  {
-    slug: "brand-awareness-launch",
-    title: "Brand Awareness Launch",
-    client: "Tech Startup",
-    result: "10M+ Social Impressions",
-    icon: <Award className="h-8 w-8 text-secondary" />,
-    challenge: "A new tech startup needed to build brand awareness from scratch in a crowded market. They had an innovative product but no market presence or audience recognition.",
-    solution: "We launched a multi-channel brand awareness campaign focused on storytelling and community building. This included a viral social media contest, influencer partnerships, and a PR push that secured features in key industry publications.",
-    results: [
-      { metric: "10M+", description: "Impressions across all social platforms in 3 months." },
-      { metric: "50k+", description: "New followers and community members." },
-      { metric: "25+", description: "Features in major tech blogs and news sites." },
-    ],
-    testimonial: {
-      quote: "They put us on the map. The creative energy and strategic execution from Marketing Car gave us the launch momentum we desperately needed.",
-      author: "Founder, Tech Startup"
+
+    successStory: {
+      title: "A Sweet Success Story",
+      content: "Three of four baking vendors completely sold out of all products more than an hour before the market ended for the day! That kind of local love became a ripple effect for others.",
+    },
+
+    image: "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d4ac5ee-065d-4104-9e56-34e1c9915a10/787f7ca3e64f68c153e839d770d767ca.jpg",
+    imageAlt: "Crow River Market ribbon cutting with vendors and shoppers at Hanover Elementary parking lot",
+    logo: "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d4ac5ee-065d-4104-9e56-34e1c9915a10/c3dcff069aab2055b29836cd34d8f989.png",
+
+    meta: {
+      title: "Case Study: Launching The Crow River Market in Hanover, MN",
+      description: "Discover how The Crow River Market grew from scratch into a bustling Saturday event through strategic branding, grassroots outreach, and digital marketing—including social media, email, and Meta Ads.",
+      ogTitle: "The Crow River Market: From Zero to a Saturday Staple",
+      ogDescription: "See how a new farmers market in Hanover, MN captured hearts and foot traffic with community-first marketing, vendor buzz, and sold-out cinnamon rolls.",
+      ogImageAlt: "Crow River Market ribbon cutting with vendors and shoppers at Hanover Elementary parking lot"
     }
   }
 ];

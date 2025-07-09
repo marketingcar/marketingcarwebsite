@@ -1,26 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
-  const { toast } = useToast();
-
   const navLinks = [
     { to: '/', text: 'Home' },
     { to: '/services', text: 'Services' },
+    { to: '/who-we-help', text: 'Who We Help' },
     { to: '/case-studies', text: 'Case Studies' },
     { to: '/blog', text: 'Blog' },
   ];
 
-  const handleUnimplementedClick = () => {
-    toast({
-      title: "🚧 Feature In Progress",
-      description: "This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀",
-      variant: "default",
-    });
-  };
+  const consultationLink = "https://meetings.hubspot.com/your-marketing-car/ymc-consultation";
 
   const linkClasses = "text-lg hover:text-primary transition-colors duration-300 font-body";
   const activeLinkClasses = "text-primary font-semibold";
@@ -50,7 +42,9 @@ const Header = () => {
           ))}
         </nav>
         <div className="flex items-center space-x-4">
-          <Button onClick={handleUnimplementedClick}>Get a Quote</Button>
+          <Button asChild>
+            <a href={consultationLink} target="_blank" rel="noopener noreferrer">Get a Quote</a>
+          </Button>
         </div>
       </div>
     </motion.header>

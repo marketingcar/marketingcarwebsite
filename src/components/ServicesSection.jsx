@@ -83,7 +83,7 @@ const ServicesSection = () => {
       <div className="container mx-auto">
         <motion.div variants={itemVariants} className="text-center mb-16">
           <Settings className="h-16 w-16 text-accent mx-auto mb-4" aria-label="Settings icon" />
-          <h3 className="text-4xl sm:text-5xl font-bold mb-4">Our Marketing Engine</h3>
+          <h3 className="text-4xl sm:text-5xl font-bold mb-4">Our Marketing Components</h3>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.
           </p>
@@ -96,12 +96,12 @@ const ServicesSection = () => {
             <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -10, scale: 1.03 }} transition={{ type: "spring", stiffness: 300 }}>
               <Card className="h-full flex flex-col bg-slate-900/70 backdrop-blur-sm border-slate-700 hover:border-primary transition-colors duration-300">
                 <CardHeader className="items-center text-center">
-                  {React.cloneElement(service.icon, { "aria-label": service.altText })}
-                  <CardTitle className="mt-4 text-2xl">{service.title}</CardTitle>
-                  <CardDescription className="text-sm text-primary font-semibold">{service.wheel}</CardDescription>
+                  {React.cloneElement(service.icon, { "aria-label": service.altText, className: "h-12 w-12 text-white" })}
+                  <CardTitle className="mt-4 text-2xl text-white">{service.title}</CardTitle>
+                  <CardDescription className="text-sm text-highlight font-semibold">{service.wheel}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-gray-300 text-center">{service.description}</p>
+                  <p className="text-white/80 text-center">{service.description}</p>
                 </CardContent>
               </Card>
             </motion.div>

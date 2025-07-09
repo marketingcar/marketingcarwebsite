@@ -85,12 +85,12 @@ const BlogPage = () => {
             >
               {posts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
-                  <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1 border-border/20">
+                  <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1 border-border/20 group">
                     <div className="aspect-video overflow-hidden">
                       <img 
                         alt={post.title}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                       src="https://images.unsplash.com/photo-1578470155518-c5697b07e280" />
+                       src={post.image_url} />
                     </div>
                     <CardHeader>
                       <CardTitle className="text-xl font-bold line-clamp-2">{post.title}</CardTitle>
