@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}  # FTP username (stored in GitHub Secrets)
           password: ${{ secrets.FTP_PASSWORD }}  # FTP password (stored in GitHub Secrets)
           local-dir: dist/  # The local folder to deploy
-          remote-dir: /public_html/  # The remote folder on the FTP server
+          server-dir: /public_html/  # The remote folder on the FTP server
           dangerous-clean-slate: false  # Set to true to delete all files on the remote before uploading (use with caution)
