@@ -12,7 +12,7 @@ const professionals = [
   { icon: <Wrench size={48} className="text-white" />, name: 'Electricians & Plumbers', description: 'We wire up your marketing so you can focus on the job.' },
   { icon: <HeartPulse size={48} className="text-white" />, name: 'Global Veterinarians', description: 'If you care for pets outside of the US, and we’ll fetch new clients for you.' },
   { icon: <Calculator size={48} className="text-white" />, name: 'Accountants & Financial Pros', description: 'We crunch the marketing numbers so you can focus on the real ones.' },
-  { icon: <ShieldCheck size={48} className="text-white" />, name: 'Other Licensed Professionals', description: 'You have the expertise. We have the marketing engine.' },
+  { icon: <ShieldCheck size={48} className="text-white" />, name: 'Other Licensed Professionals', description: 'Dentists, therapists, inspectors, and licensed experts of all kinds.' },
 ];
 
 const WhoWeHelpPage = () => {
@@ -69,14 +69,7 @@ const WhoWeHelpPage = () => {
         animate="visible"
       >
         <div className="container mx-auto px-4">
-          <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading">You're Great at Your Job. We're Great at Ours.</h2>
-            <p className="mt-4 text-muted-foreground text-lg">
-              You didn't spend years mastering your craft just to get bogged down by algorithms, ad campaigns, and social media content. You want to serve your clients, not wrestle with SEO. That's where we come in.
-            </p>
-          </motion.div>
-
-          <motion.div
+        <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
           >
@@ -103,6 +96,12 @@ const WhoWeHelpPage = () => {
           </motion.div>
         </div>
       </motion.div>
+      <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading">You're Great at Your Job. We're Great at Ours.</h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              You didn't spend years mastering your craft just to get bogged down by algorithms, ad campaigns, and social media content. You want to serve your clients, not wrestle with SEO. That's where we come in.
+            </p>
+          </motion.div>
     </PageTransition>
   );
 };
