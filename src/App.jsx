@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -12,6 +13,7 @@ import BlogPage from '@/pages/BlogPage';
 import BlogPostPage from '@/pages/BlogPostPage';
 import ScrollToTop from '@/components/ScrollToTop';
 import WhoWeHelpPage from '@/pages/WhoWeHelpPage';
+import BookNowPage from '@/pages/BookNowPage';
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +31,7 @@ const App = () => {
               <Route path="/who-we-help" element={<WhoWeHelpPage />} />
               <Route path="/case-studies" element={<CaseStudiesPage />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
+              <Route path="/book-now" element={<BookNowPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
             </Routes>
