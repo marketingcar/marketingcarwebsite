@@ -11,7 +11,7 @@ Marketing Car was built to untangle digital chaos. Whether you're spinning your 
 
 - [Vite](https://vitejs.dev/) – Lightning-fast frontend tooling
 - [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
-- [React] – Frontend framework
+- [React](https://react.dev/) – Frontend framework
 - [Hostinger](https://www.hostinger.com/) – Hosting and deployment
 
 
