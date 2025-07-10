@@ -11,6 +11,7 @@ const HomePage = () => {
     <PageTransition>
       <Helmet>
         <title>Home | Marketing Car - Driving Your Success</title>
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
         <meta name="description" content="Welcome to Marketing Car, the full-service digital marketing agency that drives your success. Explore our services and get a free consultation." />
       </Helmet>
       <HeroSection />
