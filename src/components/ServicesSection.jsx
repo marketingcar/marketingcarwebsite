@@ -5,42 +5,42 @@ import { Globe, Search, Users, Star, Fuel, BarChart3, Settings } from 'lucide-re
 
 const services = [
   {
-    title: 'Websites: Your Front Left Wheel',
+    title: 'Websites',
     description: 'Crafting stunning, high-performance websites that drive engagement and conversions. Your digital storefront, perfectly engineered.',
     icon: <Globe className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Front Left Wheel',
     altText: 'Globe icon representing website services'
   },
   {
-    title: 'SEO: Your Front Right Wheel',
+    title: 'SEO',
     description: 'Optimizing your online presence to steer you to the top of search results, ensuring your customers can find you easily.',
     icon: <Search className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Front Right Wheel',
     altText: 'Search icon representing SEO services'
   },
   {
-    title: 'Social Media: Your Back Left Wheel',
+    title: 'Social Media',
     description: 'Building and engaging your community across social platforms, keeping your brand in the fast lane of customer interaction.',
     icon: <Users className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Back Left Wheel',
     altText: 'Users icon representing social media marketing services'
   },
   {
-    title: 'Online Reviews: Your Back Right Wheel',
+    title: 'Online Reviews',
     description: 'Managing and boosting your online reputation, ensuring positive feedback keeps your journey smooth and trustworthy.',
     icon: <Star className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Back Right Wheel',
     altText: 'Star icon representing online review management services'
   },
   {
-    title: 'PPC Ads: Your Gas Tank',
+    title: 'PPC Ads',
     description: 'Fueling your growth with targeted pay-per-click campaigns that deliver measurable results and accelerate your reach.',
     icon: <Fuel className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Gas Tank',
     altText: 'Fuel icon representing PPC advertising services'
   },
   {
-    title: 'Metrics: Your Dashboard',
+    title: 'Metrics',
     description: 'Providing clear, actionable insights into your marketing performance. We show you the data that matters to navigate your success.',
     icon: <BarChart3 className="h-12 w-12 text-primary" aria-hidden="true" />,
     wheel: 'Dashboard',

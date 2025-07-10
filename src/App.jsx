@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
@@ -14,9 +13,16 @@ import BlogPostPage from '@/pages/BlogPostPage';
 import ScrollToTop from '@/components/ScrollToTop';
 import WhoWeHelpPage from '@/pages/WhoWeHelpPage';
 import BookNowPage from '@/pages/BookNowPage';
+import TagManager from 'react-gtm-module';
 
 const App = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+      TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
+    }
+  }, []);
 
   return (
     <>

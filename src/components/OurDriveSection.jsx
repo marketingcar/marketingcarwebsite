@@ -59,9 +59,9 @@ const OurDriveSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-white tracking-tight">Our Marketing Components</h2>
+          <h2 className="text-4xl font-bold text-white tracking-tight">Our Marketing Strategy</h2>
           <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
-            The core components that power your journey to success. Each element is finely tuned to deliver results.
+            The core strategies and techniques that power your journey to success. Each element is finely tuned to deliver results.
           </p>
         </motion.div>
         <motion.div
