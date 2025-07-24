@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -94,7 +93,7 @@ const BlogPage = () => {
               {posts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
                   <Card className="h-full flex flex-col overflow-hidden bg-secondary/20 border-border/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                    <img src={post.image_url} alt={post.title} className="w-full h-48 object-cover" />
+                    <img src={post.image_url} alt={post.title} className="w-full h-48 object-cover aspect-[16/9]" width="400" height="225" loading="lazy" />
                     <CardHeader>
                       <CardTitle className="text-2xl font-bold font-heading">{post.title}</CardTitle>
                     </CardHeader>

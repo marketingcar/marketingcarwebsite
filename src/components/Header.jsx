@@ -44,7 +44,7 @@ const Header = () => {
       >
         <div className="container mx-auto flex justify-between items-center">
           <NavLink to={{ pathname: "/", search: queryParams }} className="flex items-center space-x-2 shrink-0">
-            <img-replace src="/mainlogo.png" alt="Marketing Car Main Logo" className="h-12" />
+            <img src="/mainlogo.png" alt="Marketing Car Main Logo" className="h-12" width="205" height="48" />
           </NavLink>
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
