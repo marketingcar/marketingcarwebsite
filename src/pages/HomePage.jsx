@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '@/components/PageTransition';
@@ -10,9 +11,9 @@ const HomePage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Home | Marketing Car - Driving Your Success</title>
+        <title>Marketing Car | Full-Service Digital Marketing Agency</title>
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
-        <meta name="description" content="Welcome to Marketing Car, the full-service digital marketing agency that drives your success. Explore our services and get a free consultation." />
+        <meta name="description" content="Marketing Car accelerates your business growth with comprehensive digital marketing solutions. We turn complexity into a smooth ride to your goals." />
       </Helmet>
       <HeroSection />
       <ServicesSection />

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -51,7 +52,7 @@ const BlogPostPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>{post.title} | Your Marketing Car Blog</title>
+        <title>{post.title} | Marketing Car Blog</title>
         <meta name="description" content={post.excerpt} />
       </Helmet>
       <div className="container mx-auto px-4 py-16 md:py-24">

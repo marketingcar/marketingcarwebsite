@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -12,7 +13,7 @@ const ThankYouPage = () => {
     <PageTransition>
       <Helmet>
         <title>Thank You for Booking | Marketing Car</title>
-        <meta name="description" content="Confirmation page for your booking." />
+        <meta name="description" content="Thank you for scheduling your consultation with Marketing Car. Your booking is confirmed, and we look forward to connecting with you soon!" />
       </Helmet>
       <div className="container mx-auto px-4 py-24 sm:py-32 flex items-center justify-center">
         <motion.div

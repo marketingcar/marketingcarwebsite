@@ -43,7 +43,7 @@ const WhoWeHelpPage = () => {
     <PageTransition>
       <Helmet>
         <title>Who We Help | Marketing Car</title>
-        <meta name="description" content="We help passionate, licensed professionals—therapists, electricians, plumbers, veterinarians, and more—solve their marketing challenges so they can focus on their craft." />
+        <meta name="description" content="Marketing Car helps passionate, licensed professionals—therapists, electricians, plumbers, veterinarians, and more—solve their marketing challenges so they can focus on their craft." />
       </Helmet>
       
       <div className="bg-gradient-to-b from-primary/5 to-background pt-20 pb-16 text-center">

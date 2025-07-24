@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -29,6 +30,10 @@ const ServiceDetailPage = () => {
   if (!service) {
     return (
       <PageTransition>
+        <Helmet>
+          <title>Service Not Found | Marketing Car</title>
+          <meta name="description" content="The service you are looking for could not be found." />
+        </Helmet>
         <div className="container mx-auto px-4 py-24 text-center">
           <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
           <p className="text-muted-foreground mb-8">The service you are looking for does not exist.</p>
@@ -44,7 +49,7 @@ const ServiceDetailPage = () => {
     <PageTransition>
       <Helmet>
         <title>{`${service.title} | Marketing Car Services`}</title>
-        <meta name="description" content={service.description} />
+        <meta name="description" content={service.details} />
       </Helmet>
       
       <div className="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">

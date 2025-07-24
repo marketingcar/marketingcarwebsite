@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -62,8 +63,8 @@ const BlogPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Blog | Your Marketing Car</title>
-        <meta name="description" content="Insights, tips, and strategies on digital marketing for licensed professionals and small businesses." />
+        <title>Marketing Insights | Marketing Car Blog</title>
+        <meta name="description" content="Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition." />
       </Helmet>
       <div className="bg-gradient-to-b from-primary/5 to-background pt-20 pb-16 text-center">
         <motion.div

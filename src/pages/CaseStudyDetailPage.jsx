@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -15,6 +16,10 @@ const CaseStudyDetailPage = () => {
   if (!study) {
     return (
       <PageTransition>
+        <Helmet>
+          <title>Case Study Not Found | Marketing Car</title>
+          <meta name="description" content="The case study you are looking for could not be found." />
+        </Helmet>
         <div className="container mx-auto px-4 py-24 text-center">
           <h1 className="text-4xl font-bold">Case Study Not Found</h1>
           <p className="text-muted-foreground mt-4">Sorry, we couldn't find the case study you're looking for.</p>

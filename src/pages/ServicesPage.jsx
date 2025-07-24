@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -33,7 +34,7 @@ const ServicesPage = () => {
     <PageTransition>
       <Helmet>
         <title>Our Services | Marketing Car</title>
-        <meta name="description" content="Discover the full range of digital marketing services offered by Marketing Car, from SEO and content marketing to paid advertising and web design." />
+        <meta name="description" content="Discover the full range of digital marketing services offered by Marketing Car, from SEO and content marketing to paid advertising and web design. We tailor every strategy to fit your unique goals." />
       </Helmet>
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-secondary/10">
         <div className="container mx-auto px-4 text-center">

@@ -41,8 +41,8 @@ const BookNowPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Book a Free Consultation | Your Marketing Car</title>
-        <meta name="description" content="Schedule a free 30-minute marketing consultation to review your online presence and get clear, actionable ideas to attract more leads for your business." />
+        <title>Book a Free Consultation | Marketing Car</title>
+        <meta name="description" content="Schedule a free 30-minute marketing consultation with Marketing Car to review your online presence and get actionable ideas to attract more leads for your business." />
       </Helmet>
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 items-center">

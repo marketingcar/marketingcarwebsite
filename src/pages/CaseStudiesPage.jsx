@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -12,7 +13,7 @@ const CaseStudiesPage = () => {
     <PageTransition>
       <Helmet>
         <title>Case Studies | Marketing Car</title>
-        <meta name="description" content="Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results." />
+        <meta name="description" content="Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results and tangible impact." />
       </Helmet>
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-highlight/10">
         <div className="container mx-auto px-4 text-center">
