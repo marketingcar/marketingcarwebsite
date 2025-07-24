@@ -1,18 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-
-const services = [
-  { title: "SEO Strategy", description: "Climb search rankings and drive organic traffic.", icon: "🚀" },
-  { title: "Content Marketing", description: "Engage your audience with compelling stories and content.", icon: "✍️" },
-  { title: "Paid Advertising", description: "Maximize ROI with targeted PPC campaigns.", icon: "🎯" },
-  { title: "Social Media Management", description: "Build a vibrant community around your brand.", icon: "❤️" },
-  { title: "Email Marketing", description: "Nurture leads and retain customers effectively.", icon: "✉️" },
-  { title: "Web Design & Development", description: "Create stunning, high-performance websites.", icon: "💻" },
-];
+import { services } from '@/data/servicesData';
 
 const ServicesPage = () => {
   const containerVariants = {
@@ -73,15 +65,17 @@ const ServicesPage = () => {
           >
             {services.map((service) => (
               <motion.div key={service.title} variants={itemVariants}>
-                <Card className="h-full transform hover:-translate-y-2 transition-transform duration-300 ease-in-out shadow-lg hover:shadow-primary/20">
-                  <CardHeader>
-                    <div className="text-4xl mb-4">{service.icon}</div>
-                    <CardTitle className="font-heading text-2xl text-white">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base">{service.description}</CardDescription>
-                  </CardContent>
-                </Card>
+                <Link to={`/services/${service.slug}`} className="block h-full">
+                  <Card className="h-full transform hover:-translate-y-2 transition-transform duration-300 ease-in-out shadow-lg hover:shadow-primary/20 bg-secondary/20 border-border/30">
+                    <CardHeader>
+                      <div className="text-4xl mb-4">{service.icon}</div>
+                      <CardTitle className="font-heading text-2xl text-white">{service.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-base text-muted-foreground">{service.description}</CardDescription>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
