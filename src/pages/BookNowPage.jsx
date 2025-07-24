@@ -3,8 +3,12 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '@/components/PageTransition';
 import { CheckCircle } from 'lucide-react';
+import { useQueryParams } from '@/contexts/QueryParamContext';
 
 const HubSpotEmbed = () => {
+  const { queryParams } = useQueryParams();
+  const hubspotUrl = `https://meetings.hubspot.com/your-marketing-car/ymc-consultation?embed=true${queryParams.replace('?', '&')}`;
+
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -14,12 +18,15 @@ const HubSpotEmbed = () => {
 
     return () => {
       // Clean up the script when the component unmounts
-      document.body.removeChild(script);
+      const hsScript = document.querySelector('script[src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"]');
+      if (hsScript) {
+        document.body.removeChild(hsScript);
+      }
     };
   }, []);
 
   return (
-    <div className="meetings-iframe-container" data-src="https://meetings.hubspot.com/your-marketing-car/ymc-consultation?embed=true"></div>
+    <div className="meetings-iframe-container" data-src={hubspotUrl}></div>
   );
 };
 

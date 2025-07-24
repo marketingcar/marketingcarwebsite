@@ -6,14 +6,17 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from '@/App';
 import '@/index.css';
 import { AuthProvider } from '@/contexts/SupabaseAuthContext';
+import { QueryParamProvider } from '@/contexts/QueryParamContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <QueryParamProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </QueryParamProvider>
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>

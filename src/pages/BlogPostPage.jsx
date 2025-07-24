@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import { supabase } from '@/lib/customSupabaseClient';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { useQueryParams } from '@/contexts/QueryParamContext';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { queryParams } = useQueryParams();
 
   useEffect(() => {
     const fetchPost = async () => {
+      setLoading(true);
       const { data, error } = await supabase
         .from('posts')
-        .select('*')
+        .select(`*`)
         .eq('slug', slug)
         .single();
 
       if (error) {
         console.error('Error fetching post:', error);
+        setError('Could not find this post. It might have been moved or deleted.');
       } else {
         setPost(data);
       }
@@ -32,83 +37,50 @@ const BlogPostPage = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading post...</div>;
+    return <div className="text-center py-24">Loading post...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-24 text-red-500">{error}</div>;
   }
 
   if (!post) {
-    return (
-      <PageTransition>
-        <div className="text-center py-20">
-          <h1 className="text-3xl font-bold">Post not found</h1>
-          <p className="text-muted-foreground mt-4">The post you are looking for does not exist.</p>
-          <Button asChild className="mt-8">
-            <Link to="/blog">Back to Blog</Link>
-          </Button>
-        </div>
-      </PageTransition>
-    );
+    return <div className="text-center py-24">Post not found.</div>;
   }
-
-  const postDate = new Date(post.created_at).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 
   return (
     <PageTransition>
       <Helmet>
-        <title>{post.title} | Marketing Car Blog</title>
+        <title>{post.title} | Your Marketing Car Blog</title>
         <meta name="description" content={post.excerpt} />
       </Helmet>
-      <div className="bg-background text-foreground">
-        <div className="relative h-96">
-          <div className="absolute inset-0 bg-black/50" />
-          <img 
-            alt={post.title}
-            className="w-full h-full object-cover"
-           src={post.image_url} />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center text-white px-4"
-            >
-              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">{post.title}</h1>
-              <div className="mt-4 flex justify-center items-center space-x-6 text-lg">
-                <div className="flex items-center space-x-2">
-                  <Calendar className="h-5 w-5" />
-                  <span>{postDate}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="container mx-auto max-w-4xl px-4 py-16">
-          <motion.article
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground prose-a:text-primary hover:prose-a:text-highlight"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="mt-12 pt-8 border-t border-border"
-          >
-            <Button asChild variant="outline">
-              <Link to="/blog" className="inline-flex items-center">
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <Button asChild variant="ghost" className="mb-8">
+              <Link to={{ pathname: "/blog", search: queryParams }}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to All Posts
+                Back to Blog
               </Link>
             </Button>
-          </motion.div>
-        </div>
+
+            <h1 className="text-4xl md:text-6xl font-black text-primary font-heading tracking-tight mb-4">{post.title}</h1>
+            <div className="flex items-center space-x-4 text-muted-foreground mb-8">
+              {/* Date removed from blog post page */}
+            </div>
+
+            <img src={post.image_url} alt={post.title} className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-lg mb-12" />
+
+            <div
+              className="prose prose-invert max-w-none lg:prose-xl prose-h3:text-primary prose-a:text-highlight hover:prose-a:text-primary"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
+        </motion.div>
       </div>
     </PageTransition>
   );
