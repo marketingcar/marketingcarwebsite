@@ -1,34 +1,8 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '@/components/PageTransition';
 import { CheckCircle } from 'lucide-react';
-import { useQueryParams } from '@/contexts/QueryParamContext';
-
-const HubSpotEmbed = () => {
-  const { queryParams } = useQueryParams();
-  const hubspotUrl = `https://meetings.hubspot.com/your-marketing-car/ymc-consultation?embed=true${queryParams.replace('?', '&')}`;
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when the component unmounts
-      const hsScript = document.querySelector('script[src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"]');
-      if (hsScript) {
-        document.body.removeChild(hsScript);
-      }
-    };
-  }, []);
-
-  return (
-    <div className="meetings-iframe-container" data-src={hubspotUrl}></div>
-  );
-};
+import HubSpotEmbed from '@/components/HubSpotEmbed';
 
 const BookNowPage = () => {
   const features = [

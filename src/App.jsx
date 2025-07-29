@@ -16,6 +16,7 @@ import BlogPage from '@/pages/BlogPage';
 import BlogPostPage from '@/pages/BlogPostPage';
 import ThankYouPage from '@/pages/ThankYouPage';
 import TagManager from 'react-gtm-module';
+import LpSpinningWheelsPage from '@/pages/LpSpinningWheelsPage';
 
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/thank-you" element={<ThankYouPage />} />
+              <Route path="/lp-spinning-wheels" element={<LpSpinningWheelsPage />} />
             </Routes>
           </AnimatePresence>
         </main>
