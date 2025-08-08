@@ -1,3 +1,5 @@
+
+import React from 'react';
 export const services = [
   { 
     slug: "marketing-strategy",
@@ -39,6 +41,20 @@ export const services = [
       "Digital ad creatives",
       "Infographics and data visualization",
       "Brochures, flyers, and print materials",
+    ],
+  },
+  {
+    slug: "b2b-marketing",
+    title: "B2B Marketing",
+    description: "Drive growth with strategies tailored for business-to-business clients.",
+    icon: "🤝",
+    details: "Navigating the B2B landscape requires a specialized approach. We develop targeted marketing strategies that focus on long sales cycles, multiple decision-makers, and building valuable business relationships. Our goal is to generate high-quality leads and establish your company as an industry leader.",
+    features: [
+      "Account-Based Marketing (ABM) strategy and execution",
+      "LinkedIn and professional network advertising",
+      "B2B lead generation and nurturing funnels",
+      "Content creation for decision-makers (whitepapers, case studies)",
+      "CRM and marketing automation integration",
     ],
   },
   { 

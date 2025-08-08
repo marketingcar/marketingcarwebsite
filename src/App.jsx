@@ -17,7 +17,8 @@ import BlogPostPage from '@/pages/BlogPostPage';
 import ThankYouPage from '@/pages/ThankYouPage';
 import TagManager from 'react-gtm-module';
 import LpSpinningWheelsPage from '@/pages/LpSpinningWheelsPage';
-
+import LpSpinningWheelsTherapistsPage from '@/pages/LpSpinningWheelsTherapistsPage';
+import LpSpinningWheelsTradesPage from '@/pages/LpSpinningWheelsTradesPage';
 
 const App = () => {
   const location = useLocation();
@@ -46,6 +47,8 @@ const App = () => {
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/thank-you" element={<ThankYouPage />} />
               <Route path="/lp-spinning-wheels" element={<LpSpinningWheelsPage />} />
+              <Route path="/lp-spinning-wheels-therapists" element={<LpSpinningWheelsTherapistsPage />} />
+              <Route path="/lp-spinning-wheels-trades" element={<LpSpinningWheelsTradesPage />} />
             </Routes>
           </AnimatePresence>
         </main>
