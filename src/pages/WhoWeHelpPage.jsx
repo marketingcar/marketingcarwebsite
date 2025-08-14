@@ -1,23 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { BrainCircuit, Wrench, HeartPulse, Calculator, ShieldCheck, Languages, Store, Users, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useQueryParams } from '@/contexts/QueryParamContext';
-
-const professionals = [
-  { icon: <Users size={48} className="text-white" />, name: 'Small Business Owners', description: 'Your passion is your business. Our passion is marketing it. We help you attract more local customers and stand out in a crowded market, ensuring your hard work pays off.' },
-  { icon: <BrainCircuit size={48} className="text-white" />, name: 'Therapists & Counselors', description: 'Focus on your clients while we handle your digital presence. We understand the unique needs of your practice, creating sensitive and effective marketing strategies to connect you with those who need your help most.' },
-  { icon: <Wrench size={48} className="text-white" />, name: 'Electricians & Plumbers', description: 'We wire up your marketing so you can focus on the job. From emergency calls to major installations, we ensure your services are found by the right customers at the right time, driving more leads and bookings.' },
-  { icon: <HeartPulse size={48} className="text-white" />, name: 'Global Veterinarians', description: 'Care for pets, and we’ll fetch new clients for you. We help clinics of all sizes, from local practices to specialized hospitals, connect with pet owners who are looking for compassionate and expert care.' },
-  { icon: <Calculator size={48} className="text-white" />, name: 'Accountants & Financial Pros', description: 'We crunch the marketing numbers so you can focus on the real ones. Let us handle your online visibility, lead generation, and brand reputation, freeing you to manage your clients\' financial success.' },
-  { icon: <Languages size={48} className="text-white" />, name: 'Spanish-Speaking Businesses', description: 'Conectamos con tu comunidad, en su idioma. Desarrollamos estrategias de marketing culturalmente relevantes y bilingües para ayudarte a alcanzar a tu audiencia de habla hispana de manera efectiva y auténtica.' },
-  { icon: <Store size={48} className="text-white" />, name: 'Farmers Markets', description: 'From local roots to loyal customers, we help you grow. We craft marketing plans that highlight your unique offerings and attract more visitors to your market, boosting sales for all your vendors.' },
-  { icon: <ShieldCheck size={48} className="text-white" />, name: 'Other Licensed Professionals', description: 'You have the expertise. We have the marketing engine. Whether you\'re an architect, engineer, or consultant, we tailor marketing solutions that elevate your professional standing and bring in high-quality clients.' },
-];
+import { professionals } from '@/data/whoWeHelpData.jsx';
 
 const WhoWeHelpPage = () => {
   const { queryParams } = useQueryParams();
@@ -72,15 +62,17 @@ const WhoWeHelpPage = () => {
           >
             {professionals.map((prof) => (
               <motion.div key={prof.name} variants={itemVariants}>
-                <Card className="text-center h-full hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 bg-secondary/20 border-border/30 flex flex-col">
-                  <CardHeader className="items-center flex-grow">
-                    {prof.icon}
-                    <CardTitle className="mt-4 text-2xl font-semibold font-heading text-white">{prof.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{prof.description}</p>
-                  </CardContent>
-                </Card>
+                <Link to={`/who-we-help/${prof.slug}`} className="block h-full group">
+                  <Card className="text-center h-full group-hover:shadow-xl group-hover:-translate-y-2 transition-transform duration-300 bg-secondary/20 border-border/30 flex flex-col">
+                    <CardHeader className="items-center flex-grow">
+                      {prof.icon}
+                      <CardTitle className="mt-4 text-2xl font-semibold font-heading text-white">{prof.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{prof.summary}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
 

@@ -1,10 +1,8 @@
-
 import { createWriteStream } from 'fs';
 import { resolve } from 'path';
 import { SitemapStream } from 'sitemap';
 import { services } from './src/data/servicesData.js';
-import { caseStudies } from './src/data/caseStudiesData.jsx';
-//import { localBlogPosts } from './src/data/localBlogData.js';
+import { caseStudies } from './src/data/caseStudiesData.js';
 
 const generateSitemap = async () => {
   const hostname = 'https://www.marketingcar.com'; // This will be replaced by the actual domain upon publishing
@@ -35,10 +33,6 @@ const generateSitemap = async () => {
   caseStudies.forEach(study => {
     sitemap.write({ url: `/case-studies/${study.slug}`, changefreq: 'monthly', priority: 0.6 });
   });
-
-  //localBlogPosts.forEach(post => {
-    //sitemap.write({ url: `/blog/${post.slug}`, changefreq: 'monthly', priority: 0.5 });
- // });
 
   sitemap.end();
   

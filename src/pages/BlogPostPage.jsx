@@ -47,12 +47,17 @@ const BlogPostPage = () => {
   if (!post) {
     return <div className="text-center py-24">Post not found.</div>;
   }
+  
+  const pageTitle = `${post.title} | Marketing Car Blog`;
 
   return (
     <PageTransition>
       <Helmet>
-        <title>{post.title} | Marketing Car Blog</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:image" content={post.image_url} />
       </Helmet>
       <div className="container mx-auto px-4 py-16 md:py-24">
         <motion.div
