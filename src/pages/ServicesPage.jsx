@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { services } from '@/data/servicesData';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const ServicesPage = () => {
   const containerVariants = {
@@ -29,12 +30,34 @@ const ServicesPage = () => {
     },
   };
 
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://www.marketingcar.com/services",
+    "name": "Our Services | Marketing Car",
+    "description": "Discover the full range of digital marketing services offered by Marketing Car, from SEO and content marketing to paid advertising and web design. We tailor every strategy to fit your unique goals.",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": services.map((service, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Service",
+          "name": service.title,
+          "url": `https://www.marketingcar.com/services/${service.slug}`,
+          "description": service.description
+        }
+      }))
+    }
+  };
+
   return (
     <PageTransition>
       <Helmet>
         <title>Our Services | Marketing Car</title>
         <meta name="description" content="Discover the full range of digital marketing services offered by Marketing Car, from SEO and content marketing to paid advertising and web design. We tailor every strategy to fit your unique goals." />
       </Helmet>
+      <SchemaMarkup schema={webPageSchema} />
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-secondary/10">
         <div className="container mx-auto px-4 text-center">
           <motion.h1

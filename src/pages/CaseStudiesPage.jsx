@@ -6,14 +6,36 @@ import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { caseStudies } from '@/data/caseStudiesData.jsx';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const CaseStudiesPage = () => {
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://www.marketingcar.com/case-studies",
+    "name": "Case Studies | Marketing Car",
+    "description": "Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results and tangible impact.",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": caseStudies.map((study, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Article",
+          "headline": study.title,
+          "url": `https://www.marketingcar.com/case-studies/${study.slug}`
+        }
+      }))
+    }
+  };
+
   return (
     <PageTransition>
       <Helmet>
         <title>Case Studies | Marketing Car</title>
         <meta name="description" content="Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results and tangible impact." />
       </Helmet>
+      <SchemaMarkup schema={webPageSchema} />
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-highlight/10">
         <div className="container mx-auto px-4 text-center">
           <motion.h1

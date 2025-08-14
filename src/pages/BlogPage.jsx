@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useQueryParams } from '@/contexts/QueryParamContext';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -59,12 +60,45 @@ const BlogPage = () => {
     },
   };
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "url": "https://your-domain.com/blog",
+    "name": "Marketing Insights | Marketing Car Blog",
+    "description": "Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://your-domain.com/mainlogo.png"
+      }
+    },
+    "blogPost": posts.map(post => ({
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://www.marketingcar.com/blog/${post.slug}`
+      },
+      "headline": post.title,
+      "image": post.image_url,
+      "datePublished": post.created_at,
+      "dateModified": post.created_at,
+      "author": {
+        "@type": "Organization",
+        "name": "Marketing Car"
+      },
+      "description": post.excerpt
+    }))
+  };
+
   return (
     <PageTransition>
       <Helmet>
         <title>Marketing Insights | Marketing Car Blog</title>
         <meta name="description" content="Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition." />
       </Helmet>
+      <SchemaMarkup schema={blogSchema} />
       <div className="bg-gradient-to-b from-primary/5 to-background pt-20 pb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}

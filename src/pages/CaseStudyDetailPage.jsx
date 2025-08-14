@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { caseStudies } from '@/data/caseStudiesData.jsx';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const CaseStudyDetailPage = () => {
   const { slug } = useParams();
@@ -43,6 +44,33 @@ const CaseStudyDetailPage = () => {
     visible: { y: 0, opacity: 1, transition: { type: 'spring' } },
   };
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.marketingcar.com/case-studies/${study.slug}`
+    },
+    "headline": study.title,
+    "description": study.meta.description,
+    "image": `https://www.marketingcar.com${study.image}`,
+    "author": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "url": "https://www.marketingcar.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.marketingcar.com/mainlogo.png"
+      }
+    },
+    "datePublished": "2025-08-13",
+    "dateModified": "2025-08-13"
+  };
+
   return (
     <PageTransition>
       <Helmet>
@@ -57,6 +85,7 @@ const CaseStudyDetailPage = () => {
         <meta name="twitter:image" content={study.image} />
         <meta name="twitter:image:alt" content={study.meta.ogImageAlt} />
       </Helmet>
+      <SchemaMarkup schema={articleSchema} />
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-primary/10">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>

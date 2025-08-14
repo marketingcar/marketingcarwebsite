@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useQueryParams } from '@/contexts/QueryParamContext';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
@@ -50,6 +51,33 @@ const BlogPostPage = () => {
   
   const pageTitle = `${post.title} | Marketing Car Blog`;
 
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.marketingcar.com/blog/${post.slug}`
+    },
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image_url,
+    "author": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "url": "https://www.marketingcar.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.marketingcar.com/mainlogo.png"
+      }
+    },
+    "datePublished": post.created_at,
+    "dateModified": post.created_at
+  };
+
   return (
     <PageTransition>
       <Helmet>
@@ -59,6 +87,7 @@ const BlogPostPage = () => {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:image" content={post.image_url} />
       </Helmet>
+      <SchemaMarkup schema={blogPostingSchema} />
       <div className="container mx-auto px-4 py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
