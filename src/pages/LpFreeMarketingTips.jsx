@@ -69,7 +69,7 @@ const LpFreeMarketingTips = () => {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="text-4xl md:text-6xl font-black mb-4 font-heading"
             >
-              Get Smarter About Marketing in 5 Minutes a Week
+              5-Minute Marketing: Because Who Has Time for 6?
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -77,8 +77,7 @@ const LpFreeMarketingTips = () => {
               transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
               className="text-lg md:text-xl max-w-3xl mx-auto mb-8"
             >
-              Sign up for our free weekly newsletter and get one simple, powerful marketing tip you can use immediately to grow your business.
-            </motion.p>
+Sign up for our free weekly newsletter. Each edition gives you one bite-sized, brain-expanding marketing tip you can actually use right away. No jargon. No 80-slide decks. Just the kind of advice that makes you look brilliant in meetings and maybe even gets your cat to respect you.            </motion.p>
           </div>
         </section>
 
@@ -110,7 +109,7 @@ const LpFreeMarketingTips = () => {
                 </div>
               </div>
               <div className="bg-card p-8 rounded-lg shadow-2xl shadow-primary/10">
-                <h3 className="text-2xl font-bold text-center mb-4">Enter Your Email to Subscribe</h3>
+                {/* <h3 className="text-2xl font-bold text-center mb-4">Enter Your Email to Subscribe</h3> */}
                 <HubSpotNewsletterForm />
               </div>
             </div>
