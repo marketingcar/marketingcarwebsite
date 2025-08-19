@@ -7,22 +7,17 @@ const HubSpotEmbed = () => {
 
   useEffect(() => {
     const scriptId = 'hubspot-meetings-embed-script';
-    if (document.getElementById(scriptId)) {
-      // Script already loaded, might need to re-initialize if HubSpot's script allows it
-      return;
+    let script = document.getElementById(scriptId);
+
+    if (!script) {
+      script = document.createElement('script');
+      script.id = scriptId;
+      script.type = 'text/javascript';
+      script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+      script.async = true;
+      document.body.appendChild(script);
     }
-
-    const script = document.createElement('script');
-    script.id = scriptId;
-    script.type = 'text/javascript';
-    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Optional: Clean up the script when the component unmounts,
-      // but it's often better to leave it for SPA navigation.
-    };
+    
   }, []);
 
   return (

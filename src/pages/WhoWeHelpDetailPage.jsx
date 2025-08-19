@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { professionals } from '@/data/whoWeHelpData.jsx';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const WhoWeHelpDetailPage = () => {
   const { slug } = useParams();
@@ -45,6 +46,24 @@ const WhoWeHelpDetailPage = () => {
   }
   
   const pageTitle = `Marketing for ${professional.name} | Marketing Car`;
+  
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `Marketing for ${professional.name}`,
+    "description": professional.details,
+    "provider": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "url": "https://marketingcar.com"
+    },
+    "serviceType": "Marketing",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": professional.name
+    },
+    "mainEntityOfPage": `https://marketingcar.com/who-we-help/${professional.slug}`
+  };
 
   return (
     <PageTransition>
@@ -54,6 +73,7 @@ const WhoWeHelpDetailPage = () => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={professional.details} />
       </Helmet>
+      <SchemaMarkup schema={serviceSchema} />
       
       <div className="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 -z-10"></div>

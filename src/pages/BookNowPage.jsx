@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '@/components/PageTransition';
 import { CheckCircle } from 'lucide-react';
 import HubSpotEmbed from '@/components/HubSpotEmbed';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const BookNowPage = () => {
   const features = [
@@ -11,13 +13,41 @@ const BookNowPage = () => {
     "Clear ideas to improve your visibility and attract more leads",
     "A no-pressure, real conversation with a marketing pro"
   ];
+  
+  const pageTitle = "Book a Free Consultation | Marketing Car";
+  const pageDescription = "Schedule a free 30-minute marketing consultation with Marketing Car to review your online presence and get actionable ideas to attract more leads for your business.";
+
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "url": "https://www.marketingcar.com/book-now",
+    "name": pageTitle,
+    "description": pageDescription,
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "url": "https://www.marketingcar.com",
+      "logo": "https://www.marketingcar.com/mainlogo.png",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+1-312-741-9028",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      }]
+    }
+  };
+
 
   return (
     <PageTransition>
       <Helmet>
-        <title>Book a Free Consultation | Marketing Car</title>
-        <meta name="description" content="Schedule a free 30-minute marketing consultation with Marketing Car to review your online presence and get actionable ideas to attract more leads for your business." />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
+      <SchemaMarkup schema={contactSchema} />
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="prose prose-invert max-w-none lg:prose-xl">

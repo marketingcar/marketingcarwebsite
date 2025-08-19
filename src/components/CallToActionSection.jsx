@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -25,7 +26,7 @@ const itemVariants = {
 };
 
 const CallToActionSection = () => {
-  const consultationLink = "https://meetings.hubspot.com/your-marketing-car/ymc-consultation";
+  const consultationLink = "https://marketingcar.com/book-now";
 
   return (
     <motion.section

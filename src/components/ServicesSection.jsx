@@ -1,59 +1,56 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Globe, Search, Users, Star, Fuel, BarChart3, Settings } from 'lucide-react';
+import { Settings, Map, Eye, Brush, Link2, Factory, BrainCircuit, Search, Newspaper, Zap, Annoyed, Mail, Code } from 'lucide-react';
+import { services as servicesData } from '@/data/servicesData';
 
-const services = [
-  {
-    title: 'Websites',
-    description: 'Crafting stunning, high-performance websites that drive engagement and conversions. Your digital storefront, perfectly engineered.',
-    icon: <Globe className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Front Left Wheel',
-    altText: 'Globe icon representing website services'
-  },
-  {
-    title: 'SEO',
-    description: 'Optimizing your online presence to steer you to the top of search results, ensuring your customers can find you easily.',
-    icon: <Search className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Front Right Wheel',
-    altText: 'Search icon representing SEO services'
-  },
-  {
-    title: 'Social Media',
-    description: 'Building and engaging your community across social platforms, keeping your brand in the fast lane of customer interaction.',
-    icon: <Users className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Back Left Wheel',
-    altText: 'Users icon representing social media marketing services'
-  },
-  {
-    title: 'Online Reviews',
-    description: 'Managing and boosting your online reputation, ensuring positive feedback keeps your journey smooth and trustworthy.',
-    icon: <Star className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Back Right Wheel',
-    altText: 'Star icon representing online review management services'
-  },
-  {
-    title: 'PPC Ads',
-    description: 'Fueling your growth with targeted pay-per-click campaigns that deliver measurable results and accelerate your reach.',
-    icon: <Fuel className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Gas Tank',
-    altText: 'Fuel icon representing PPC advertising services'
-  },
-  {
-    title: 'Metrics',
-    description: 'Providing clear, actionable insights into your marketing performance. We show you the data that matters to navigate your success.',
-    icon: <BarChart3 className="h-12 w-12 text-primary" aria-hidden="true" />,
-    wheel: 'Dashboard',
-    altText: 'Bar chart icon representing marketing metrics and analytics'
-  },
+const componentMap = {
+  'marketing-strategy': { icon: <Map className="h-12 w-12 text-primary" />, name: 'GPS', subName: 'Marketing Strategy' },
+  'local-near-me-marketing': { icon: <Eye className="h-12 w-12 text-primary" />, name: 'Headlights', subName: 'Local/Near Me Marketing' },
+  'graphic-design': { icon: <Brush className="h-12 w-12 text-primary" />, name: 'Paint Job', subName: 'Graphic Design' },
+  'b2b-marketing': { icon: <Link2 className="h-12 w-12 text-primary" />, name: 'Hitch', subName: 'B2B Marketing' },
+  'brand-strategy-design': { icon: <Factory className="h-12 w-12 text-primary" />, name: 'Body', subName: 'Brand Strategy and Design' },
+  'marketing-consultation': { icon: <BrainCircuit className="h-12 w-12 text-primary" />, name: 'Mechanic', subName: 'Marketing Consultation' },
+  'seo-strategy': { icon: <Search className="h-12 w-12 text-primary" />, name: 'Engine', subName: 'SEO' },
+  'content-marketing': { icon: <Newspaper className="h-12 w-12 text-primary" />, name: 'Gas', subName: 'Content Marketing' },
+  'paid-advertising': { icon: <Zap className="h-12 w-12 text-primary" />, name: 'Accelerator', subName: 'Paid Advertising' },
+  'social-media-management': { icon: <Annoyed className="h-12 w-12 text-primary" />, name: 'Horn', subName: 'Social Media' },
+  'email-marketing': { icon: <Mail className="h-12 w-12 text-primary" />, name: 'Steering Wheel', subName: 'Email Marketing' },
+  'web-design-development': { icon: <Code className="h-12 w-12 text-primary" />, name: 'Wheels', subName: 'Web Design and Development' },
+};
+
+const orderedServices = [
+  'marketing-strategy',
+  'local-near-me-marketing',
+  'graphic-design',
+  'b2b-marketing',
+  'brand-strategy-design',
+  'marketing-consultation',
+  'seo-strategy',
+  'content-marketing',
+  'paid-advertising',
+  'social-media-management',
+  'email-marketing',
+  'web-design-development',
 ];
+
+const services = orderedServices.map(slug => {
+  const serviceData = servicesData.find(s => s.slug === slug);
+  const component = componentMap[slug];
+  return {
+    ...serviceData,
+    ...component,
+  };
+});
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
     },
   },
 };
@@ -78,32 +75,34 @@ const ServicesSection = () => {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
     >
       <div className="container mx-auto">
         <motion.div variants={itemVariants} className="text-center mb-16">
           <Settings className="h-16 w-16 text-accent mx-auto mb-4" aria-label="Settings icon" />
-          <h3 className="text-4xl sm:text-5xl font-bold mb-4">Our Marketing Components</h3>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.
           </p>
+          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
         </motion.div>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
           variants={containerVariants}
         >
           {services.map((service) => (
-            <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -10, scale: 1.03 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Card className="h-full flex flex-col bg-slate-900/70 backdrop-blur-sm border-slate-700 hover:border-primary transition-colors duration-300">
-                <CardHeader className="items-center text-center">
-                  {React.cloneElement(service.icon, { "aria-label": service.altText, className: "h-12 w-12 text-white" })}
-                  <CardTitle className="mt-4 text-2xl text-white">{service.title}</CardTitle>
-                  <CardDescription className="text-sm text-highlight font-semibold">{service.wheel}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-white/80 text-center">{service.description}</p>
-                </CardContent>
-              </Card>
+            <motion.div key={service.slug} variants={itemVariants} className="h-full">
+              <Link to={`/services/${service.slug}`} className="h-full block">
+                <Card className="h-full flex flex-col bg-slate-900/70 backdrop-blur-sm border-slate-700 hover:border-primary transition-all duration-300 hover:-translate-y-2">
+                  <CardHeader className="items-center text-center">
+                    {React.cloneElement(service.icon, { "aria-label": service.name, className: "h-12 w-12 text-white" })}
+                    <CardTitle className="mt-4 text-2xl text-white">{service.name}</CardTitle>
+                    <CardDescription className="text-sm text-highlight font-semibold">{service.subName}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-white/80 text-center">{service.description}</p>
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

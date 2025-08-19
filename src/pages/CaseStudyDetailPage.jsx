@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -84,6 +85,8 @@ const CaseStudyDetailPage = () => {
         <meta name="twitter:description" content={study.meta.ogDescription} />
         <meta name="twitter:image" content={study.image} />
         <meta name="twitter:image:alt" content={study.meta.ogImageAlt} />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={articleSchema} />
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-primary/10">

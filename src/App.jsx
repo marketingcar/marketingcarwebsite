@@ -6,6 +6,8 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HomePage from '@/pages/HomePage';
+import AboutPage from '@/pages/AboutPage';
+import WebinarsPage from '@/pages/WebinarsPage';
 import ServicesPage from '@/pages/ServicesPage';
 import ServiceDetailPage from '@/pages/ServiceDetailPage';
 import CaseStudiesPage from '@/pages/CaseStudiesPage';
@@ -22,14 +24,17 @@ import TagManager from 'react-gtm-module';
 import LpSpinningWheelsPage from '@/pages/LpSpinningWheelsPage';
 import LpSpinningWheelsTherapistsPage from '@/pages/LpSpinningWheelsTherapistsPage';
 import LpSpinningWheelsTradesPage from '@/pages/LpSpinningWheelsTradesPage';
+import ContactPage from '@/pages/ContactPage';
+import TheMarketingCarPage from '@/pages/TheMarketingCarPage'; // Import the new page
 
 const App = () => {
   const location = useLocation();
-    useEffect(() => {
+      useEffect(() => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
       TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
     }
   }, []);
+
 
   return (
     <>
@@ -40,19 +45,23 @@ const App = () => {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/about/the-marketing-car" element={<TheMarketingCarPage />} /> {/* New route */}
+              <Route path="/about/webinars" element={<WebinarsPage />} />
+              <Route path="/about/case-studies" element={<CaseStudiesPage />} />
+              <Route path="/about/case-studies/:slug" element={<CaseStudyDetailPage />} />
+              <Route path="/about/blog" element={<BlogPage />} />
+              <Route path="/about/blog/:slug" element={<BlogPostPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/services/:slug" element={<ServiceDetailPage />} />
               <Route path="/who-we-help" element={<WhoWeHelpPage />} />
               <Route path="/who-we-help/:slug" element={<WhoWeHelpDetailPage />} />
-              <Route path="/case-studies" element={<CaseStudiesPage />} />
-              <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
               <Route path="/book-now" element={<BookNowPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/thank-you" element={<ThankYouPage />} />
               <Route path="/lp-spinning-wheels" element={<LpSpinningWheelsPage />} />
               <Route path="/lp-spinning-wheels-therapists" element={<LpSpinningWheelsTherapistsPage />} />
               <Route path="/lp-spinning-wheels-trades" element={<LpSpinningWheelsTradesPage />} />
+              <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </AnimatePresence>
         </main>

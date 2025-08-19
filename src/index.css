@@ -1,10 +1,12 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   Theme tokens (HSL values)
+   ========================= */
 @layer base {
-
-  
   :root {
     --background: 260 5.1% 12%;
     --foreground: 0 0% 98%;
@@ -74,6 +76,9 @@
   }
 }
 
+/* =========================
+   Base element styles
+   ========================= */
 @layer base {
   * {
     @apply border-border;
@@ -84,118 +89,80 @@
     font-family: 'Montserrat', sans-serif;
   }
 
+  /* Headings and utility classes */
   h1, h2, h3, .font-heading {
     @apply font-black;
-  }
-
-  h1 {
-    @apply text-3xl leading-tight mt-10 mb-6;
-  }
-
-  h2 {
-    @apply text-2xl leading-snug mt-10 mb-4;
-  }
-
-  h3 {
-    @apply text-xl leading-snug mt-8 mb-4;
-  }
-
-  h4 {
-    @apply text-lg mt-6 mb-3 font-semibold;
   }
 
   h4, h5, h6, .font-subheading {
     @apply font-semibold;
   }
 
+  /* Base sizes and tightened rhythm */
+  h1 { @apply text-3xl leading-tight mt-8 mb-4; }
+  h2 { @apply text-2xl leading-snug mt-6 mb-3; }
+  h3 { @apply text-xl  leading-snug mt-5 mb-3; }
+  h4 { @apply text-lg  mt-4 mb-2; }
+  h5 { @apply text-base mt-3 mb-2; }
+  h6 { @apply text-sm   mt-2 mb-1; }
+
   p, span, div, a, button, li, label, input, textarea, select, .font-body {
     @apply font-normal;
   }
 
-  ul, ol {
-    @apply list-disc pl-6 mb-4 mt-4;
-  }
-
-  ol {
-    @apply list-decimal;
-  }
-
-  li {
-    @apply mb-2;
-  }
+  ul, ol { @apply pl-6 mb-3 mt-3; }
+  ul { @apply list-disc; }
+  ol { @apply list-decimal; }
+  li { @apply mb-1; }
 }
 
-/* Responsive heading styles */
+/* =========================
+   Responsive heading ramps
+   ========================= */
 @layer base {
   @screen sm {
-    h1 {
-      @apply text-4xl;
-    }
-
-    h2 {
-      @apply text-3xl;
-    }
-
-    h3 {
-      @apply text-2xl;
-    }
-
-    h4 {
-      @apply text-xl;
-    }
+    h1 { @apply text-4xl; }
+    h2 { @apply text-3xl; }
+    h3 { @apply text-2xl; }
+    h4 { @apply text-xl; }
+    h5 { @apply text-lg; }
+    h6 { @apply text-base; }
   }
 
   @screen md {
-    h1 {
-      @apply text-5xl;
-    }
-
-    h2 {
-      @apply text-4xl;
-    }
-
-    h3 {
-      @apply text-3xl;
-    }
-
-    h4 {
-      @apply text-2xl;
-    }
+    h1 { @apply text-5xl; }
+    h2 { @apply text-4xl; }
+    h3 { @apply text-3xl; }
+    h4 { @apply text-2xl; }
+    h5 { @apply text-xl; }
+    h6 { @apply text-lg; }
   }
 
   @screen lg {
-    h1 {
-      @apply text-6xl;
-    }
+    h1 { @apply text-6xl; }
   }
 }
 
-/* Keeping dark background consistent with user request */
-body {
-  background-color: hsl(var(--background));
-}
+/* =========================
+   Global tweaks
+   ========================= */
+body { background-color: hsl(var(--background)); }
 
-/* Custom scrollbar for a more modern look */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track {
   background: hsl(var(--background) / 0.8);
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--primary) / 0.7);
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
 }
 
-/* Global style for gradient text padding */
+/* Gradient text helper padding */
 span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highlight.to-secondary {
   padding-bottom: 20px;
 }

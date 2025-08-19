@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -12,7 +13,7 @@ const CaseStudiesPage = () => {
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "url": "https://www.marketingcar.com/case-studies",
+    "url": "https://www.marketingcar.com/about/case-studies",
     "name": "Case Studies | Marketing Car",
     "description": "Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results and tangible impact.",
     "mainEntity": {
@@ -23,7 +24,7 @@ const CaseStudiesPage = () => {
         "item": {
           "@type": "Article",
           "headline": study.title,
-          "url": `https://www.marketingcar.com/case-studies/${study.slug}`
+          "url": `https://www.marketingcar.com/about/case-studies/${study.slug}`
         }
       }))
     }
@@ -34,6 +35,8 @@ const CaseStudiesPage = () => {
       <Helmet>
         <title>Case Studies | Marketing Car</title>
         <meta name="description" content="Explore our case studies to see how Marketing Car has driven success for clients across various industries with proven results and tangible impact." />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={webPageSchema} />
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-highlight/10">
@@ -75,7 +78,7 @@ const CaseStudiesPage = () => {
                   <CardContent className="flex flex-col justify-end">
                     <p className="text-3xl font-bold font-heading text-primary mb-4">{study.result}</p>
                     <Button asChild className="w-full">
-                      <Link to={`/case-studies/${study.slug}`}>Read Full Study</Link>
+                      <Link to={`/about/case-studies/${study.slug}`}>Read Full Study</Link>
                     </Button>
                   </CardContent>
                 </Card>

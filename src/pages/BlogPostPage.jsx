@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -86,6 +87,8 @@ const BlogPostPage = () => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:image" content={post.image_url} />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={blogPostingSchema} />
       <div className="container mx-auto px-4 py-16 md:py-24">

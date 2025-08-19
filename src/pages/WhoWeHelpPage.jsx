@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { NavLink, Link } from 'react-router-dom';
 import { useQueryParams } from '@/contexts/QueryParamContext';
 import { professionals } from '@/data/whoWeHelpData.jsx';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const WhoWeHelpPage = () => {
   const { queryParams } = useQueryParams();
@@ -27,6 +28,28 @@ const WhoWeHelpPage = () => {
       transition: { type: 'spring', stiffness: 100 },
     },
   };
+  
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://marketingcar.com/who-we-help",
+    "name": "Who We Help | Marketing Car",
+    "description": "Marketing Car helps passionate, licensed professionals—therapists, electricians, plumbers, veterinarians, and more—solve their marketing challenges so they can focus on their craft.",
+    "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": professionals.map((prof, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "Service",
+                "name": `Marketing for ${prof.name}`,
+                "url": `https://marketingcar.com/who-we-help/${prof.slug}`,
+                "description": prof.summary
+            }
+        }))
+    }
+  };
+
 
   return (
     <PageTransition>
@@ -34,6 +57,7 @@ const WhoWeHelpPage = () => {
         <title>Who We Help | Marketing Car</title>
         <meta name="description" content="Marketing Car helps passionate, licensed professionals—therapists, electricians, plumbers, veterinarians, and more—solve their marketing challenges so they can focus on their craft." />
       </Helmet>
+      <SchemaMarkup schema={pageSchema} />
       
       <div className="bg-gradient-to-b from-primary/5 to-background pt-20 pb-16 text-center">
         <motion.div

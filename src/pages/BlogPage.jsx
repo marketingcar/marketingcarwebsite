@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -63,7 +64,7 @@ const BlogPage = () => {
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "url": "https://your-domain.com/blog",
+    "url": "https://www.marketingcar.com/about/blog",
     "name": "Marketing Insights | Marketing Car Blog",
     "description": "Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition.",
     "publisher": {
@@ -71,14 +72,14 @@ const BlogPage = () => {
       "name": "Marketing Car",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://your-domain.com/mainlogo.png"
+        "url": "https://www.marketingcar.com/mainlogo.png"
       }
     },
     "blogPost": posts.map(post => ({
       "@type": "BlogPosting",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://www.marketingcar.com/blog/${post.slug}`
+        "@id": `https://www.marketingcar.com/about/blog/${post.slug}`
       },
       "headline": post.title,
       "image": post.image_url,
@@ -97,6 +98,8 @@ const BlogPage = () => {
       <Helmet>
         <title>Marketing Insights | Marketing Car Blog</title>
         <meta name="description" content="Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition." />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={blogSchema} />
       <div className="bg-gradient-to-b from-primary/5 to-background pt-20 pb-16 text-center">
@@ -139,7 +142,7 @@ const BlogPage = () => {
                         {/* Date removed from blog summary page */}
                       </div>
                       <Button asChild>
-                        <Link to={{ pathname: `/blog/${post.slug}`, search: queryParams }}>Read More</Link>
+                        <Link to={{ pathname: `/about/blog/${post.slug}`, search: queryParams }}>Read More</Link>
                       </Button>
                     </CardFooter>
                   </Card>

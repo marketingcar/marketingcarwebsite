@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,8 +7,8 @@ import { Target, BarChart, Users, TrendingUp } from 'lucide-react';
 const driveItems = [
   {
     icon: <Target size={40} className="text-white" />,
-    title: "Precision Targeting",
-    description: "We pinpoint your ideal audience to maximize engagement and conversions.",
+    title: "Small Business Marketing Solutions",
+    description: "We adapt our strategies to fit your budget, pace, and goals, giving small businesses the freedom to grow on their own terms.",
   },
   {
     icon: <BarChart size={40} className="text-white" />,
@@ -16,8 +17,8 @@ const driveItems = [
   },
   {
     icon: <Users size={40} className="text-white" />,
-    title: "Customer-Centric Approach",
-    description: "We build campaigns that resonate deeply with your customers' needs.",
+    title: "Custom-Tailored Solutions",
+    description: "We design unique strategies for every business, never relying on templates or one-size-fits-all packages.",
   },
   {
     icon: <TrendingUp size={40} className="text-white" />,
@@ -59,9 +60,9 @@ const OurDriveSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-white tracking-tight">Our Marketing Strategy</h2>
+          <h2 className="text-4xl font-bold text-white tracking-tight">The Marketing Car Difference</h2>
           <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
-            The core strategies and techniques that power your journey to success. Each element is finely tuned to deliver results.
+            We don’t just create marketing plans—we give small businesses a clear roadmap, practical tools, and steady guidance so every part of their growth engine works together.
           </p>
         </motion.div>
         <motion.div

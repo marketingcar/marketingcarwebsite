@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import HubSpotEmbed from '@/components/HubSpotEmbed';
 import { useQueryParams } from '@/contexts/QueryParamContext';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const features = [
   {
@@ -40,12 +41,26 @@ const LpSpinningWheelsPage = () => {
 
   const heroImageUrl = "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d84324a-cf58-49bf-a9fe-718fd0642a7d/4102124814504cd0bb1f6e6c0e98efbf.jpg";
 
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://marketingcar.com/lp-spinning-wheels",
+    "name": "Stop Spinning Your Wheels | Marketing Car",
+    "description": "Tired of marketing efforts that go nowhere? Marketing Car provides clear, strategic roadmaps to move your business forward. Let's get you on the road to results.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": "https://marketingcar.com/mainlogo.png"
+    }
+  };
+
   return (
     <PageTransition>
       <Helmet>
         <title>Stop Spinning Your Wheels | Marketing Car</title>
         <meta name="description" content="Tired of marketing efforts that go nowhere? Marketing Car provides clear, strategic roadmaps to move your business forward. Let's get you on the road to results." />
       </Helmet>
+      <SchemaMarkup schema={pageSchema} />
 
       <div className="bg-gradient-to-b from-background via-secondary/10 to-background">
         {/* Hero Section */}

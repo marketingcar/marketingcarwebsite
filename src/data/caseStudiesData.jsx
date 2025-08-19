@@ -34,7 +34,7 @@ export const caseStudies = [
       content: "Three of four baking vendors completely sold out of all products more than an hour before the market ended for the day! That kind of local love became a ripple effect for others.",
     },
 
-    image: "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d4ac5ee-065d-4104-9e56-34e1c9915a10/787f7ca3e64f68c153e839d770d767ca.jpg",
+    image: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/e903b1a60267a154541fd5a3de985b61.jpg",
     imageAlt: "Crow River Market ribbon cutting with vendors and shoppers at Hanover Elementary parking lot",
     logo: "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d4ac5ee-065d-4104-9e56-34e1c9915a10/c3dcff069aab2055b29836cd34d8f989.png",
 

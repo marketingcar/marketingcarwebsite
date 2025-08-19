@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import HubSpotEmbed from '@/components/HubSpotEmbed';
 import { useQueryParams } from '@/contexts/QueryParamContext';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const features = [
   {
@@ -37,6 +38,19 @@ const LpSpinningWheelsTradesPage = () => {
   const scrollToBooking = () => {
     document.getElementById('booking-widget').scrollIntoView({ behavior: 'smooth' });
   };
+  
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://marketingcar.com/lp-spinning-wheels-trades",
+    "name": "Win More Jobs Without the Guesswork | Marketing Car for Trades",
+    "description": "Tired of spinning your wheels trying to get noticed? Marketing Car helps tradesmen win more jobs with straightforward marketing strategies and done-for-you tools.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": "https://marketingcar.com/mainlogo.png"
+    }
+  };
 
   return (
     <PageTransition>
@@ -44,13 +58,14 @@ const LpSpinningWheelsTradesPage = () => {
         <title>Win More Jobs Without the Guesswork | Marketing Car for Trades</title>
         <meta name="description" content="Tired of spinning your wheels trying to get noticed? Marketing Car helps tradesmen win more jobs with straightforward marketing strategies and done-for-you tools." />
       </Helmet>
+      <SchemaMarkup schema={pageSchema} />
 
       <div className="bg-gradient-to-b from-background via-secondary/10 to-background">
         {/* Hero Section */}
         <section 
           className="relative py-20 md:py-32 text-center text-white"
         >
-          <img-replace alt="A construction worker looking at blueprints on a job site, with the sun setting in the background." class="absolute inset-0 w-full h-full object-cover" />
+          <img src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/e2d091a4-9271-460b-8012-d04b6805b57f.jpg" alt="A construction worker looking at blueprints on a job site, with the sun setting in the background." className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-background/70 to-background/90"></div>
           <div className="container mx-auto px-4 relative z-10">
             <motion.h1 

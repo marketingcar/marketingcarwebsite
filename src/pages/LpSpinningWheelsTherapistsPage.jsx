@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import HubSpotEmbed from '@/components/HubSpotEmbed';
 import { useQueryParams } from '@/contexts/QueryParamContext';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const features = [
   {
@@ -37,6 +38,19 @@ const LpSpinningWheelsTherapistsPage = () => {
   const scrollToBooking = () => {
     document.getElementById('booking-widget').scrollIntoView({ behavior: 'smooth' });
   };
+  
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://marketingcar.com/lp-spinning-wheels-therapists",
+    "name": "Stop Spinning Your Wheels in Private Practice | Marketing Car",
+    "description": "Tired of marketing efforts that go nowhere in your private therapy practice? Marketing Car provides clear, strategic roadmaps to move your practice forward.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Marketing Car",
+      "logo": "https://marketingcar.com/mainlogo.png"
+    }
+  };
 
   return (
     <PageTransition>
@@ -44,6 +58,7 @@ const LpSpinningWheelsTherapistsPage = () => {
         <title>Stop Spinning Your Wheels in Private Practice | Marketing Car</title>
         <meta name="description" content="Tired of marketing efforts that go nowhere in your private therapy practice? Marketing Car provides clear, strategic roadmaps to move your practice forward. Let's get you on the road to results." />
       </Helmet>
+      <SchemaMarkup schema={pageSchema} />
 
       <div className="bg-gradient-to-b from-background via-secondary/10 to-background">
         {/* Hero Section */}

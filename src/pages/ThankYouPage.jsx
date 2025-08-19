@@ -6,14 +6,24 @@ import { CheckCircle2 } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import SchemaMarkup from '@/components/SchemaMarkup';
 
 const ThankYouPage = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Thank You for Booking | Marketing Car",
+    "description": "Your consultation booking is confirmed. We look forward to speaking with you!",
+    "url": "https://marketingcar.com/thank-you"
+  };
+
   return (
     <PageTransition>
       <Helmet>
         <title>Thank You for Booking | Marketing Car</title>
         <meta name="description" content="Thank you for scheduling your consultation with Marketing Car. Your booking is confirmed, and we look forward to connecting with you soon!" />
       </Helmet>
+      <SchemaMarkup schema={schema} />
       <div className="container mx-auto px-4 py-24 sm:py-32 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
