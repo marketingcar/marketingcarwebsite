@@ -2,57 +2,49 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import SchemaMarkup from '@/components/SchemaMarkup';
 
 const ThankYouPage = () => {
-  const schema = {
+  const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Thank You for Booking | Marketing Car",
-    "description": "Your consultation booking is confirmed. We look forward to speaking with you!",
-    "url": "https://marketingcar.com/thank-you"
+    "url": "https://www.marketingcar.com/thank-you",
+    "name": "Thank You! | Marketing Car",
+    "description": "Thank you for contacting Marketing Car. We've received your message and will be in touch shortly.",
   };
 
   return (
     <PageTransition>
       <Helmet>
-        <title>Thank You for Booking | Marketing Car</title>
-        <meta name="description" content="Thank you for scheduling your consultation with Marketing Car. Your booking is confirmed, and we look forward to connecting with you soon!" />
+        <title>Thank You! | Marketing Car</title>
+        <meta name="description" content="Thank you for contacting Marketing Car. We've received your message and will be in touch shortly." />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
-      <SchemaMarkup schema={schema} />
-      <div className="container mx-auto px-4 py-24 sm:py-32 flex items-center justify-center">
+      <SchemaMarkup schema={pageSchema} />
+      <div className="flex items-center justify-center min-h-[70vh] bg-gradient-to-br from-background to-primary/10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full max-w-lg"
+          className="text-center p-8"
         >
-          <Card className="bg-secondary/20 border-border/30 text-center shadow-2xl shadow-primary/10">
-            <CardContent className="p-8 md:p-12">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1, rotate: 360 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
-              >
-                <CheckCircle2 className="mx-auto h-20 w-20 text-primary mb-6" />
-              </motion.div>
-              <h1 className="text-3xl md:text-4xl font-black text-primary font-heading tracking-tight mb-4">
+          <CheckCircle className="mx-auto h-24 w-24 text-green-500 mb-6" />
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-4 font-heading">
                 Booking Confirmed!
-              </h1>
-              <p className="text-muted-foreground text-lg mb-8">
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
                 Thank you for scheduling a session with us. We've received your request and will send a confirmation email with all the details shortly.
-              </p>
-              <Button asChild size="lg">
-                <Link to="/">
-                  Back to Home
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+          </p>
+          <Button asChild size="lg">
+            <Link to="/">
+              Return to Homepage <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </PageTransition>

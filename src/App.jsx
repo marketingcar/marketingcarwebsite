@@ -25,11 +25,14 @@ import LpSpinningWheelsPage from '@/pages/LpSpinningWheelsPage';
 import LpSpinningWheelsTherapistsPage from '@/pages/LpSpinningWheelsTherapistsPage';
 import LpSpinningWheelsTradesPage from '@/pages/LpSpinningWheelsTradesPage';
 import ContactPage from '@/pages/ContactPage';
-import TheMarketingCarPage from '@/pages/TheMarketingCarPage'; // Import the new page
+import TheMarketingCarPage from '@/pages/TheMarketingCarPage';
+import LpFreeMarketingTips from '@/pages/LpFreeMarketingTips';
+import LpWebinar1 from '@/pages/LpWebinar1';
+import LpWebinar2 from '@/pages/LpWebinar2';
 
 const App = () => {
   const location = useLocation();
-      useEffect(() => {
+        useEffect(() => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
       TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
     }
@@ -46,7 +49,7 @@ const App = () => {
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
-              <Route path="/about/the-marketing-car" element={<TheMarketingCarPage />} /> {/* New route */}
+              <Route path="/about/the-marketing-car" element={<TheMarketingCarPage />} />
               <Route path="/about/webinars" element={<WebinarsPage />} />
               <Route path="/about/case-studies" element={<CaseStudiesPage />} />
               <Route path="/about/case-studies/:slug" element={<CaseStudyDetailPage />} />
@@ -62,6 +65,9 @@ const App = () => {
               <Route path="/lp-spinning-wheels-therapists" element={<LpSpinningWheelsTherapistsPage />} />
               <Route path="/lp-spinning-wheels-trades" element={<LpSpinningWheelsTradesPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/lp-free-marketing-tips" element={<LpFreeMarketingTips />} />
+              <Route path="/lp-webinar-1" element={<LpWebinar1 />} />
+              <Route path="/lp-webinar-2" element={<LpWebinar2 />} />
             </Routes>
           </AnimatePresence>
         </main>

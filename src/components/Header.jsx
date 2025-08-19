@@ -4,6 +4,9 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { services } from '@/data/servicesData';
+import { professionals } from '@/data/whoWeHelpData';
+
 const NavItem = ({
   to,
   children,
@@ -87,8 +90,22 @@ const Header = () => {
         <DropdownLink to="/about/case-studies" isMobile={isMobile} closeMenu={closeMenu}>Case Studies</DropdownLink>
         <DropdownLink to="/about/blog" isMobile={isMobile} closeMenu={closeMenu}>Blog</DropdownLink>
       </DropdownNavItem>
-      <NavItem to="/services" isMobile={isMobile} closeMenu={closeMenu}>Services</NavItem>
-      <NavItem to="/who-we-help" isMobile={isMobile} closeMenu={closeMenu}>Who We Help</NavItem>
+      <DropdownNavItem title="Services" isMobile={isMobile} closeMenu={closeMenu}>
+        <DropdownLink to="/services" isMobile={isMobile} closeMenu={closeMenu}>All Services</DropdownLink>
+        {services.map(service => (
+          <DropdownLink key={service.slug} to={`/services/${service.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
+            {service.title}
+          </DropdownLink>
+        ))}
+      </DropdownNavItem>
+      <DropdownNavItem title="Who We Help" isMobile={isMobile} closeMenu={closeMenu}>
+         <DropdownLink to="/who-we-help" isMobile={isMobile} closeMenu={closeMenu}>All Specialties</DropdownLink>
+        {professionals.map(prof => (
+          <DropdownLink key={prof.slug} to={`/who-we-help/${prof.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
+            {prof.title}
+          </DropdownLink>
+        ))}
+      </DropdownNavItem>
       <NavItem to="/contact" isMobile={isMobile} closeMenu={closeMenu}>Contact</NavItem>
     </>;
   return <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? 'bg-background/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>

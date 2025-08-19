@@ -2,21 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import {
-  Settings,
-  Map,
-  Eye,
-  Brush,
-  Link2,
-  Factory,
-  BrainCircuit,
-  Search,
-  Newspaper,
-  Zap,
-  Annoyed,
-  Mail,
-  Code,
-} from 'lucide-react';
+import { Settings, Map, Eye, Brush, Link2, Factory, BrainCircuit, Search, Newspaper, Zap, Annoyed, Mail, Code } from 'lucide-react';
 import { services as servicesData } from '@/data/servicesData';
 
 const componentMap = {
@@ -49,22 +35,23 @@ const orderedServices = [
   'web-design-development',
 ];
 
-// Export this so other pages (like TheMarketingCarPage) can use the same data for schema, etc.
-export const services = orderedServices.map((slug) => {
-  const serviceData = servicesData.find((s) => s.slug === slug) || {};
-  const component = componentMap[slug] || {};
+const services = orderedServices.map(slug => {
+  const serviceData = servicesData.find(s => s.slug === slug);
+  const component = componentMap[slug];
   return {
     ...serviceData,
     ...component,
-    slug,
   };
 });
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.05 },
+    transition: {
+      staggerChildren: 0.05,
+    },
   },
 };
 
@@ -73,7 +60,10 @@ const itemVariants = {
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 100 },
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+    },
   },
 };
 
@@ -90,19 +80,21 @@ const ServicesSection = () => {
       <div className="container mx-auto">
         <motion.div variants={itemVariants} className="text-center mb-16">
           <Settings className="h-16 w-16 text-accent mx-auto mb-4" aria-label="Settings icon" />
-          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.
           </p>
+          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
         </motion.div>
-
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" variants={containerVariants}>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          variants={containerVariants}
+        >
           {services.map((service) => (
             <motion.div key={service.slug} variants={itemVariants} className="h-full">
               <Link to={`/services/${service.slug}`} className="h-full block">
                 <Card className="h-full flex flex-col bg-slate-900/70 backdrop-blur-sm border-slate-700 hover:border-primary transition-all duration-300 hover:-translate-y-2">
                   <CardHeader className="items-center text-center">
-                    {React.cloneElement(service.icon, { 'aria-label': service.name, className: 'h-12 w-12 text-white' })}
+                    {React.cloneElement(service.icon, { "aria-label": service.name, className: "h-12 w-12 text-white" })}
                     <CardTitle className="mt-4 text-2xl text-white">{service.name}</CardTitle>
                     <CardDescription className="text-sm text-highlight font-semibold">{service.subName}</CardDescription>
                   </CardHeader>

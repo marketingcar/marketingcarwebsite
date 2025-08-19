@@ -1,31 +1,17 @@
 import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
-import { services } from '@/data/servicesData';
+import { services } from '@/data/servicesData.js';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import SchemaMarkup from '@/components/SchemaMarkup';
 
 const ServiceDetailPage = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const service = services.find((s) => s.slug === slug);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: 'spring' } },
-  };
 
   if (!service) {
     return (
@@ -35,88 +21,119 @@ const ServiceDetailPage = () => {
           <meta name="description" content="The service you are looking for could not be found." />
         </Helmet>
         <div className="container mx-auto px-4 py-24 text-center">
-          <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-          <p className="text-muted-foreground mb-8">The service you are looking for does not exist.</p>
-          <Button asChild>
+          <h1 className="text-4xl font-bold">Service Not Found</h1>
+          <p className="text-muted-foreground mt-4">Sorry, we couldn't find the service you're looking for.</p>
+          <Button asChild className="mt-8">
             <Link to="/services">Back to Services</Link>
           </Button>
         </div>
       </PageTransition>
     );
   }
-  
-  const pageTitle = `${service.title} | Marketing Car Services`;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { type: 'spring' } },
+  };
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": service.title,
-    "description": service.details,
+    "serviceType": service.title,
     "provider": {
       "@type": "Organization",
-      "name": "Marketing Car",
-      "url": "https://www.marketingcar.com"
+      "name": "Marketing Car"
     },
-    "serviceType": service.title,
-    "mainEntityOfPage": `https://www.marketingcar.com/services/${service.slug}`
+    "description": service.meta.description,
+    "name": service.title,
+    "url": `https://www.marketingcar.com/services/${service.slug}`
   };
 
   return (
     <PageTransition>
       <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={service.details} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={service.details} />
+        <title>{service.meta.title}</title>
+        <meta name="description" content={service.meta.description} />
+        <meta property="og:title" content={service.meta.ogTitle} />
+        <meta property="og:description" content={service.meta.ogDescription} />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={serviceSchema} />
-      <div className="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 -z-10"></div>
+      <div className="py-16 md:py-24 bg-gradient-to-b from-background to-primary/10">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <Button variant="ghost" onClick={() => navigate('/services')} className="mb-8 text-primary hover:text-primary/80">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to All Services
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+            <Button asChild variant="ghost" className="mb-8">
+              <Link to="/services">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Services
+              </Link>
             </Button>
           </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="text-4xl md:text-6xl font-black mb-2 font-heading"
           >
-            <motion.div variants={itemVariants}>
-              <span className="text-6xl md:text-7xl mb-6 block">{service.icon}</span>
-              <h1 className="text-4xl md:text-6xl font-black mb-4 font-heading text-white">{service.title}</h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-xl">{service.details}</p>
+            {service.title}
+          </motion.h1>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl"
+          >
+            {service.subtitle}
+          </motion.p>
+        </div>
+      </div>
+
+      <motion.div
+        className="container mx-auto px-4 py-16 md:py-24"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
+            <motion.div variants={itemVariants} className="prose prose-invert max-w-none lg:prose-xl prose-h3:text-primary">
+              <div dangerouslySetInnerHTML={{ __html: service.longDescription }} />
             </motion.div>
-            
-            <motion.div variants={itemVariants}>
-              <Card className="bg-secondary/20 border-border/30 shadow-2xl shadow-primary/10">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6 font-heading text-white">What's Included?</h3>
+          </div>
+
+          <aside className="lg:col-span-1">
+            <motion.div variants={itemVariants} className="sticky top-28">
+              <Card className="shadow-lg bg-secondary/20">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold font-heading">What's Included</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <ul className="space-y-4">
-                    {service.features.map((feature, index) => (
-                      <motion.li 
-                        key={index} 
-                        className="flex items-start"
-                        custom={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                      >
-                        <CheckCircle className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" />
-                        <span className="text-muted-foreground">{feature}</span>
-                      </motion.li>
+                    {service.whatsIncluded.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
+              <Button asChild size="lg" className="w-full mt-8">
+                <Link to="/book-now">Get Started</Link>
+              </Button>
             </motion.div>
-          </motion.div>
+          </aside>
         </div>
-      </div>
+      </motion.div>
     </PageTransition>
   );
 };

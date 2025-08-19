@@ -1,85 +1,120 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import PageTransition from '@/components/PageTransition';
 import SchemaMarkup from '@/components/SchemaMarkup';
-import ServicesSection, { services as parts } from '@/components/ServicesSection';
+import {
+  Gps,
+  Headlights,
+  PaintJob,
+  Hitch,
+  Body,
+  Mechanic,
+  Engine,
+  Gas,
+  Accelerator,
+  Horn,
+  SteeringWheel,
+  Wheels
+} from '@/components/CarIcons';
+
+const carParts = [
+  { icon: <Gps />, title: 'GPS', name: 'Marketing Strategy', description: 'Develop a comprehensive plan to achieve your business goals.' },
+  { icon: <Headlights />, title: 'Headlights', name: 'Local/Near Me Marketing', description: 'Attract local customers and dominate your geographic market.' },
+  { icon: <PaintJob />, title: 'Paint Job', name: 'Graphic Design', description: 'Create stunning visuals that capture attention and convey your message.' },
+  { icon: <Hitch />, title: 'Hitch', name: 'B2B Marketing', description: 'Drive growth with strategies tailored for business-to-business clients.' },
+  { icon: <Body />, title: 'Body', name: 'Brand Strategy and Design', description: 'Build a powerful and memorable brand identity from the ground up.' },
+  { icon: <Mechanic />, title: 'Mechanic', name: 'Marketing Consultation', description: 'Get expert advice and actionable insights tailored to your unique challenges.' },
+  { icon: <Engine />, title: 'Engine', name: 'SEO', description: 'Climb search rankings and drive organic traffic.' },
+  { icon: <Gas />, title: 'Gas', name: 'Content Marketing', description: 'Engage your audience with compelling stories and content.' },
+  { icon: <Accelerator />, title: 'Accelerator', name: 'Paid Advertising', description: 'Maximize ROI with targeted PPC campaigns.' },
+  { icon: <Horn />, title: 'Horn', name: 'Social Media', description: 'Build a vibrant community around your brand.' },
+  { icon: <SteeringWheel />, title: 'Steering Wheel', name: 'Email Marketing', description: 'Nurture leads and retain customers effectively.' },
+  { icon: <Wheels />, title: 'Wheels', name: 'Web Design and Development', description: 'Create stunning, high-performance websites.' },
+];
 
 const TheMarketingCarPage = () => {
-  const pageTitle = 'The Marketing Car | Our Components for Success';
-  const pageDescription =
-    'Discover the essential components of The Marketing Car and how each part works together to drive your business forward. Learn about our comprehensive approach to marketing.';
+  const pageTitle = "The Marketing Car | Our Approach to Integrated Marketing";
+  const pageDescription = "Discover the components of 'The Marketing Car'—our philosophy that true marketing success comes from the right combination of integrated parts working together.";
 
-  const schema = useMemo(
-    () => ({
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      url: 'https://marketingcar.com/about/the-marketing-car',
-      name: pageTitle,
-      description: pageDescription,
-      mainEntity: {
-        '@type': 'ItemList',
-        itemListElement: (parts || []).map((part, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          // ServicesSection uses `name`, `subName`, and `description`
-          name: part.name || part.title || part.slug,
-          description: part.description || '',
-        })),
-      },
-    }),
-    [pageTitle, pageDescription]
-  );
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://www.marketingcar.com/about/the-marketing-car",
+    "name": pageTitle,
+    "description": pageDescription,
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-12 sm:py-16 lg:py-20"
-    >
+    <PageTransition>
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
+      <SchemaMarkup schema={pageSchema} />
 
-      <SchemaMarkup schema={schema} />
-
-      <header className="text-center mb-12">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary mb-4 leading-tight">
-          <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary">
+      <div className="py-24 sm:py-32 bg-gradient-to-b from-background to-primary/10">
+        <div className="container mx-auto px-6 lg:px-8 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-black tracking-tight text-white sm:text-6xl font-heading"
+          >
             The Marketing Car
-          </span>
-        </h1>
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-          Just like a car needs all its parts to run smoothly, your marketing needs a complete system. No single part in isolation
-          can drive you forward. It takes the right combination to build a powerful engine for growth.
-        </p>
-      </header>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-6 text-lg leading-8 text-muted-foreground max-w-3xl mx-auto"
+          >
+            It takes the right combination of parts to build a car, and no single part in isolation can drive you forward. The same is true for your marketing. Here are the components we use to build your vehicle for growth.
+          </motion.p>
+        </div>
+      </div>
 
-      <ServicesSection />
-
-      <section className="text-center mt-12">
-        <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">Ready to build your Marketing Car?</h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Let's assemble the perfect combination of strategies and tools to accelerate your business growth.
-        </p>
-        <Button
-          size="lg"
-          className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold"
-          asChild
-        >
-          <Link to="/book-now">
-            Book a Free Consultation <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-          </Link>
-        </Button>
-      </section>
-    </motion.div>
+      <div className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {carParts.map((part, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-secondary/10 p-6 rounded-lg shadow-lg flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300"
+              >
+                <div className="w-20 h-20 mb-4 text-primary">{part.icon}</div>
+                <h2 className="text-xl font-bold text-white">{part.title}</h2>
+                <h3 className="text-lg font-semibold text-highlight mb-2">{part.name}</h3>
+                <p className="text-muted-foreground flex-grow">{part.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </PageTransition>
   );
 };
 
