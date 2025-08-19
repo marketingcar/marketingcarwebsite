@@ -6,81 +6,9 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import ServicesSection from '@/components/ServicesSection';
 
-const parts = [
-  {
-    name: "GPS",
-    title: "Marketing Strategy",
-    description: "Develop a comprehensive plan to achieve your business goals.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Headlights",
-    title: "Local/Near Me Marketing",
-    description: "Attract local customers and dominate your geographic market.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Paint Job",
-    title: "Graphic Design",
-    description: "Create stunning visuals that capture attention and convey your message.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Hitch",
-    title: "B2B Marketing",
-    description: "Drive growth with strategies tailored for business-to-business clients.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Body",
-    title: "Brand Strategy and Design",
-    description: "Build a powerful and memorable brand identity from the ground up.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Mechanic",
-    title: "Marketing Consultation",
-    description: "Get expert advice and actionable insights tailored to your unique challenges.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Engine",
-    title: "SEO",
-    description: "Climb search rankings and drive organic traffic.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Gas",
-    title: "Content Marketing",
-    description: "Engage your audience with compelling stories and content.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Accelerator",
-    title: "Paid Advertising",
-    description: "Maximize ROI with targeted PPC campaigns.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Horn",
-    title: "Social Media",
-    description: "Build a vibrant community around your brand.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Steering Wheel",
-    title: "Email Marketing",
-    description: "Nurture leads and retain customers effectively.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-  {
-    name: "Wheels",
-    title: "Web Design and Development",
-    description: "Create stunning, high-performance websites.",
-    icon: "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/17020240819104750.png"
-  },
-];
+
 
 const TheMarketingCarPage = () => {
     const pageTitle = "The Marketing Car | Our Components for Success";
@@ -130,27 +58,7 @@ const TheMarketingCarPage = () => {
         </p>
       </header>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        {parts.map((part, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
-          >
-            <Card className="h-full flex flex-col p-6 bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 border border-border">
-              <CardHeader className="flex flex-row items-center space-x-4 p-0 mb-4">
-                <img src={part.icon} alt={`${part.name} icon`} className="w-12 h-12 object-contain" />
-                <div>
-                  <CardTitle className="text-2xl font-bold text-foreground">{part.name}</CardTitle>
-                  <CardDescription className="text-lg text-primary font-semibold">{part.title}</CardDescription>
-                </div>
-              </CardHeader>
-              <p className="text-muted-foreground flex-grow">{part.description}</p>
-            </Card>
-          </motion.div>
-        ))}
-      </section>
+             <ServicesSection />
 
       <section className="text-center mt-12">
         <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">Ready to build your Marketing Car?</h2>
