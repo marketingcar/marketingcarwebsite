@@ -80,10 +80,11 @@ const ServicesSection = () => {
       <div className="container mx-auto">
         <motion.div variants={itemVariants} className="text-center mb-16">
           <Settings className="h-16 w-16 text-accent mx-auto mb-4" aria-label="Settings icon" />
+                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
+
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.
           </p>
-          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
         </motion.div>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
