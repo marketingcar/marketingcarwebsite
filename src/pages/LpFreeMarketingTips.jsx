@@ -115,15 +115,6 @@ const LpFreeMarketingTips = () => {
             </div>
           </div>
         </section>
-
-        <footer className="bg-background text-center py-8">
-          <div className="container mx-auto px-4">
-            <Link to="/">
-              <img src="/marketing-car-logo-full.png" alt="Marketing Car Logo" className="h-12 mx-auto mb-4" />
-            </Link>
-            <p className="text-muted-foreground">&copy; {new Date().getFullYear()} Marketing Car. All Rights Reserved.</p>
-          </div>
-        </footer>
       </div>
     </PageTransition>
   );
