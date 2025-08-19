@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -77,10 +76,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   const closeMenu = () => setIsOpen(false);
-  const isLandingPage = location.pathname.startsWith('/lp-');
-  if (isLandingPage) {
-    return null;
-  }
+  
   const navLinks = (isMobile = false) => <>
       <NavItem to="/" isMobile={isMobile} closeMenu={closeMenu}>Home</NavItem>
       <DropdownNavItem title="About" isMobile={isMobile} closeMenu={closeMenu}>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -7,6 +6,8 @@ import PageTransition from '@/components/PageTransition';
 import HubSpotNewsletterForm from '@/components/HubSpotNewsletterForm';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { Link } from 'react-router-dom';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const features = [
   {
@@ -50,7 +51,7 @@ const LpFreeMarketingTips = () => {
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
       </Helmet>
       <SchemaMarkup schema={pageSchema} />
-
+      <Header />
       <div className="bg-gradient-to-b from-background via-secondary/10 to-background">
         <section 
           className="relative py-20 md:py-32 text-center text-white"
@@ -116,6 +117,7 @@ const LpFreeMarketingTips = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </PageTransition>
   );
 };

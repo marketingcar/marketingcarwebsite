@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -32,17 +31,17 @@ import LpWebinar2 from '@/pages/LpWebinar2';
 
 const App = () => {
   const location = useLocation();
-        useEffect(() => {
+          useEffect(() => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
       TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
     }
   }, []);
-
+  const isLandingPage = location.pathname.startsWith('/lp-');
 
   return (
     <>
       <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
-        <Header />
+        {!isLandingPage && <Header />}
         <ScrollToTop />
         <main className="flex-grow">
           <AnimatePresence mode="wait">
@@ -71,7 +70,7 @@ const App = () => {
             </Routes>
           </AnimatePresence>
         </main>
-        <Footer />
+        {!isLandingPage && <Footer />}
       </div>
       <Toaster />
     </>
