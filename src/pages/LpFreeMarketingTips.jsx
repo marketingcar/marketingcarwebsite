@@ -6,8 +6,7 @@ import PageTransition from '@/components/PageTransition';
 import HubSpotNewsletterForm from '@/components/HubSpotNewsletterForm';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+
 
 const features = [
   {
@@ -60,7 +59,6 @@ const LpFreeMarketingTips = () => {
         <meta property="og:locale" content="en_US" />
       </Helmet>
       <SchemaMarkup schema={pageSchema} />
-      <Header />
       <div className="bg-gradient-to-b from-background via-secondary/10 to-background">
         <section 
           className="relative py-20 md:py-32 text-center text-white"
@@ -125,7 +123,6 @@ Sign up for our free weekly newsletter. Each edition gives you one bite-sized, b
           </div>
         </section>
       </div>
-      <Footer />
     </PageTransition>
   );
 };
