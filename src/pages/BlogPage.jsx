@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { signalPrerenderReady } from '@/lib/prerenderReady'; // ✅ NEW
+import SEOHelmet from '@/components/SEOHelmet';
+
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -104,7 +106,13 @@ const BlogPage = () => {
 
   return (
     <PageTransition>
+      <SEOHelmet
+  title="Marketing Insights | Marketing Car Blog"
+  description="Explore the latest marketing insights, tips, and strategies from Marketing Car."
+  url="/about/blog"
+/>
       <Helmet>
+        
         <title>Marketing Insights | Marketing Car Blog</title>
         <meta name="description" content="Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition." />
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />

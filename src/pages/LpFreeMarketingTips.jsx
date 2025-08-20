@@ -45,6 +45,13 @@ const LpFreeMarketingTips = () => {
 
   return (
     <PageTransition>
+      <SEOHelmet
+  title="Free 5-Minute Marketing Tips | Marketing Car"
+  description="Quick, practical tips to get your marketing moving—fast."
+  url="/lp-free-marketing-tips"
+  image="/og/og-default.png"
+/>
+
       <Helmet>
         <title>Free Weekly Marketing Tips | Marketing Car</title>
         <meta name="description" content="Sign up for free, actionable marketing tips you can use to grow your small business. Quick, easy, and delivered to your inbox weekly." />
