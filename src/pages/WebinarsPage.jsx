@@ -174,6 +174,12 @@ const WebinarsPage = () => {
         <meta name="description" content={pageDescription} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://marketingcar.com/webinars/series.png" />
+        <meta property="og:url" content="https://marketingcar.com/about/webinars" />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:site_name" content="Marketing Car" />
+        <meta property="og:locale" content="en_US" />
       </Helmet>
       {eventsSchema.length > 0 && <SchemaMarkup schema={eventsSchema} />}
 

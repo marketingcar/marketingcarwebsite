@@ -49,6 +49,13 @@ const LpFreeMarketingTips = () => {
         <title>Free Weekly Marketing Tips | Marketing Car</title>
         <meta name="description" content="Sign up for free, actionable marketing tips you can use to grow your small business. Quick, easy, and delivered to your inbox weekly." />
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <meta property="og:title" content="5-Minute Weekly Marketing Tips" />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://marketingcar.com/mainlogo.png" />
+        <meta property="og:url" content="https://marketingcar.com/lp-free-marketing-tips" />
+        <meta property="og:description" content="Because Who Has Time for 6?" />
+        <meta property="og:site_name" content="Marketing Car" />
+        <meta property="og:locale" content="en_US" />
       </Helmet>
       <SchemaMarkup schema={pageSchema} />
       <Header />
@@ -69,7 +76,7 @@ const LpFreeMarketingTips = () => {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="text-4xl md:text-6xl font-black mb-4 font-heading"
             >
-              5-Minute Marketing: Because Who Has Time for 6?
+              5-Minute Marketing: <br />Because Who Has Time for 6?
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}

@@ -49,6 +49,13 @@ const LpWebinar1 = () => {
         <title>{webinarDetails.subtitle} | Marketing Car Webinar</title>
         <meta name="description" content={webinarDetails.description} />
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <meta property="og:title" content={webinarDetails.subtitle} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://marketingcar.com/webinars/webinar1.png" />
+        <meta property="og:url" content="https://marketingcar.com/lp-webinar-1" />
+        <meta property="og:description" content={webinarDetails.description} />
+        <meta property="og:site_name" content="Marketing Car" />
+        <meta property="og:locale" content="en_US" />
       </Helmet>
       <SchemaMarkup schema={pageSchema} />
       <div className="bg-gradient-to-b from-background via-accent/10 to-background">
