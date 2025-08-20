@@ -1,49 +1,106 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { SEO_DEFAULTS } from '@/seo/ogConfig';
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import config from "@/seo/ogConfig";
+// NEW: route-based overrides that both your app and the injector can read
+import overrides from "@/seo/overrides.json";
 
-function absoluteUrl(pathOrUrl, base = SEO_DEFAULTS.SITE_URL) {
-  if (!pathOrUrl) return base;
-  try { return new URL(pathOrUrl, base).href; } catch { return `${base}${pathOrUrl}`; }
+function toAbsoluteUrl(pathOrUrl) {
+  if (!pathOrUrl) return null;
+  try {
+    const url = new URL(pathOrUrl, config.siteUrl);
+    return url.href;
+  } catch {
+    return pathOrUrl;
+  }
 }
 
+/**
+ * Props:
+ * - title
+ * - description
+ * - path (e.g., "/about") used to build canonical + og:url
+ * - image (absolute or relative to site origin)
+ * - type (default "website")
+ * - noIndex (boolean) if true sets robots noindex
+ * - locale (default "en_US")
+ */
 export default function SEOHelmet({
   title,
   description,
+  path = "/",
   image,
-  url,
-  type = 'website',
-  twitterCard = 'summary_large_image',
+  type = "website",
+  noIndex = false,
+  locale = "en_US",
 }) {
-  const finalTitle = title || SEO_DEFAULTS.TITLE;
-  const finalDesc  = description || SEO_DEFAULTS.DESCRIPTION;
-  const finalUrl   = absoluteUrl(url || (typeof window !== 'undefined' ? window.location.pathname : '/'));
-  const finalImg   = absoluteUrl(image || SEO_DEFAULTS.IMAGE);
+  // Resolve effective route key for overrides
+  const runtimePath =
+    path ||
+    (typeof window !== "undefined" ? window.location.pathname || "/" : "/");
+
+  const o = overrides?.[runtimePath] || {};
+
+  // Apply precedence: overrides.json > explicit props > config defaults
+  const finalTitle =
+    o.title || title || config.defaultTitle || config.siteName;
+  const finalDescription =
+    o.description || description || config.defaultDescription;
+  const canonicalUrl = toAbsoluteUrl(runtimePath);
+  const ogUrl = canonicalUrl;
+
+  const chosenImage = o.image || image || config.defaultImage;
+  const ogImage = toAbsoluteUrl(chosenImage);
+
+  const finalType = o.type || type || "website";
+  const finalNoIndex = typeof o.noIndex === "boolean" ? o.noIndex : noIndex;
+  const finalLocale = o.locale || locale || "en_US";
+
+  const tags = [
+    { name: "description", content: finalDescription },
+    { property: "og:title", content: finalTitle },
+    { property: "og:description", content: finalDescription },
+    { property: "og:type", content: finalType },
+    { property: "og:site_name", content: config.siteName },
+    { property: "og:url", content: ogUrl },
+    { property: "og:locale", content: finalLocale },
+  ];
+
+  if (ogImage) {
+    tags.push({ property: "og:image", content: ogImage });
+    tags.push({ property: "og:image:secure_url", content: ogImage });
+    tags.push({ property: "og:image:width", content: "1200" });
+    tags.push({ property: "og:image:height", content: "630" });
+    tags.push({ property: "og:image:alt", content: finalTitle });
+  }
+
+  // Twitter
+  tags.push({ name: "twitter:card", content: "summary_large_image" });
+  if (config.twitterHandle) {
+    tags.push({ name: "twitter:site", content: config.twitterHandle });
+    tags.push({ name: "twitter:creator", content: config.twitterHandle });
+  }
+  tags.push({ name: "twitter:title", content: finalTitle });
+  tags.push({ name: "twitter:description", content: finalDescription });
+  if (ogImage) tags.push({ name: "twitter:image", content: ogImage });
+
+  if (finalNoIndex) {
+    tags.push({ name: "robots", content: "noindex,nofollow" });
+  } else {
+    tags.push({ name: "robots", content: "index,follow" });
+  }
 
   return (
     <Helmet>
-      {/* Canonical */}
-      <link rel="canonical" href={finalUrl} />
-
-      {/* Basic */}
       <title>{finalTitle}</title>
-      <meta name="description" content={finalDesc} />
-
-      {/* Open Graph */}
-      <meta property="og:title" content={finalTitle} />
-      <meta property="og:description" content={finalDesc} />
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={finalUrl} />
-      <meta property="og:image" content={finalImg} />
-      <meta property="og:site_name" content={SEO_DEFAULTS.SITE_NAME} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:title" content={finalTitle} />
-      <meta name="twitter:description" content={finalDesc} />
-      <meta name="twitter:image" content={finalImg} />
+      {config.favicon ? <link rel="icon" href={config.favicon} /> : null}
+      <link rel="canonical" href={canonicalUrl} />
+      {tags.map((t, i) =>
+        t.name ? (
+          <meta key={i} name={t.name} content={t.content} />
+        ) : (
+          <meta key={i} property={t.property} content={t.content} />
+        )
+      )}
     </Helmet>
   );
 }

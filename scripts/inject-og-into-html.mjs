@@ -1,17 +1,21 @@
+// scripts/inject-og-into-html.mjs
 import { fileURLToPath } from 'node:url';
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import { load } from 'cheerio'; // ✅ correct Cheerio import
+import { load } from 'cheerio';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const dist = path.join(root, 'dist');               // or 'build' if you use that
+const dist = path.join(root, 'dist'); // change to 'build' if that's your output
 const routesFile = path.join(root, '.prerender-routes.json');
 
+// Site identity & fallbacks
 const SITE_URL =
   process.env.SITE_URL ||
   process.env.VITE_SITE_URL ||
   'https://www.marketingcar.com';
+
+const SITE_NAME = 'Marketing Car';
 
 const DEFAULTS = {
   title: 'Marketing Car',
@@ -19,8 +23,20 @@ const DEFAULTS = {
   image: '/og/og-default.png',
 };
 
+// Load optional per-route overrides (shared with SEOHelmet)
+const overridesPath = path.join(root, 'src/seo/overrides.json');
+let overrides = {};
+if (existsSync(overridesPath)) {
+  try {
+    overrides = JSON.parse(readFileSync(overridesPath, 'utf8'));
+  } catch (e) {
+    console.warn('[og-inject] Could not parse overrides.json:', e.message);
+  }
+}
+
 function walk(dir) {
   const out = [];
+  if (!existsSync(dir)) return out;
   for (const entry of readdirSync(dir)) {
     const p = path.join(dir, entry);
     const s = statSync(p);
@@ -32,21 +48,27 @@ function walk(dir) {
 
 function ensure($, sel, attr, value) {
   const el = $(sel).first();
-  if (el.length) { el.attr(attr, value); return; }
-  // create missing tag
+  if (el.length) {
+    el.attr(attr, value);
+    return;
+  }
   if (sel.startsWith('meta[')) {
-    const $m = $('<meta />');
+    const $m = $('<meta/>');
     const m = sel.match(/\[(name|property)=["']([^"']+)["']\]/);
     if (m) $m.attr(m[1], m[2]);
     $m.attr(attr, value);
     $('head').append($m);
   } else if (sel.startsWith('link[')) {
-    const $l = $('<link />');
+    const $l = $('<link/>');
     const m = sel.match(/\[rel=["']([^"']+)["']\]/);
     if (m) $l.attr('rel', m[1]);
     $l.attr(attr, value);
     $('head').append($l);
   }
+}
+
+function absUrl(pathOrUrl) {
+  try { return new URL(pathOrUrl, SITE_URL).href; } catch { return pathOrUrl; }
 }
 
 const htmlFiles = walk(dist);
@@ -55,38 +77,51 @@ const routes = (() => {
   catch { return ['/']; }
 })();
 
-// const routeSet = new Set(routes.map(r => r.endsWith('/') ? r : `${r}`)); // (unused)
-
 for (const file of htmlFiles) {
   const rel = `/${path.relative(dist, file).replace(/\\/g, '/')}`;
-  // infer route path from dist structure: about/index.html -> /about
+  // e.g. dist/about/index.html -> /about
   const routePath = rel.replace(/\/index\.html$/, '') || '/';
   const url = new URL(routePath, SITE_URL).href;
 
-  const $ = load(readFileSync(file, 'utf8')); // ✅ use load(), not cheerio.load()
+  const $ = load(readFileSync(file, 'utf8'));
 
-  // derive fallbacks from document if present
-  const docTitle = $('title').first().text().trim() || DEFAULTS.title;
-  const docDesc  = $('meta[name="description"]').attr('content') || DEFAULTS.desc;
+  // Baseline from the document, then apply per-route overrides
+  const docTitle = $('title').first().text().trim();
+  const docDesc  = $('meta[name="description"]').attr('content');
 
-  // inject/ensure
+  const ov = overrides[routePath] || {};
+
+  const finalTitle = ov.title || docTitle || DEFAULTS.title;
+  const finalDesc  = ov.description || docDesc || DEFAULTS.desc;
+  const finalType  = ov.type || 'website';
+  const finalImg   = absUrl(ov.image || DEFAULTS.image);
+  const robotsNoIndex = typeof ov.noIndex === 'boolean' ? ov.noIndex : false;
+
+  // Canonical
   ensure($, 'link[rel="canonical"]', 'href', url);
 
-  ensure($, 'meta[property="og:title"]', 'content', docTitle);
-  ensure($, 'meta[property="og:description"]', 'content', docDesc);
-  ensure($, 'meta[property="og:type"]', 'content', 'website');
+  // Basic description (keep existing <meta name="description"> if present, else add)
+  ensure($, 'meta[name="description"]', 'content', finalDesc);
+
+  // Open Graph
+  ensure($, 'meta[property="og:title"]', 'content', finalTitle);
+  ensure($, 'meta[property="og:description"]', 'content', finalDesc);
+  ensure($, 'meta[property="og:type"]', 'content', finalType);
   ensure($, 'meta[property="og:url"]', 'content', url);
-  ensure($, 'meta[property="og:image"]', 'content',
-    new URL(DEFAULTS.image, SITE_URL).href);
-  ensure($, 'meta[property="og:site_name"]', 'content', 'Marketing Car');
+  ensure($, 'meta[property="og:image"]', 'content', finalImg);
+  ensure($, 'meta[property="og:image:secure_url"]', 'content', finalImg);
+  ensure($, 'meta[property="og:site_name"]', 'content', SITE_NAME);
   ensure($, 'meta[property="og:image:width"]', 'content', '1200');
   ensure($, 'meta[property="og:image:height"]', 'content', '630');
 
+  // Twitter
   ensure($, 'meta[name="twitter:card"]', 'content', 'summary_large_image');
-  ensure($, 'meta[name="twitter:title"]', 'content', docTitle);
-  ensure($, 'meta[name="twitter:description"]', 'content', docDesc);
-  ensure($, 'meta[name="twitter:image"]', 'content',
-    new URL(DEFAULTS.image, SITE_URL).href);
+  ensure($, 'meta[name="twitter:title"]', 'content', finalTitle);
+  ensure($, 'meta[name="twitter:description"]', 'content', finalDesc);
+  ensure($, 'meta[name="twitter:image"]', 'content', finalImg);
+
+  // Robots
+  ensure($, 'meta[name="robots"]', 'content', robotsNoIndex ? 'noindex,nofollow' : 'index,follow');
 
   writeFileSync(file, $.html());
   console.log('[og-inject] updated', routePath || '/');

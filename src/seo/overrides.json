@@ -1,0 +1,22 @@
+{
+  "/lp-webinar-1": {
+    "title": "Small Business Roadmap: Building a Marketing Strategy That Gets Results",
+    "description": "How to create a realistic, results-focused plan for your small business, set achievable goals, and align every marketing component so it works toward your growth.",
+    "image": "/webinars/webinar-1.png"
+  },
+  "/lp-webinar-2": {
+    "title": "Owning Your Backyard: Local Marketing Strategies for Small Business Growth",
+    "description": "How small businesses can win in local searches, capture “near me” customers, and become the go-to choice in their community.",
+    "image": "/webinars/webinar-2.png"
+  },
+  "/webinars": {
+    "title": "Webinars | Marketing Car",
+    "description": "Our live and on-demand webinars that help you drive real growth.",
+    "image": "/webinars/series.png"
+  },
+  "/lp-free-marketing-tips": {
+    "title": "Free 5-Minute Marketing Tips | Marketing Car",
+    "description": "Quick, practical tips to get your marketing moving—fast.",
+    "image": "/og/og-default.png"
+  }
+}
