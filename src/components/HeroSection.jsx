@@ -5,30 +5,19 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const containerVariants = {
-  hidden: {
-    opacity: 0
-  },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3
-    }
+    transition: { staggerChildren: 0.1, delayChildren: 0.3 }
   }
 };
 
 const itemVariants = {
-  hidden: {
-    y: 20,
-    opacity: 0
-  },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 100
-    }
+    transition: { type: 'spring', stiffness: 100 }
   }
 };
 
@@ -61,29 +50,33 @@ const HeroSection = () => {
       animate="visible"
     >
       <div className="absolute inset-0">
-        <img src={heroImageUrl} alt="Abstract hero background showing a stylized roadmap or navigation interface with glowing lines and waypoints, symbolizing a journey to success." className="w-full h-full object-cover" />
+        <img
+          src={heroImageUrl}
+          alt="Abstract hero background showing a stylized roadmap or navigation interface with glowing lines and waypoints, symbolizing a journey to success."
+          className="w-full h-full object-contain md:object-cover object-top md:object-center"  /* mobile no-zoom */
+        />
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
+
       <div className="relative z-10 max-w-3xl mx-auto">
-        
         <div className="h-40 sm:h-48 md:h-56 flex items-center justify-center">
-            <AnimatePresence mode="wait">
-                <motion.h1
-                    key={titleIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading mb-6 leading-tight text-foreground"
-                >
-                    <span className="block">{titles[titleIndex].line1}</span>
-                    {titles[titleIndex].line2 && (
-                      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary">
-                          {titles[titleIndex].line2}
-                      </span>
-                    )}
-                </motion.h1>
-            </AnimatePresence>
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={titleIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="text-5xl sm:text-6xl md:text-7xl font-black font-heading mb-6 leading-tight text-foreground"  /* match site H1 weight */
+            >
+              <span className="block">{titles[titleIndex].line1}</span>
+              {titles[titleIndex].line2 && (
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary">
+                  {titles[titleIndex].line2}
+                </span>
+              )}
+            </motion.h1>
+          </AnimatePresence>
         </div>
 
         <motion.p variants={itemVariants} className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto font-body">

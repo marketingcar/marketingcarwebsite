@@ -29,20 +29,21 @@ import TheMarketingCarPage from '@/pages/TheMarketingCarPage';
 import LpFreeMarketingTips from '@/pages/LpFreeMarketingTips';
 import LpWebinar1 from '@/pages/LpWebinar1';
 import LpWebinar2 from '@/pages/LpWebinar2';
+import NotFound from '@/pages/NotFound';
 
 const App = () => {
   const location = useLocation();
-          useEffect(() => {
+
+  useEffect(() => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
       TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
     }
   }, []);
-  const isLandingPage = location.pathname.startsWith('/lp-');
 
   return (
     <>
       <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
-        {!isLandingPage && <Header />}
+        <Header />
         <ScrollToTop />
         <main className="flex-grow">
           <AnimatePresence mode="wait">
@@ -69,10 +70,11 @@ const App = () => {
               <Route path="/lp-free-marketing-tips" element={<LpFreeMarketingTips />} />
               <Route path="/lp-webinar-1" element={<LpWebinar1 />} />
               <Route path="/lp-webinar-2" element={<LpWebinar2 />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </main>
-        {!isLandingPage && <Footer />}
+        <Footer />
       </div>
       <Toaster />
     </>
