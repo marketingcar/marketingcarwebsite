@@ -39,6 +39,16 @@
     --ring: 279 64% 45%;
 
     --radius: 0.75rem;
+
+    /* Headline gradient (matches mock): #2563EB → #CD84FC → #25EBD1 */
+    --headline-grad-start: #2563EB; /* 4%  */
+    --headline-grad-mid:   #CD84FC; /* 51% */
+    --headline-grad-end:   #25EBD1; /* 100% */
+    --headline-gradient: linear-gradient(90deg,
+      var(--headline-grad-start) 4%,
+      var(--headline-grad-mid)   51%,
+      var(--headline-grad-end)   100%
+    );
   }
 
   .dark {
@@ -72,6 +82,16 @@
     --border: 260 5% 25%;
     --input: 260 5% 25%;
     --ring: 279 64% 45%;
+
+    /* same headline gradient in dark */
+    --headline-grad-start: #2563EB;
+    --headline-grad-mid:   #CD84FC;
+    --headline-grad-end:   #25EBD1;
+    --headline-gradient: linear-gradient(90deg,
+      var(--headline-grad-start) 4%,
+      var(--headline-grad-mid)   51%,
+      var(--headline-grad-end)   100%
+    );
   }
 }
 
@@ -154,23 +174,34 @@ body { background-color: hsl(var(--background)); }
   background: hsl(var(--primary));
 }
 
-/* Gradient text helper padding */
+/* Gradient text helper padding (for your two-line hero) */
 span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highlight.to-secondary {
   padding-bottom: 20px;
 }
 
 /* =========================
-   Added: sitewide gradient H1s
+   Sitewide gradient H1s (custom stops)
    ========================= */
 @layer base {
-  /* Apply the homepage gradient treatment to all H1s (including prose) */
-  h1, .prose h1 {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  /* Use the new custom gradient; add .gradient-headline to use on non-H1 text */
+  h1, .prose h1, .gradient-headline {
+    background-image: var(--headline-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }
 
+/* Opt-out helper for pages that keep their own gradient (e.g., hero) */
+.no-gradient-text, .no-gradient-text * {
+  background-image: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: currentColor !important;
+}
+
 /* =========================
-   Added: mobile text spillover protection
+   Mobile text spillover protection
    ========================= */
 @layer base {
   /* Prevent long words/URLs from breaking layouts on small screens */
@@ -182,17 +213,20 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 }
 
 /* =========================
-   Added: mobile CTA padding helper
+   Mobile CTA padding helper
    ========================= */
 @media (max-width: 640px) {
   .cta-pad { padding-left: 1rem; padding-right: 1rem; }
 }
 
 /* =========================
-   Added: mobile menu active link gradient
+   Mobile menu active link gradient (matches headlines)
    ========================= */
-/* Apply to whichever root your mobile menu uses */
 .nav-mobile a[aria-current="page"],
-.mobile-menu a[aria-current="page"] {
-  @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+.mobile-menu a[aria-current="page"],
+.gradient-link {
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

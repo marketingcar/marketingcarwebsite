@@ -76,7 +76,7 @@ const LpFreeMarketingTips = () => {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="text-4xl md:text-6xl font-black mb-4 font-heading"
             >
-  5 Minute Marketing<br className="hidden sm:block" /> Tips
+  5 Minute Marketing Tips:<br className="hidden sm:block" /> Because Who Has Time for 6?
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}

@@ -69,9 +69,9 @@ const HeroSection = () => {
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className="text-5xl sm:text-6xl md:text-7xl font-black font-heading mb-6 leading-tight text-foreground"  /* match site H1 weight */
             >
-              <span className="block">{titles[titleIndex].line1}</span>
+              <span className="block font-black">{titles[titleIndex].line1}</span>
               {titles[titleIndex].line2 && (
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary">
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary font-black">
                   {titles[titleIndex].line2}
                 </span>
               )}
