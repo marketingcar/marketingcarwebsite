@@ -95,12 +95,7 @@ const BlogPostPage = () => {
 
   return (
     <PageTransition>
-      <SEOHelmet
-  title={`${post.title} | Marketing Car Blog`}
-  description={post.excerpt}
-  image={post.image_url}
-  url={`/about/blog/${post.slug}`}
-/>
+  
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={post.excerpt} />

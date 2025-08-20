@@ -169,12 +169,7 @@ const WebinarsPage = () => {
 
   return (
     <PageTransition>
-      <SEOHelmet
-  title="Webinars | Marketing Car"
-  description="Our live and on-demand webinars that help you drive real growth."
-  url="/webinars"
-  image="/webinars/series.png"
-/>
+
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />

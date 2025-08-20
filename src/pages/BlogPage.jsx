@@ -106,11 +106,7 @@ const BlogPage = () => {
 
   return (
     <PageTransition>
-      <SEOHelmet
-  title="Marketing Insights | Marketing Car Blog"
-  description="Explore the latest marketing insights, tips, and strategies from Marketing Car."
-  url="/about/blog"
-/>
+
       <Helmet>
         
         <title>Marketing Insights | Marketing Car Blog</title>
