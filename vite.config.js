@@ -2,6 +2,27 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 
+// Flexible loader for the prerender plugin (handles ESM/CJS/export quirks)
+import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+const require = createRequire(import.meta.url);
+
+async function loadPrerenderPlugin() {
+  try {
+    const esm = await import('vite-plugin-prerender');
+    return esm.default ?? esm;
+  } catch (e1) {
+    try {
+      // Some versions expose a CJS build but don't export it at package root
+      const cjs = require('vite-plugin-prerender/dist/index.cjs');
+      return cjs.default ?? cjs;
+    } catch (e2) {
+      console.warn('[vite] prerender plugin not available:', (e2?.message || e1?.message));
+      return null;
+    }
+  }
+}
+
 const isDev = process.env.NODE_ENV !== 'production';
 let inlineEditPlugin, editModeDevPlugin;
 
@@ -178,23 +199,43 @@ const addTransformIndexHtml = {
 
 console.warn = () => {};
 
-const logger = createLogger()
-const loggerError = logger.error
-
+const logger = createLogger();
+const loggerError = logger.error;
 logger.error = (msg, options) => {
 	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) {
 		return;
 	}
-
 	loggerError(msg, options);
-}
+};
+
+// Resolve the prerender plugin (Vite supports async config)
+const Prerender = await loadPrerenderPlugin();
 
 export default defineConfig({
 	customLogger: logger,
 	plugins: [
 		...(isDev ? [inlineEditPlugin(), editModeDevPlugin()] : []),
 		react(),
-		addTransformIndexHtml
+		addTransformIndexHtml,
+
+		// Add prerender plugin only if it loaded successfully
+		...(Prerender ? [
+			Prerender({
+				routes: (() => {
+					try { return JSON.parse(readFileSync('.prerender-routes.json', 'utf-8')); }
+					catch { return ['/']; } // fallback if the routes file isn't there
+				})(),
+				renderAfterDocumentEvent: 'app-rendered', // fire after async route data is ready
+				staticDir: 'dist',
+				postProcess: (c) => {
+					// write /route/index.html (good for static hosting)
+					c.outputPath = c.route.endsWith('/')
+						? c.outputPath
+						: c.outputPath.replace(/\.html$/, '/index.html');
+					return c;
+				}
+			})
+		] : [])
 	],
 	server: {
 		cors: true,
@@ -204,7 +245,7 @@ export default defineConfig({
 		allowedHosts: true,
 	},
 	resolve: {
-		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
+		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json' ],
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},

@@ -1,0 +1,17 @@
+/* Example vite.config.ts additions */
+import Prerender from 'vite-plugin-prerender';
+import { readFileSync } from 'fs';
+
+/* inside defineConfig({ plugins: [ ... ] }) */
+Prerender({
+  routes: (() => {
+    try { return JSON.parse(readFileSync('.prerender-routes.json','utf-8')); }
+    catch { return ['/']; }
+  })(),
+  renderAfterDocumentEvent: 'app-rendered',
+  staticDir: 'dist',
+  postProcess: (c) => {
+    c.outputPath = c.route.endsWith('/') ? c.outputPath : c.outputPath.replace(/\.html$/, '/index.html');
+    return c;
+  }
+})

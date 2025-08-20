@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -9,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import { Button } from '@/components/ui/button';
 import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import { signalPrerenderReady } from '@/lib/prerenderReady'; // ✅ NEW
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -19,7 +19,7 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      
+
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -35,14 +35,23 @@ const BlogPage = () => {
       if (error) {
         console.error('Error fetching posts:', error);
         setError('Could not fetch blog posts. Please try again later.');
+        setPosts([]); // keep state predictable
       } else {
-        setPosts(data);
+        setPosts(data || []);
+        setError(null);
       }
       setLoading(false);
     };
 
     fetchPosts();
   }, []);
+
+  // ✅ Signal prerender readiness when loading has finished (success or error)
+  useEffect(() => {
+    if (!loading) {
+      signalPrerenderReady();
+    }
+  }, [loading, error, posts.length]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -138,9 +147,7 @@ const BlogPage = () => {
                       <p className="text-muted-foreground">{post.excerpt}</p>
                     </CardContent>
                     <CardFooter className="flex justify-between items-center">
-                      <div className="text-sm text-muted-foreground">
-                        {/* Date removed from blog summary page */}
-                      </div>
+                      <div className="text-sm text-muted-foreground" />
                       <Button asChild>
                         <Link to={{ pathname: `/about/blog/${post.slug}`, search: queryParams }}>Read More</Link>
                       </Button>

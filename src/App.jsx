@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
@@ -54,6 +55,7 @@ const App = () => {
               <Route path="/about/case-studies/:slug" element={<CaseStudyDetailPage />} />
               <Route path="/about/blog" element={<BlogPage />} />
               <Route path="/about/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/blog" element={<Navigate to="/about/blog" replace />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/services/:slug" element={<ServiceDetailPage />} />
               <Route path="/who-we-help" element={<WhoWeHelpPage />} />
