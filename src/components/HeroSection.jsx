@@ -53,7 +53,7 @@ const HeroSection = () => {
         <img
           src={heroImageUrl}
           alt="Abstract hero background showing a stylized roadmap or navigation interface with glowing lines and waypoints, symbolizing a journey to success."
-          className="w-full h-full object-contain md:object-cover object-top md:object-center"  /* mobile no-zoom */
+          className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
