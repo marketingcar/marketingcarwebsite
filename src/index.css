@@ -230,3 +230,72 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
   background-clip: text;
   color: transparent;
 }
+/* =========================
+   Nav links: gradient on hover + active
+   (works for desktop + mobile; excludes button-styled links)
+   ========================= */
+
+/* Optional: smoother color transitions */
+.header nav a,
+.site-nav a,
+.main-nav a,
+.nav-mobile a,
+.mobile-menu a {
+  transition: color 200ms ease, background-image 200ms ease;
+}
+
+/* Desktop menus */
+.header nav a:not(.btn):not(.button):not([role="button"]),
+.site-nav a:not(.btn):not(.button):not([role="button"]),
+.main-nav a:not(.btn):not(.button):not([role="button"]) {
+  color: hsl(var(--foreground));
+}
+
+.header nav a:hover:not(.btn):not(.button):not([role="button"]),
+.header nav a:focus-visible:not(.btn):not(.button):not([role="button"]),
+.header nav a[aria-current="page"]:not(.btn):not(.button):not([role="button"]),
+.site-nav a:hover:not(.btn):not(.button):not([role="button"]),
+.site-nav a:focus-visible:not(.btn):not(.button):not([role="button"]),
+.site-nav a[aria-current="page"]:not(.btn):not(.button):not([role="button"]),
+.main-nav a:hover:not(.btn):not(.button):not([role="button"]),
+.main-nav a:focus-visible:not(.btn):not(.button):not([role="button"]),
+.main-nav a[aria-current="page"]:not(.btn):not(.button):not([role="button"]) {
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Mobile menus */
+.nav-mobile a:hover,
+.nav-mobile a:focus-visible,
+.nav-mobile a[aria-current="page"],
+.mobile-menu a:hover,
+.mobile-menu a:focus-visible,
+.mobile-menu a[aria-current="page"] {
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fallback for very old browsers (no background-clip support) */
+@supports not (-webkit-background-clip: text) {
+  .header nav a:hover,
+  .header nav a:focus-visible,
+  .header nav a[aria-current="page"],
+  .site-nav a:hover,
+  .site-nav a:focus-visible,
+  .site-nav a[aria-current="page"],
+  .main-nav a:hover,
+  .main-nav a:focus-visible,
+  .main-nav a[aria-current="page"],
+  .nav-mobile a:hover,
+  .nav-mobile a:focus-visible,
+  .nav-mobile a[aria-current="page"],
+  .mobile-menu a:hover,
+  .mobile-menu a:focus-visible,
+  .mobile-menu a[aria-current="page"] {
+    color: #25EBD1; /* readable fallback */
+  }
+}
