@@ -3,11 +3,11 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
+"scripts": {
     "dev": "vite",
-  "build": "node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs",
-  "postbuild": "node scripts/inject-og-into-html.mjs",
-  "preview": "vite preview",
+    "build": "node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/generate-sitemaps.mjs && node scripts/inject-og-into-html.mjs",
+    "postbuild": "node scripts/generate-sitemaps.mjs && node scripts/inject-og-into-html.mjs",
+    "preview": "vite preview",
     "build:routes": "node scripts/prerender.routes.mjs"
   },
   "dependencies": {

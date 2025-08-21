@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://marketingcar.com/sitemap.xml
+Sitemap: https://marketingcar.com/sitemap.txt

@@ -201,14 +201,22 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 }
 
 /* =========================
-   Mobile text spillover protection
+   Mobile text spillover protection (scoped)
    ========================= */
 @layer base {
-  /* Prevent long words/URLs from breaking layouts on small screens */
-  .prose, h1, h2, h3, p, a, button, li {
-    overflow-wrap: anywhere;
-    word-break: normal;
+  /* Body text: allow safe breaks for long URLs and long words */
+  .prose p, p, a, button, li {
+    overflow-wrap: break-word;
+    word-break: break-word;
     hyphens: auto;
+  }
+
+  /* Headings: do NOT split words and balance lines */
+  h1, .prose h1, h2, h3 {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
+    text-wrap: balance;
   }
 }
 
@@ -230,6 +238,7 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
   background-clip: text;
   color: transparent;
 }
+
 /* =========================
    Nav links: gradient on hover + active
    (works for desktop + mobile; excludes button-styled links)
