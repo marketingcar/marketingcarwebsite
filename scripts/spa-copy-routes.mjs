@@ -21,13 +21,18 @@ if (!existsSync(indexSrc)) {
   process.exit(1);
 }
 
+const normalize = r => {
+  if (!r) return '/';
+  let out = r.startsWith('/') ? r : `/${r}`;
+  if (out !== '/' && !out.endsWith('/')) out += '/';
+  return out.replace(/\/{2,}/g, '/');
+};
+
 let count = 0;
 for (const r of routes) {
-  const route = typeof r === 'string' ? r : r?.route;
+  const route = normalize(typeof r === 'string' ? r : r?.route);
   if (!route) continue;
-  // normalize
-  const clean = route === '/' ? '/' : route.replace(/\/+$/, '');
-  const targetDir = clean === '/' ? dist : path.join(dist, clean);
+  const targetDir = route === '/' ? dist : path.join(dist, route);
   const target = path.join(targetDir, 'index.html');
   mkdirSync(targetDir, { recursive: true });
   copyFileSync(indexSrc, target);

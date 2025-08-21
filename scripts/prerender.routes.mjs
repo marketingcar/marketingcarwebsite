@@ -1,57 +1,103 @@
-// If you use dotenv, keep this line. If you prefer Node's --env-file, remove it.
-import 'dotenv/config';
-
-import { fileURLToPath } from 'url';
+// scripts/prerender.routes.mjs
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { writeFileSync } from 'node:fs';
-import { createClient } from '@supabase/supabase-js';
+import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const out = path.resolve(__dirname, '../.prerender-routes.json');
+const root = path.resolve(__dirname, '..');
 
-// Core static routes you want prerendered
-const staticRoutes = [
-  '/',
-  '/about',
-  '/services',
-  '/who-we-help',
-  '/contact',
-  '/book-now',
-  '/about/blog',
-  '/lp-free-marketing-tips',
-  '/lp-webinar-1',
-  '/lp-webinar-2'
+// --- helpers ---
+const normalize = r => {
+  if (!r) return '/';
+  let out = r.startsWith('/') ? r : `/${r}`;
+  if (out !== '/' && !out.endsWith('/')) out += '/';
+  return out.replace(/\/{2,}/g, '/');
+};
+
+async function safeImport(modPath) {
+  try { return await import(modPath); } catch { return null; }
+}
+
+// Try multiple extensions for who-we-help data
+const whoCandidates = [
+  path.join(root, 'src', 'data', 'whoWeHelpData.js'),
+  path.join(root, 'src', 'data', 'whoWeHelpData.mjs'),
+  path.join(root, 'src', 'data', 'whoWeHelpData.json'),
+  path.join(root, 'src', 'data', 'whoWeHelpData.jsx'),
+  path.join(root, 'src', 'data', 'whoWeHelpData.ts'),
+  path.join(root, 'src', 'data', 'whoWeHelpData.tsx'),
 ];
 
-async function fetchBlogRoutes() {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
-    console.warn('[prerender] Missing SUPABASE_URL or SUPABASE_ANON_KEY; continuing with static routes only.');
-    return [];
+// Load services data (JS module is fine in Node)
+const servicesMod = await safeImport(path.join(root, 'src', 'data', 'servicesData.js'));
+const servicesData = (servicesMod?.services || servicesMod?.default || []).filter(Boolean);
+
+// Load whoWeHelp from a JS-friendly module if possible
+let whoWeHelp = [];
+let whoSourceUsed = null;
+
+for (const candidate of whoCandidates) {
+  if (!existsSync(candidate)) continue;
+  whoSourceUsed = candidate;
+
+  // If it’s a JS/MJS/JSON, import directly
+  if (/\.(m?js|json)$/.test(candidate)) {
+    const m = await safeImport(candidate);
+    whoWeHelp = (m?.whoWeHelp || m?.default || []).filter(Boolean);
+    break;
   }
 
-  try {
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+  // Otherwise it’s JSX/TS/TSX: read and regex slugs
+  if (/\.(jsx|ts|tsx)$/.test(candidate)) {
+    const src = readFileSync(candidate, 'utf8');
 
-    // Select slugs from your "posts" table (no 'published' filter since that column isn't in your schema)
-    const { data, error } = await supabase
-      .from('posts')
-      .select('slug')
-      .order('created_at', { ascending: false });
+    // 1) Try to parse explicit arrays like whoWeHelp = [{ slug: 'therapists' }, ...]
+    const slugRegex = /slug\s*:\s*['"]([^'"]+)['"]/g;
+    const found = new Set();
+    for (let m; (m = slugRegex.exec(src)); ) found.add(m[1]);
 
-    if (error) throw error;
+    // 2) Also catch hardcoded links like "/who-we-help/<slug>"
+    const linkRegex = /['"`]\/who-we-help\/([^\/'"\s]+)\/?['"`]/g;
+    for (let m; (m = linkRegex.exec(src)); ) found.add(m[1]);
 
-    return (data ?? [])
-      .map(r => r?.slug)
-      .filter(Boolean)
-      .map(slug => `/about/blog/${slug}`);
-  } catch (e) {
-    console.warn('[prerender] Supabase fetch failed:', e.message);
-    return [];
+    whoWeHelp = Array.from(found).map(slug => ({ slug }));
+    break;
   }
 }
 
-const blogRoutes = await fetchBlogRoutes();
-const routes = [...new Set([...staticRoutes, ...blogRoutes])];
+// Base routes
+const base = [
+  '/',
+  '/about/',
+  '/services/',
+  '/who-we-help/',
+  '/contact/',
+];
 
-writeFileSync(out, JSON.stringify(routes, null, 2));
-console.log(`[prerender] Wrote ${routes.length} routes -> ${out}`);
+// Build service subpages
+const serviceRoutes = servicesData
+  .map(s => s?.slug)
+  .filter(Boolean)
+  .map(slug => normalize(`/services/${slug}/`));
+
+// Build who-we-help subpages
+const whoRoutes = (whoWeHelp || [])
+  .map(w => w?.slug || w?.path || w?.id)
+  .filter(Boolean)
+  .map(slug => normalize(`/who-we-help/${slug}/`));
+
+// Merge + dedupe
+const set = new Set([...base.map(normalize), ...serviceRoutes, ...whoRoutes]);
+const routes = Array.from(set).sort((a, b) => {
+  if (a === '/') return -1;
+  if (b === '/') return 1;
+  return a.localeCompare(b);
+});
+
+// Write output
+const outPath = path.join(root, '.prerender-routes.json');
+writeFileSync(outPath, JSON.stringify(routes, null, 2));
+
+console.log(`[prerender] services slugs: ${serviceRoutes.length}`);
+console.log(`[prerender] who-we-help from: ${whoSourceUsed || 'not found'} (${whoRoutes.length} routes)`);
+console.log(`[prerender] wrote ${routes.length} routes to .prerender-routes.json`);

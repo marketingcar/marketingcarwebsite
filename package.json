@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
+    "scripts": {
     "dev": "vite",
     "build": "rimraf dist && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
     "preview": "vite preview",
