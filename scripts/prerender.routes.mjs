@@ -6,98 +6,102 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 
-// --- helpers ---
-const normalize = r => {
+const normalize = (r) => {
   if (!r) return '/';
   let out = r.startsWith('/') ? r : `/${r}`;
   if (out !== '/' && !out.endsWith('/')) out += '/';
   return out.replace(/\/{2,}/g, '/');
 };
 
-async function safeImport(modPath) {
-  try { return await import(modPath); } catch { return null; }
-}
+const joinRoute = (base, slug) => {
+  let b = normalize(base);
+  if (!b.endsWith('/')) b += '/';
+  let s = String(slug || '').replace(/^\/+|\/+$/g, '');
+  return normalize(`${b}${s}/`);
+};
 
-// Try multiple extensions for who-we-help data
-const whoCandidates = [
-  path.join(root, 'src', 'data', 'whoWeHelpData.js'),
-  path.join(root, 'src', 'data', 'whoWeHelpData.mjs'),
-  path.join(root, 'src', 'data', 'whoWeHelpData.json'),
-  path.join(root, 'src', 'data', 'whoWeHelpData.jsx'),
-  path.join(root, 'src', 'data', 'whoWeHelpData.ts'),
-  path.join(root, 'src', 'data', 'whoWeHelpData.tsx'),
-];
+const read = (p) => readFileSync(p, 'utf8');
 
-// Load services data (JS module is fine in Node)
-const servicesMod = await safeImport(path.join(root, 'src', 'data', 'servicesData.js'));
-const servicesData = (servicesMod?.services || servicesMod?.default || []).filter(Boolean);
-
-// Load whoWeHelp from a JS-friendly module if possible
-let whoWeHelp = [];
-let whoSourceUsed = null;
-
-for (const candidate of whoCandidates) {
-  if (!existsSync(candidate)) continue;
-  whoSourceUsed = candidate;
-
-  // If it’s a JS/MJS/JSON, import directly
-  if (/\.(m?js|json)$/.test(candidate)) {
-    const m = await safeImport(candidate);
-    whoWeHelp = (m?.whoWeHelp || m?.default || []).filter(Boolean);
-    break;
-  }
-
-  // Otherwise it’s JSX/TS/TSX: read and regex slugs
-  if (/\.(jsx|ts|tsx)$/.test(candidate)) {
-    const src = readFileSync(candidate, 'utf8');
-
-    // 1) Try to parse explicit arrays like whoWeHelp = [{ slug: 'therapists' }, ...]
-    const slugRegex = /slug\s*:\s*['"]([^'"]+)['"]/g;
-    const found = new Set();
-    for (let m; (m = slugRegex.exec(src)); ) found.add(m[1]);
-
-    // 2) Also catch hardcoded links like "/who-we-help/<slug>"
-    const linkRegex = /['"`]\/who-we-help\/([^\/'"\s]+)\/?['"`]/g;
-    for (let m; (m = linkRegex.exec(src)); ) found.add(m[1]);
-
-    whoWeHelp = Array.from(found).map(slug => ({ slug }));
-    break;
+// 1) Read all <Route path="..."> from App.jsx and ignore redirects
+const appPath = path.join(root, 'src', 'App.jsx');
+let declaredRoutes = [];
+if (existsSync(appPath)) {
+  const src = read(appPath);
+  const routeRegex = /<Route\s+path\s*=\s*["']([^"']+)["']\s+element\s*=\s*{([^}]+)}/g;
+  let m;
+  while ((m = routeRegex.exec(src))) {
+    const p = m[1];
+    const el = m[2];
+    if (el.includes('Navigate')) continue; // skip redirects like /blog -> /about/blog
+    declaredRoutes.push(p);
   }
 }
 
-// Base routes
-const base = [
-  '/',
-  '/about/',
-  '/services/',
-  '/who-we-help/',
-  '/contact/',
+// 2) Extract slugs by regex so JSX in data files will not break Node
+function extractSlugsFrom(filePath) {
+  if (!existsSync(filePath)) return [];
+  const src = read(filePath);
+  const found = new Set();
+  const slugRegex = /slug\s*:\s*['"]([^'"]+)['"]/g;
+  let m;
+  while ((m = slugRegex.exec(src))) found.add(m[1]);
+  return Array.from(found);
+}
+
+// Data sources
+const servicesFile = path.join(root, 'src', 'data', 'servicesData.js');
+const whoFile = path.join(root, 'src', 'data', 'whoWeHelpData.jsx'); // exports `professionals`
+const caseStudiesFile = path.join(root, 'src', 'data', 'caseStudiesData.jsx');
+const blogFiles = [
+  path.join(root, 'src', 'data', 'localBlogData.js'),
+  path.join(root, 'src', 'data', 'blogPosts.js'),
 ];
 
-// Build service subpages
-const serviceRoutes = servicesData
-  .map(s => s?.slug)
-  .filter(Boolean)
-  .map(slug => normalize(`/services/${slug}/`));
+const serviceSlugs = extractSlugsFrom(servicesFile);
+const whoSlugs = extractSlugsFrom(whoFile);
+const caseSlugs = extractSlugsFrom(caseStudiesFile);
 
-// Build who-we-help subpages
-const whoRoutes = (whoWeHelp || [])
-  .map(w => w?.slug || w?.path || w?.id)
-  .filter(Boolean)
-  .map(slug => normalize(`/who-we-help/${slug}/`));
+let blogSlugs = [];
+for (const f of blogFiles) {
+  const slugs = extractSlugsFrom(f);
+  if (slugs.length) { blogSlugs = slugs; break; }
+}
 
-// Merge + dedupe
-const set = new Set([...base.map(normalize), ...serviceRoutes, ...whoRoutes]);
-const routes = Array.from(set).sort((a, b) => {
-  if (a === '/') return -1;
-  if (b === '/') return 1;
-  return a.localeCompare(b);
-});
+// 3) Build routes
+const base = new Set([
+  '/', '/about/', '/services/', '/who-we-help/', '/contact/', '/book-now/',
+  '/lp-free-marketing-tips/', '/lp-spinning-wheels/', '/lp-spinning-wheels-therapists/',
+  '/lp-spinning-wheels-trades/', '/lp-webinar-1/', '/lp-webinar-2/', '/thank-you/',
+  '/webinars/', '/case-studies/', '/about/case-studies/', '/about/the-marketing-car/',
+  '/about/webinars/', '/about/blog/'
+].map(normalize));
 
-// Write output
-const outPath = path.join(root, '.prerender-routes.json');
-writeFileSync(outPath, JSON.stringify(routes, null, 2));
+// add non dynamic routes declared in App.jsx
+for (const p of declaredRoutes) {
+  if (!p.includes('/:')) base.add(normalize(p));
+}
 
-console.log(`[prerender] services slugs: ${serviceRoutes.length}`);
-console.log(`[prerender] who-we-help from: ${whoSourceUsed || 'not found'} (${whoRoutes.length} routes)`);
-console.log(`[prerender] wrote ${routes.length} routes to .prerender-routes.json`);
+// expand dynamics according to what App.jsx actually declares
+const needsServices = declaredRoutes.some(p => p.includes('/services/:slug'));
+const needsWho = declaredRoutes.some(p => p.includes('/who-we-help/:slug'));
+const needsCase = declaredRoutes.some(p => p.includes('/about/case-studies/:slug') || p.includes('/case-studies/:slug'));
+const needsBlog = declaredRoutes.some(p => p.includes('/about/blog/:slug') || p.includes('/blog/:slug'));
+
+if (needsServices) serviceSlugs.forEach(s => base.add(joinRoute('/services', s)));
+if (needsWho) whoSlugs.forEach(s => base.add(joinRoute('/who-we-help', s)));
+if (needsCase) {
+  const caseBase = declaredRoutes.find(p => p.includes('/about/case-studies/:slug')) ? '/about/case-studies' : '/case-studies';
+  caseSlugs.forEach(s => base.add(joinRoute(caseBase, s)));
+}
+if (needsBlog) {
+  const blogBase = declaredRoutes.find(p => p.includes('/about/blog/:slug')) ? '/about/blog' : '/blog';
+  blogSlugs.forEach(s => base.add(joinRoute(blogBase, s)));
+}
+
+// 4) Write
+const routes = Array.from(base).sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
+writeFileSync(path.join(root, '.prerender-routes.json'), JSON.stringify(routes, null, 2));
+
+console.log(`[prerender] Declared routes: ${declaredRoutes.length}`);
+console.log(`[prerender] Slugs — services:${serviceSlugs.length} who:${whoSlugs.length} case:${caseSlugs.length} blog:${blogSlugs.length}`);
+console.log(`[prerender] Total routes written: ${routes.length}`);
