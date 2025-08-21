@@ -59,7 +59,7 @@ const Footer = () => {
           </div>
 
           {/* Middle: CTA button (2nd on mobile, 2nd on desktop) */}
-          <div className="order-2 md:order-2">
+          {/* <div className="order-2 md:order-2">
             <div className="flex justify-center md:justify-center">
               <Button
                 asChild
@@ -71,7 +71,7 @@ const Footer = () => {
                 </Link>
               </Button>
             </div>
-          </div>
+          </div> */}
 
           {/* Right: Newsletter (1st on mobile, 3rd on desktop) */}
           <div className="order-1 md:order-3">
