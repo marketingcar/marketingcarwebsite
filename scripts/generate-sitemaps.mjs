@@ -38,25 +38,41 @@ function walkHtml(dir, base = dist) {
   }
   return out;
 }
-const crawled = walkHtml(dist);
+const crawled = existsSync(dist) ? walkHtml(dist) : [];
 
 // 3) Merge and dedupe
 const map = new Map();
-for (const r of routeList) map.set(r.endsWith('/') ? r.slice(0, -1) || '/' : r, { route: r });
+for (const r of routeList) {
+  const route = typeof r === 'string' ? r : r?.route;
+  if (!route) continue;
+  const key = route.endsWith('/') ? route.slice(0, -1) || '/' : route;
+  map.set(key, { route: key, mtime: undefined });
+}
 for (const { route, mtime } of crawled) {
   const key = route.endsWith('/') ? route.slice(0, -1) || '/' : route;
-  map.set(key, { route, mtime });
+  map.set(key, { route: key, mtime });
+}
+
+// 3a) Hard-guarantee the homepage
+if (!map.has('/')) {
+  let mtime;
+  const indexPath = path.join(dist, 'index.html');
+  if (existsSync(indexPath)) {
+    try { mtime = statSync(indexPath).mtime; } catch {}
+  }
+  map.set('/', { route: '/', mtime });
 }
 
 const entries = [...map.values()].sort((a, b) => a.route.localeCompare(b.route));
-const urls = entries.map(e => new URL(e.route || '/', SITE_URL).href);
+const toAbs = r => new URL(r || '/', SITE_URL).href;
+const urls = entries.map(e => toAbs(e.route));
 
 // 4) Write sitemap.xml
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   entries.map(({ route, mtime }) => {
-    const loc = new URL(route || '/', SITE_URL).href;
+    const loc = toAbs(route);
     const lastmod = mtime ? `<lastmod>${new Date(mtime).toISOString()}</lastmod>` : '';
     return `  <url><loc>${loc}</loc>${lastmod}</url>`;
   }).join('\n') +
