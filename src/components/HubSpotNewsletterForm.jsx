@@ -41,7 +41,7 @@ const HubSpotNewsletterForm = () => {
         };
     }, []);
 
-    return <div id="hubspot-newsletter-form-container" ref={containerRef}></div>;
+    return <div id="hubspot-newsletter-form-container" ref={containerRef} className="min-h-[200px] w-full"></div>;
 };
 
 export default HubSpotNewsletterForm;

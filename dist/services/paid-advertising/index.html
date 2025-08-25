@@ -4,29 +4,40 @@
 		<meta name="generator" content="Hostinger Horizons">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Title and meta description will be managed by React Helmet Async -->
+		<!-- Preload critical resources -->
+		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png" as="image">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+		<link rel="dns-prefetch" href="https://horizons-cdn.hostinger.com">
+		<link rel="dns-prefetch" href="https://connect.facebook.net">
+		<link rel="dns-prefetch" href="https://js.hs-scripts.com">
+		<link rel="dns-prefetch" href="https://js.hsforms.net">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 		<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet"></noscript>
-		<!-- Meta Pixel Code -->
-		<script async="">
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '1070904028444615');
-		fbq('track', 'PageView');
+		<!-- Meta Pixel Code - deferred -->
+		<script>
+		window.addEventListener('load', function() {
+			setTimeout(function() {
+				!function(f,b,e,v,n,t,s)
+				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+				if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+				n.queue=[];t=b.createElement(e);t.async=!0;
+				t.src=v;s=b.getElementsByTagName(e)[0];
+				s.parentNode.insertBefore(t,s)}(window, document,'script',
+				'https://connect.facebook.net/en_US/fbevents.js');
+				fbq('init', '1070904028444615');
+				fbq('track', 'PageView');
+			}, 3000);
+		});
 		</script>
 		<!-- End Meta Pixel Code -->
-		<script type="module" crossorigin="" src="/assets/index-4514f9cb.js"></script>
-		<link rel="modulepreload" crossorigin="" href="/assets/react-vendor-cd5379b4.js">
-		<link rel="modulepreload" crossorigin="" href="/assets/radix-ui-b14e77f2.js">
-		<link rel="modulepreload" crossorigin="" href="/assets/framer-motion-c3a037bd.js">
-		<link rel="stylesheet" href="/assets/index-6223390c.css">
+		<script type="module" crossorigin="" src="/assets/index-d01e92b7.js"></script>
+		<link rel="modulepreload" crossorigin="" href="/assets/vendor-57a16143.js">
+		<link rel="modulepreload" crossorigin="" href="/assets/react-vendor-1d0e38c4.js">
+		<link rel="modulepreload" crossorigin="" href="/assets/radix-ui-fb628747.js">
+		<link rel="modulepreload" crossorigin="" href="/assets/framer-motion-48e3f9d7.js">
+		<link rel="stylesheet" href="/assets/index-850612ad.css">
 		<script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
 	const errorDetails = errorObj ? JSON.stringify({
@@ -163,8 +174,20 @@ window.fetch = function(...args) {
 		<!-- End Meta Pixel Code (noscript) -->
 		<div id="root"></div>
 		
-		<!-- Start of HubSpot Embed Code -->
-		<script type="text/javascript" id="hs-script-loader" async="" defer="" src="//js.hs-scripts.com/47574927.js"></script>
+		<!-- Start of HubSpot Embed Code - deferred -->
+		<script>
+		window.addEventListener('load', function() {
+			setTimeout(function() {
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.id = 'hs-script-loader';
+				script.async = true;
+				script.defer = true;
+				script.src = '//js.hs-scripts.com/47574927.js';
+				document.body.appendChild(script);
+			}, 2000);
+		});
+		</script>
 		<!-- End of HubSpot Embed Code -->
 	
 </body></html>

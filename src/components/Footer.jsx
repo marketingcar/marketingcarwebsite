@@ -29,6 +29,9 @@ const Footer = () => {
                 src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-JQ4WH.png"
                 alt="Marketing Car Main Logo"
                 className="h-10 w-auto"
+                width="160"
+                height="40"
+                loading="lazy"
               />
             </div>
             <p className="font-body">
@@ -58,20 +61,10 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Middle: CTA button (2nd on mobile, 2nd on desktop) */}
-          {/* <div className="order-2 md:order-2">
-            <div className="flex justify-center md:justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-6 py-4 shadow-xl transition-transform duration-300 text-primary-foreground font-semibold rounded-2xl"
-              >
-                <Link to="/about/webinars">
-                  Check Out Our Marketing Webinars
-                </Link>
-              </Button>
-            </div>
-          </div> */}
+          {/* Middle: Spacer (2nd on mobile, 2nd on desktop) */}
+          <div className="order-2 md:order-2 hidden md:block">
+            {/* Empty spacer column for desktop layout */}
+          </div>
 
           {/* Right: Newsletter (1st on mobile, 3rd on desktop) */}
           <div className="order-1 md:order-3">
