@@ -6,11 +6,23 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 
+// Safer normalize: trims, strips query/hash, collapses slashes, adds leading slash,
+// ensures trailing slash except root, and guards common catch-all accidents.
 const normalize = (r) => {
-  if (!r) return '/';
-  let out = r.startsWith('/') ? r : `/${r}`;
+  if (!r || typeof r !== 'string') return '/';
+  let out = r.trim().replace(/[?#].*$/, '');
+  if (!out.startsWith('/')) out = `/${out}`;
+  out = out.replace(/\/{2,}/g, '/');
   if (out !== '/' && !out.endsWith('/')) out += '/';
-  return out.replace(/\/{2,}/g, '/');
+  if (out === '/*' || out === '*/') return '/';
+  return out;
+};
+
+// Skip routes that cannot be materialized as static folders
+const isBad = (r) => {
+  if (!r) return true;
+  if (r === '/') return false;
+  return r.includes('*') || r.includes(':') || r.includes('..');
 };
 
 const joinRoute = (base, slug) => {
@@ -76,30 +88,37 @@ const base = new Set([
   '/about/webinars/', '/about/blog/'
 ].map(normalize));
 
-// add non dynamic routes declared in App.jsx
+// add non dynamic routes declared in App.jsx, but skip "*" and params
 for (const p of declaredRoutes) {
-  if (!p.includes('/:')) base.add(normalize(p));
+  if (p && !p.includes('*') && !p.includes(':')) {
+    const norm = normalize(p);
+    if (!isBad(norm)) base.add(norm);
+  }
 }
 
 // expand dynamics according to what App.jsx actually declares
-const needsServices = declaredRoutes.some(p => p.includes('/services/:slug'));
-const needsWho = declaredRoutes.some(p => p.includes('/who-we-help/:slug'));
-const needsCase = declaredRoutes.some(p => p.includes('/about/case-studies/:slug') || p.includes('/case-studies/:slug'));
-const needsBlog = declaredRoutes.some(p => p.includes('/about/blog/:slug') || p.includes('/blog/:slug'));
+const needsServices = declaredRoutes.some(p => typeof p === 'string' && p.includes('/services/:slug'));
+const needsWho = declaredRoutes.some(p => typeof p === 'string' && p.includes('/who-we-help/:slug'));
+const needsCase = declaredRoutes.some(p => typeof p === 'string' && (p.includes('/about/case-studies/:slug') || p.includes('/case-studies/:slug')));
+const needsBlog = declaredRoutes.some(p => typeof p === 'string' && (p.includes('/about/blog/:slug') || p.includes('/blog/:slug')));
 
 if (needsServices) serviceSlugs.forEach(s => base.add(joinRoute('/services', s)));
 if (needsWho) whoSlugs.forEach(s => base.add(joinRoute('/who-we-help', s)));
 if (needsCase) {
-  const caseBase = declaredRoutes.find(p => p.includes('/about/case-studies/:slug')) ? '/about/case-studies' : '/case-studies';
+  const caseBase = declaredRoutes.find(p => typeof p === 'string' && p.includes('/about/case-studies/:slug')) ? '/about/case-studies' : '/case-studies';
   caseSlugs.forEach(s => base.add(joinRoute(caseBase, s)));
 }
 if (needsBlog) {
-  const blogBase = declaredRoutes.find(p => p.includes('/about/blog/:slug')) ? '/about/blog' : '/blog';
+  const blogBase = declaredRoutes.find(p => typeof p === 'string' && p.includes('/about/blog/:slug')) ? '/about/blog' : '/blog';
   blogSlugs.forEach(s => base.add(joinRoute(blogBase, s)));
 }
 
-// 4) Write
-const routes = Array.from(base).sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
+// 4) Clean, sort, write
+const routes = Array.from(base)
+  .map(normalize)
+  .filter(r => !isBad(r))
+  .sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
+
 writeFileSync(path.join(root, '.prerender-routes.json'), JSON.stringify(routes, null, 2));
 
 console.log(`[prerender] Declared routes: ${declaredRoutes.length}`);

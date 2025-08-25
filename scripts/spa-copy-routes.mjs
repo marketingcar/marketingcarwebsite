@@ -9,10 +9,25 @@ const dist = path.join(root, 'dist');
 const routesPath = path.join(root, '.prerender-routes.json');
 
 function normalize(r) {
-  if (!r) return '/';
-  let out = r.startsWith('/') ? r : `/${r}`;
+  if (!r || typeof r !== 'string') return '/';
+  let out = r.trim().replace(/[?#].*$/, '');
+  if (!out.startsWith('/')) out = `/${out}`;
+  out = out.replace(/\/{2,}/g, '/');
   if (out !== '/' && !out.endsWith('/')) out += '/';
-  return out.replace(/\/{2,}/g, '/');
+  if (out === '/*' || out === '*/') return '/';
+  return out;
+}
+
+function isBad(r) {
+  if (!r) return true;
+  if (r === '/') return false;
+  return r.includes('*') || r.includes(':') || r.includes('..');
+}
+
+// Convert a normalized route like "/about/us/" to "about/us/"
+function toRelativeFolder(route) {
+  const rel = route.replace(/^\/+/, '');
+  return rel; // may be empty for root
 }
 
 if (!existsSync(routesPath)) {
@@ -31,11 +46,15 @@ if (!existsSync(indexSrc)) {
   process.exit(1);
 }
 
-// Read and normalize routes
+// Read and sanitize routes
 let routes = [];
 try {
   const raw = JSON.parse(readFileSync(routesPath, 'utf8')) || [];
-  routes = raw.map(r => normalize(typeof r === 'string' ? r : r?.route)).filter(Boolean);
+  routes = raw
+    .map(r => (typeof r === 'string' ? r : r?.route))
+    .filter(Boolean)
+    .map(normalize)
+    .filter(r => !isBad(r));
 } catch (e) {
   console.error('[spa-copy-routes] Failed to read .prerender-routes.json:', e.message);
   process.exit(1);
@@ -50,7 +69,10 @@ for (const route of finalRoutes) {
   // Root already has dist/index.html
   if (route === '/') continue;
 
-  const targetDir = path.join(dist, route); // route already has trailing slash
+  const relFolder = toRelativeFolder(route);
+  if (!relFolder) continue; // safety
+
+  const targetDir = path.join(dist, relFolder);
   const targetFile = path.join(targetDir, 'index.html');
 
   mkdirSync(targetDir, { recursive: true });
