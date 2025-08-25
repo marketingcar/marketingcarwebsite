@@ -252,12 +252,45 @@ export default defineConfig({
 	},
 	build: {
 		rollupOptions: {
-			external: [
-				'@babel/parser',
-				'@babel/traverse',
-				'@babel/generator',
-				'@babel/types'
-			]
-		}
+			output: {
+				// Manual chunk splitting for better caching
+				manualChunks: (id) => {
+					// Vendor chunks
+					if (id.includes('node_modules')) {
+						if (id.includes('framer-motion')) {
+							return 'framer-motion';
+						}
+						if (id.includes('@radix-ui')) {
+							return 'radix-ui';
+						}
+						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+							return 'react-vendor';
+						}
+					}
+				},
+				// Optimize asset file names
+				assetFileNames: (assetInfo) => {
+					const info = assetInfo.name.split('.');
+					const extType = info[info.length - 1];
+					if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+						return `images/[name]-[hash][extname]`;
+					}
+					return `assets/[name]-[hash][extname]`;
+				},
+			},
+		},
+		// Enable tree shaking
+		target: 'es2015',
+		minify: 'terser',
+		terserOptions: {
+			compress: {
+				drop_console: true,
+				drop_debugger: true,
+			},
+		},
+	},
+	// Optimize dependencies
+	optimizeDeps: {
+		include: ['react', 'react-dom', 'framer-motion'],
 	}
 });

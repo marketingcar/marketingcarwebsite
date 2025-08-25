@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import PageTransition from '@/components/PageTransition';
 import HeroSection from '@/components/HeroSection';
 import ServicesSection from '@/components/ServicesSection';
 import OurDriveSection from '@/components/OurDriveSection';
 import CallToActionSection from '@/components/CallToActionSection';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import SEOHelmet from '@/components/SEOHelmet';
 
 const HomePage = () => {
   const organizationSchema = {
@@ -20,12 +20,12 @@ const HomePage = () => {
 
   return (
     <PageTransition>
-      <Helmet>
-        <title>Marketing Car | Full-Service Digital Marketing Agency</title>
-        <meta name="description" content="Marketing Car accelerates your business growth with comprehensive digital marketing solutions. We turn complexity into a smooth ride to your goals." />
-        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
-        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-      </Helmet>
+      <SEOHelmet
+        title="Marketing Car | Full-Service Digital Marketing Agency"
+        description="Marketing Car accelerates your business growth with comprehensive digital marketing solutions. We turn complexity into a smooth ride to your goals."
+        path="/"
+        image="/og/og-default.png"
+      />
       <SchemaMarkup schema={organizationSchema} />
       <HeroSection />
       <ServicesSection />

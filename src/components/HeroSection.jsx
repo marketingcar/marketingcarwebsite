@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import OptimizedImage from '@/components/OptimizedImage';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -50,10 +51,13 @@ const HeroSection = () => {
       animate="visible"
     >
       <div className="absolute inset-0">
-        <img
+        <OptimizedImage
           src={heroImageUrl}
           alt="Abstract hero background showing a stylized roadmap or navigation interface with glowing lines and waypoints, symbolizing a journey to success."
           className="w-full h-full object-cover object-center"
+          priority={true}
+          width={1920}
+          height={1080}
         />
         <div className="absolute inset-0 bg-black/50"></div>
       </div>

@@ -54,9 +54,10 @@ function extractSlugsFrom(filePath) {
   if (!existsSync(filePath)) return [];
   const src = read(filePath);
   const found = new Set();
-  const slugRegex = /slug\s*:\s*['"]([^'"]+)['"]/g;
+  // Handle both JS object and JSON formats
+  const slugRegex = /(^|\s|[{,])slug\s*:\s*['"]([^'"]+)['"]/gm;
   let m;
-  while ((m = slugRegex.exec(src))) found.add(m[1]);
+  while ((m = slugRegex.exec(src))) found.add(m[2]);
   return Array.from(found);
 }
 
@@ -65,8 +66,7 @@ const servicesFile = path.join(root, 'src', 'data', 'servicesData.js');
 const whoFile = path.join(root, 'src', 'data', 'whoWeHelpData.jsx'); // exports `professionals`
 const caseStudiesFile = path.join(root, 'src', 'data', 'caseStudiesData.jsx');
 const blogFiles = [
-  path.join(root, 'src', 'data', 'localBlogData.js'),
-  path.join(root, 'src', 'data', 'blogPosts.js'),
+  path.join(root, 'src', 'data', 'staticBlogPosts.js'),
 ];
 
 const serviceSlugs = extractSlugsFrom(servicesFile);
@@ -75,8 +75,21 @@ const caseSlugs = extractSlugsFrom(caseStudiesFile);
 
 let blogSlugs = [];
 for (const f of blogFiles) {
-  const slugs = extractSlugsFrom(f);
-  if (slugs.length) { blogSlugs = slugs; break; }
+  if (f.includes('staticBlogPosts.js')) {
+    // Special handling for generated static blog posts
+    if (existsSync(f)) {
+      const src = read(f);
+      const found = new Set();
+      const jsonSlugRegex = /"slug":\s*"([^"]+)"/g;
+      let m;
+      while ((m = jsonSlugRegex.exec(src))) found.add(m[1]);
+      blogSlugs = Array.from(found);
+    }
+  } else {
+    const slugs = extractSlugsFrom(f);
+    if (slugs.length) { blogSlugs = slugs; break; }
+  }
+  if (blogSlugs.length) break;
 }
 
 // 3) Build routes

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -35,14 +35,6 @@ const orderedServices = [
   'web-design-development',
 ];
 
-const services = orderedServices.map(slug => {
-  const serviceData = servicesData.find(s => s.slug === slug);
-  const component = componentMap[slug];
-  return {
-    ...serviceData,
-    ...component,
-  };
-});
 
 
 const containerVariants = {
@@ -68,6 +60,17 @@ const itemVariants = {
 };
 
 const ServicesSection = () => {
+  // Memoize processed services data to prevent recreation on every render
+  const services = useMemo(() => {
+    return orderedServices.map(slug => {
+      const serviceData = servicesData.find(s => s.slug === slug);
+      const component = componentMap[slug];
+      return {
+        ...serviceData,
+        ...component,
+      };
+    });
+  }, []); // Empty dependency array - data is static
   return (
     <motion.section
       id="services"
@@ -111,4 +114,4 @@ const ServicesSection = () => {
   );
 };
 
-export default ServicesSection;
+export default React.memo(ServicesSection);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -67,6 +67,21 @@ const DropdownLink = ({
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Memoize close menu callback to prevent recreation
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+
+  // Memoize navigation data to prevent recreation
+  const navigationData = useMemo(() => ({
+    services: services.map(service => ({
+      slug: service.slug,
+      title: service.title
+    })),
+    professionals: professionals.map(prof => ({
+      slug: prof.slug,
+      title: prof.title
+    }))
+  }), []);
   const location = useLocation();
   useEffect(() => {
     const handleScroll = () => {
@@ -75,9 +90,9 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const closeMenu = () => setIsOpen(false);
   
-  const navLinks = (isMobile = false) => <>
+  // Memoize navigation links to prevent recreation
+  const navLinks = useMemo(() => (isMobile = false) => <>
       <NavItem to="/" isMobile={isMobile} closeMenu={closeMenu}>Home</NavItem>
       <DropdownNavItem title="About" isMobile={isMobile} closeMenu={closeMenu}>
         <DropdownLink to="/about" isMobile={isMobile} closeMenu={closeMenu}>About Us</DropdownLink>
@@ -88,7 +103,7 @@ const Header = () => {
       </DropdownNavItem>
       <DropdownNavItem title="Services" isMobile={isMobile} closeMenu={closeMenu}>
         <DropdownLink to="/services" isMobile={isMobile} closeMenu={closeMenu}>All Services</DropdownLink>
-        {services.map(service => (
+        {navigationData.services.map(service => (
           <DropdownLink key={service.slug} to={`/services/${service.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
             {service.title}
           </DropdownLink>
@@ -96,14 +111,14 @@ const Header = () => {
       </DropdownNavItem>
       <DropdownNavItem title="Who We Help" isMobile={isMobile} closeMenu={closeMenu}>
          <DropdownLink to="/who-we-help" isMobile={isMobile} closeMenu={closeMenu}>All Specialties</DropdownLink>
-        {professionals.map(prof => (
+        {navigationData.professionals.map(prof => (
           <DropdownLink key={prof.slug} to={`/who-we-help/${prof.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
             {prof.title}
           </DropdownLink>
         ))}
       </DropdownNavItem>
       <NavItem to="/contact" isMobile={isMobile} closeMenu={closeMenu}>Contact</NavItem>
-    </>;
+    </>, [navigationData, closeMenu]);
   return <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? 'bg-background/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
@@ -149,4 +164,4 @@ const Header = () => {
       </AnimatePresence>
     </header>;
 };
-export default Header;
+export default React.memo(Header);

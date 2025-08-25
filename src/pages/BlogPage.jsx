@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { supabase } from '@/lib/customSupabaseClient';
+import { getAllBlogPosts } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { signalPrerenderReady } from '@/lib/prerenderReady'; // ✅ NEW
 import SEOHelmet from '@/components/SEOHelmet';
+import OptimizedImage from '@/components/OptimizedImage';
 
 
 const BlogPage = () => {
@@ -19,33 +20,21 @@ const BlogPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const loadStaticPosts = () => {
       setLoading(true);
-
-      const { data, error } = await supabase
-        .from('posts')
-        .select(`
-          id,
-          title,
-          slug,
-          excerpt,
-          image_url,
-          created_at
-        `)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching posts:', error);
-        setError('Could not fetch blog posts. Please try again later.');
-        setPosts([]); // keep state predictable
-      } else {
-        setPosts(data || []);
+      try {
+        const staticPosts = getAllBlogPosts();
+        setPosts(staticPosts || []);
         setError(null);
+      } catch (error) {
+        console.error('Error loading static posts:', error);
+        setError('Could not load blog posts. Please try again later.');
+        setPosts([]);
       }
       setLoading(false);
     };
 
-    fetchPosts();
+    loadStaticPosts();
   }, []);
 
   // ✅ Signal prerender readiness when loading has finished (success or error)
@@ -143,7 +132,13 @@ const BlogPage = () => {
               {posts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
                   <Card className="h-full flex flex-col overflow-hidden bg-secondary/20 border-border/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                    <img src={post.image_url} alt={post.title} className="w-full h-48 object-cover aspect-[16/9]" width="400" height="225" loading="lazy" />
+                    <OptimizedImage 
+                      src={post.image_url} 
+                      alt={post.title} 
+                      className="w-full h-48 object-cover aspect-[16/9]" 
+                      width={400} 
+                      height={225} 
+                    />
                     <CardHeader>
                       <CardTitle className="text-2xl font-bold font-heading">{post.title}</CardTitle>
                     </CardHeader>

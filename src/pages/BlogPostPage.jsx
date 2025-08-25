@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { supabase } from '@/lib/customSupabaseClient';
+import { getBlogPostBySlug } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -18,26 +18,26 @@ const BlogPostPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const loadStaticPost = () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('posts')
-        .select(`*`)
-        .eq('slug', slug)
-        .single();
-
-      if (error) {
-        console.error('Error fetching post:', error);
+      try {
+        const staticPost = getBlogPostBySlug(slug);
+        if (staticPost) {
+          setPost(staticPost);
+          setError(null);
+        } else {
+          setError('Could not find this post. It might have been moved or deleted.');
+          setPost(null);
+        }
+      } catch (error) {
+        console.error('Error loading static post:', error);
         setError('Could not find this post. It might have been moved or deleted.');
         setPost(null);
-      } else {
-        setPost(data);
-        setError(null);
       }
       setLoading(false);
     };
 
-    fetchPost();
+    loadStaticPost();
   }, [slug]);
 
   // ✅ Tell the prerender plugin the page is ready (success OR error)
