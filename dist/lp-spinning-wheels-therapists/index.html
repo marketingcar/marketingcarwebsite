@@ -5,39 +5,53 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Title and meta description will be managed by React Helmet Async -->
 		<!-- Preload critical resources -->
-		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png" as="image">
+		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png" as="image" fetchpriority="high">
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" as="style">
+		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png" as="image" fetchpriority="high">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+		<link rel="preconnect" href="https://js.hs-scripts.com">
+		<link rel="preconnect" href="https://js.hsforms.net">
+		<link rel="preconnect" href="https://connect.facebook.net">
 		<link rel="dns-prefetch" href="https://horizons-cdn.hostinger.com">
 		<link rel="dns-prefetch" href="https://connect.facebook.net">
-		<link rel="dns-prefetch" href="https://js.hs-scripts.com">
-		<link rel="dns-prefetch" href="https://js.hsforms.net">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 		<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet"></noscript>
-		<!-- Meta Pixel Code - deferred -->
+		<!-- Meta Pixel Code - deferred further -->
 		<script>
 		window.addEventListener('load', function() {
 			setTimeout(function() {
-				!function(f,b,e,v,n,t,s)
-				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-				if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-				n.queue=[];t=b.createElement(e);t.async=!0;
-				t.src=v;s=b.getElementsByTagName(e)[0];
-				s.parentNode.insertBefore(t,s)}(window, document,'script',
-				'https://connect.facebook.net/en_US/fbevents.js');
-				fbq('init', '1070904028444615');
-				fbq('track', 'PageView');
-			}, 3000);
+				// Only load after user interaction or 5 seconds
+				var hasInteracted = false;
+				var loadPixel = function() {
+					if (hasInteracted) return;
+					hasInteracted = true;
+					!function(f,b,e,v,n,t,s)
+					{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+					n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+					if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+					n.queue=[];t=b.createElement(e);t.async=!0;
+					t.src=v;s=b.getElementsByTagName(e)[0];
+					s.parentNode.insertBefore(t,s)}(window, document,'script',
+					'https://connect.facebook.net/en_US/fbevents.js');
+					fbq('init', '1070904028444615');
+					fbq('track', 'PageView');
+				};
+				['scroll', 'click', 'touchstart'].forEach(function(event) {
+					document.addEventListener(event, loadPixel, {once: true, passive: true});
+				});
+				setTimeout(loadPixel, 5000);
+			}, 1000);
 		});
 		</script>
 		<!-- End Meta Pixel Code -->
-		<script type="module" crossorigin="" src="/assets/index-d01e92b7.js"></script>
-		<link rel="modulepreload" crossorigin="" href="/assets/vendor-57a16143.js">
-		<link rel="modulepreload" crossorigin="" href="/assets/react-vendor-1d0e38c4.js">
-		<link rel="modulepreload" crossorigin="" href="/assets/radix-ui-fb628747.js">
-		<link rel="modulepreload" crossorigin="" href="/assets/framer-motion-48e3f9d7.js">
-		<link rel="stylesheet" href="/assets/index-850612ad.css">
+		<script type="module" crossorigin="" src="/js/index-9a2728772bdc.js"></script>
+		<link rel="modulepreload" crossorigin="" href="/js/vendor-ffe35a34bebf.js">
+		<link rel="modulepreload" crossorigin="" href="/js/react-vendor-2a4cc266f769.js">
+		<link rel="modulepreload" crossorigin="" href="/js/radix-ui-ca2f4293d13c.js">
+		<link rel="modulepreload" crossorigin="" href="/js/framer-motion-2948a043dc81.js">
+		<link rel="modulepreload" crossorigin="" href="/js/components-df07c0d530c5.js">
+		<link rel="stylesheet" href="/assets/index-4a6a731eaacf.css">
 		<script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
 	const errorDetails = errorObj ? JSON.stringify({
@@ -174,17 +188,27 @@ window.fetch = function(...args) {
 		<!-- End Meta Pixel Code (noscript) -->
 		<div id="root"></div>
 		
-		<!-- Start of HubSpot Embed Code - deferred -->
+		<!-- Start of HubSpot Embed Code - deferred more -->
 		<script>
 		window.addEventListener('load', function() {
 			setTimeout(function() {
-				var script = document.createElement('script');
-				script.type = 'text/javascript';
-				script.id = 'hs-script-loader';
-				script.async = true;
-				script.defer = true;
-				script.src = '//js.hs-scripts.com/47574927.js';
-				document.body.appendChild(script);
+				// Only load after user interaction or 7 seconds
+				var hasInteracted = false;
+				var loadHubSpot = function() {
+					if (hasInteracted) return;
+					hasInteracted = true;
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.id = 'hs-script-loader';
+					script.async = true;
+					script.defer = true;
+					script.src = '//js.hs-scripts.com/47574927.js';
+					document.body.appendChild(script);
+				};
+				['scroll', 'click', 'touchstart'].forEach(function(event) {
+					document.addEventListener(event, loadHubSpot, {once: true, passive: true});
+				});
+				setTimeout(loadHubSpot, 7000);
 			}, 2000);
 		});
 		</script>

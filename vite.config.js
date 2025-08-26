@@ -266,33 +266,54 @@ export default defineConfig({
 						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
 							return 'react-vendor';
 						}
+						if (id.includes('lucide-react')) {
+							return 'icons';
+						}
 						// Separate other vendor code
 						return 'vendor';
 					}
+					// Split pages for better caching
+					if (id.includes('/src/pages/')) {
+						return 'pages';
+					}
+					if (id.includes('/src/components/')) {
+						return 'components';
+					}
 				},
-				// Optimize asset file names
+				// Optimize asset file names with longer hashes for better caching
 				assetFileNames: (assetInfo) => {
 					const info = assetInfo.name.split('.');
 					const extType = info[info.length - 1];
 					if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-						return `images/[name]-[hash][extname]`;
+						return `images/[name]-[hash:12][extname]`;
 					}
-					return `assets/[name]-[hash][extname]`;
+					return `assets/[name]-[hash:12][extname]`;
 				},
+				chunkFileNames: `js/[name]-[hash:12].js`,
+				entryFileNames: `js/[name]-[hash:12].js`,
 			},
 		},
 		// Enable tree shaking
-		target: 'es2015',
+		target: 'es2020',
 		minify: 'terser',
 		terserOptions: {
 			compress: {
 				drop_console: true,
 				drop_debugger: true,
+				pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.trace'],
+				unused: true,
+				dead_code: true,
+			},
+			mangle: {
+				safari10: true,
 			},
 		},
+		cssMinify: true,
+		assetsInlineLimit: 4096,
 	},
 	// Optimize dependencies
 	optimizeDeps: {
 		include: ['react', 'react-dom', 'framer-motion'],
+		exclude: ['@supabase/supabase-js']
 	}
 });

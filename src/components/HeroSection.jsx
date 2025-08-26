@@ -40,6 +40,9 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Disable animations if user prefers reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const heroImageUrl = "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png";
   
   return (
@@ -58,20 +61,22 @@ const HeroSection = () => {
           priority={true}
           width={1920}
           height={1080}
+          fetchpriority="high"
+          style={{aspectRatio: '16/9'}}
         />
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
       <div className="relative z-10 max-w-3xl mx-auto">
-      <div className="h-[8rem] sm:h-[10rem] md:h-[12rem] flex items-center justify-center mb-6">
+      <div className="h-[8rem] sm:h-[10rem] md:h-[12rem] flex items-center justify-center mb-6" style={{minHeight: '200px'}}>
           <AnimatePresence mode="wait">
             <motion.h1
               key={titleIndex}
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="text-5xl sm:text-6xl md:text-7xl font-black font-heading mb-6 leading-tight text-foreground"  /* match site H1 weight */
+              exit={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+              className="text-5xl sm:text-6xl md:text-7xl font-black font-heading mb-6 leading-tight text-foreground will-change-transform"
             >
               <span className="block font-black">{titles[titleIndex].line1}</span>
               {titles[titleIndex].line2 && (
@@ -87,7 +92,7 @@ const HeroSection = () => {
           We're your expert mechanics for marketing. Each part of our "car" propels your business forward, turning complexity into a smooth ride to your goals.
         </motion.p>
         <motion.div variants={itemVariants} className="space-x-4">
-          <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold" asChild>
+          <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl will-change-transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold" asChild>
             <Link to="/book-now">
               Ignite Your Growth <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </Link>

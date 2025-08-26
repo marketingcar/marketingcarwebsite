@@ -7,6 +7,7 @@ const OptimizedImage = ({
   priority = false, 
   width, 
   height,
+  fetchpriority,
   ...props 
 }) => {
   return (
@@ -18,6 +19,7 @@ const OptimizedImage = ({
       decoding="async"
       width={width}
       height={height}
+      fetchpriority={priority ? "high" : fetchpriority}
       {...props}
     />
   );

@@ -7,7 +7,19 @@ import '@/index.css';
 import { AuthProvider } from '@/contexts/SupabaseAuthContext';
 import { QueryParamProvider } from '@/contexts/QueryParamContext';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
+
+// Signal that app is ready for prerendering
+if (typeof window !== 'undefined' && window.prerenderReady) {
+  window.prerenderReady = false;
+  setTimeout(() => {
+    window.prerenderReady = true;
+    document.dispatchEvent(new Event('app-rendered'));
+  }, 0);
+}
+
+root.render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>

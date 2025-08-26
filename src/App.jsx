@@ -4,8 +4,10 @@ import { Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
+
+// Lazy load footer for better initial performance
+const Footer = lazy(() => import('@/components/Footer'));
 import TagManager from 'react-gtm-module';
 
 // Lazy load pages for code splitting
@@ -84,7 +86,9 @@ const App = () => {
             </AnimatePresence>
           </Suspense>
         </main>
-        <Footer />
+        <Suspense fallback={<div className="h-64"></div>}>
+          <Footer />
+        </Suspense>
       </div>
       <Toaster />
     </>

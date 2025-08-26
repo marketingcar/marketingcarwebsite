@@ -84,10 +84,17 @@ const Header = () => {
   }), []);
   const location = useLocation();
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
@@ -123,7 +130,7 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           <Link to="/" className="flex-shrink-0" onClick={closeMenu}>
-            <img className="h-14 w-auto" src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png" alt="Marketing Car Logo" />
+            <img className="h-14 w-auto" src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png" alt="Marketing Car Logo" width="200" height="56" loading="eager" />
           </Link>
           <nav className="hidden lg:flex items-center space-x-8">
             {navLinks()}
@@ -151,7 +158,7 @@ const Header = () => {
       }} exit={{
         opacity: 0,
         height: 0
-      }} className="lg:hidden bg-background/95 backdrop-blur-sm">
+      }} className="lg:hidden bg-background/95 backdrop-blur-sm will-change-transform">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks(true)}
             </div>
