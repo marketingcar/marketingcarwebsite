@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { getBlogPostBySlug } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
@@ -8,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
-import { signalPrerenderReady } from '@/lib/prerenderReady'; // ✅ NEW
+import SEOHelmet from '@/components/SEOHelmet';
+import { signalPrerenderReady } from '@/lib/prerenderReady';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
@@ -95,20 +95,13 @@ const BlogPostPage = () => {
 
   return (
     <PageTransition>
-  
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={post.excerpt} />
-        <link rel="canonical" href={pageUrl} />
-
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={post.image_url} />
-        <meta property="og:url" content={pageUrl} />
-
-        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
-        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-      </Helmet>
+      <SEOHelmet
+        title={pageTitle}
+        description={post.excerpt}
+        path={`/about/blog/${post.slug}`}
+        image={post.image_url}
+        type="article"
+      />
 
       <SchemaMarkup schema={blogPostingSchema} />
 

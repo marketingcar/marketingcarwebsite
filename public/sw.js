@@ -3,15 +3,11 @@ const CACHE_NAME = 'marketing-car-v2';
 const STATIC_CACHE = 'static-cache-v2';
 const RUNTIME_CACHE = 'runtime-cache-v2';
 
-// Resources to cache immediately
+// Resources to cache immediately (only same-origin resources)
 const PRECACHE_URLS = [
   '/',
-  '/assets/index.css',
-  '/js/index.js',
-  'https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png',
-  'https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png',
-  'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap',
-  'https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXpsog.woff2'
+  '/mainlogo.png',
+  '/favicon.svg'
 ];
 
 // Install event - precache resources
@@ -70,8 +66,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle image requests
-  if (request.destination === 'image') {
+  // Handle image requests (only same-origin to avoid CORS issues)
+  if (request.destination === 'image' && url.origin === location.origin) {
     event.respondWith(
       caches.match(request)
         .then((response) => {

@@ -131,27 +131,32 @@ const BlogPage = () => {
             >
               {posts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
-                  <Card className="h-full flex flex-col overflow-hidden bg-secondary/20 border-border/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                    <OptimizedImage 
-                      src={post.image_url} 
-                      alt={post.title} 
-                      className="w-full h-48 object-cover aspect-[16/9]" 
-                      width={400} 
-                      height={225} 
-                    />
-                    <CardHeader>
-                      <CardTitle className="text-2xl font-bold font-heading">{post.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <p className="text-muted-foreground">{post.excerpt}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-between items-center">
-                      <div className="text-sm text-muted-foreground" />
-                      <Button asChild>
-                        <Link to={{ pathname: `/about/blog/${post.slug}`, search: queryParams }}>Read More</Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                  <Link 
+                    to={{ pathname: `/about/blog/${post.slug}`, search: queryParams }}
+                    className="block h-full"
+                  >
+                    <Card className="h-full flex flex-col overflow-hidden bg-secondary/20 border-border/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                      <OptimizedImage 
+                        src={post.image_url} 
+                        alt={post.title} 
+                        className="w-full h-48 object-cover aspect-[16/9]" 
+                        width={400} 
+                        height={225} 
+                      />
+                      <CardHeader>
+                        <CardTitle className="text-2xl font-bold font-heading">{post.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-grow">
+                        <p className="text-muted-foreground">{post.excerpt}</p>
+                      </CardContent>
+                      <CardFooter className="flex justify-between items-center">
+                        <div className="text-sm text-muted-foreground" />
+                        <Button variant="ghost" className="pointer-events-none">
+                          Read More
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </Link>
                 </motion.div>
               ))}
             </motion.div>

@@ -5,9 +5,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Title and meta description will be managed by React Helmet Async -->
 		<!-- Preload critical resources -->
-		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png" as="image" fetchpriority="high">
 		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" as="style">
-		<link rel="preload" href="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png" as="image" fetchpriority="high">
+		<script>
+		// Only preload hero image on homepage
+		if (window.location.pathname === '/' || window.location.pathname === '') {
+			const heroPreload = document.createElement('link');
+			heroPreload.rel = 'preload';
+			heroPreload.href = 'https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png';
+			heroPreload.as = 'image';
+			heroPreload.fetchPriority = 'high';
+			document.head.appendChild(heroPreload);
+		}
+		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 		<link rel="preconnect" href="https://js.hs-scripts.com">
@@ -96,7 +105,7 @@
 		});
 		</script>
 		<!-- End Meta Pixel Code -->
-		<script type="module" crossorigin="" src="/js/index-7e2b4cc157e2.js"></script>
+		<script type="module" crossorigin="" src="/js/index-0210318e7306.js"></script>
 		<link rel="modulepreload" crossorigin="" href="/js/vendor-1ee75791255d.js">
 		<link rel="modulepreload" crossorigin="" href="/js/ui-core-f2acf8f293d2.js">
 		<link rel="modulepreload" crossorigin="" href="/js/react-core-e97f0229de14.js">
@@ -104,7 +113,7 @@
 		<link rel="modulepreload" crossorigin="" href="/js/animations-ecbb667bd5bd.js">
 		<link rel="modulepreload" crossorigin="" href="/js/layout-6152fae3f836.js">
 		<link rel="modulepreload" crossorigin="" href="/js/components-fa6cbcc6f735.js">
-		<link rel="stylesheet" href="/assets/index-c9e88e5cb08c.css">
+		<link rel="stylesheet" href="/assets/index-28099ad86b64.css">
 		<script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
 	const errorDetails = errorObj ? JSON.stringify({
@@ -242,27 +251,7 @@ window.fetch = function(...args) {
 		<div id="root"></div>
 		
 		
-		<!-- Preload critical JavaScript modules -->
-		<script>
-		// Preload critical chunks after main bundle starts loading
-		setTimeout(() => {
-			const criticalChunks = [
-				'/js/react-core-',
-				'/js/react-router-',  
-				'/js/ui-core-',
-				'/js/layout-'
-			];
-			
-			criticalChunks.forEach(chunk => {
-				const link = document.createElement('link');
-				link.rel = 'modulepreload';
-				link.as = 'script';
-				// Note: In production, these would have actual hash suffixes
-				link.href = chunk + 'hash.js'; 
-				document.head.appendChild(link);
-			});
-		}, 100);
-		</script>
+		<!-- Module preloading removed - chunks are loaded dynamically -->
 		<!-- Start of HubSpot Embed Code - deferred more -->
 		<script>
 		window.addEventListener('load', function() {
@@ -289,19 +278,6 @@ window.fetch = function(...args) {
 		</script>
 		<!-- End of HubSpot Embed Code -->
 		
-		<!-- Register Service Worker -->
-		<script>
-		if ('serviceWorker' in navigator && location.protocol === 'https:') {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('/sw.js')
-					.then((registration) => {
-						console.log('SW registered: ', registration);
-					})
-					.catch((registrationError) => {
-						console.log('SW registration failed: ', registrationError);
-					});
-			});
-		}
-		</script>
+		<!-- Service Worker disabled to prevent CORS errors -->
 	
 </body></html>
