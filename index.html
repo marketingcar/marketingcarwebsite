@@ -19,6 +19,57 @@
 		<link rel="dns-prefetch" href="https://connect.facebook.net" />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 		<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet"></noscript>
+		<!-- Inline critical hero font for instant LCP -->
+		<link rel="preload" href="https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXpsog.woff2" as="font" type="font/woff2" crossorigin>
+		<style>
+		@font-face {
+			font-family: 'Montserrat';
+			font-style: normal;
+			font-weight: 900;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXpsog.woff2) format('woff2');
+		}
+		
+		/* Critical above-the-fold styles for instant LCP */
+		:root {
+			--background: 0 0% 100%;
+			--foreground: 222.2 84% 4.9%;
+			--muted: 210 40% 96%;
+			--muted-foreground: 215.4 16.3% 46.9%;
+			--primary: 222.2 47.4% 11.2%;
+			--primary-foreground: 210 40% 98%;
+			--accent: 210 40% 96%;
+			--secondary: 210 40% 96%;
+			--highlight: 262.1 83.3% 57.8%;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--background: 222.2 84% 4.9%;
+				--foreground: 210 40% 98%;
+				--muted: 217.2 32.6% 17.5%;
+				--muted-foreground: 215 20.2% 65.1%;
+				--primary: 210 40% 98%;
+				--primary-foreground: 222.2 47.4% 11.2%;
+			}
+		}
+		
+		/* Critical layout and typography */
+		.flex { display: flex; }
+		.flex-col { flex-direction: column; }
+		.flex-grow { flex-grow: 1; }
+		.items-center { align-items: center; }
+		.justify-center { justify-content: center; }
+		.min-h-screen { min-height: 100vh; }
+		.relative { position: relative; }
+		.absolute { position: absolute; }
+		.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+		.z-10 { z-index: 10; }
+		.text-center { text-align: center; }
+		.text-foreground { color: hsl(var(--foreground)); }
+		.bg-background { background-color: hsl(var(--background)); }
+		.overflow-x-hidden { overflow-x: hidden; }
+		</style>
 		<!-- Meta Pixel Code - deferred further -->
 		<script>
 		window.addEventListener('load', function() {
@@ -56,6 +107,28 @@
 		<!-- End Meta Pixel Code (noscript) -->
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
+		
+		<!-- Preload critical JavaScript modules -->
+		<script>
+		// Preload critical chunks after main bundle starts loading
+		setTimeout(() => {
+			const criticalChunks = [
+				'/js/react-core-',
+				'/js/react-router-',  
+				'/js/ui-core-',
+				'/js/layout-'
+			];
+			
+			criticalChunks.forEach(chunk => {
+				const link = document.createElement('link');
+				link.rel = 'modulepreload';
+				link.as = 'script';
+				// Note: In production, these would have actual hash suffixes
+				link.href = chunk + 'hash.js'; 
+				document.head.appendChild(link);
+			});
+		}, 100);
+		</script>
 		<!-- Start of HubSpot Embed Code - deferred more -->
 		<script>
 		window.addEventListener('load', function() {
@@ -81,5 +154,20 @@
 		});
 		</script>
 		<!-- End of HubSpot Embed Code -->
+		
+		<!-- Register Service Worker -->
+		<script>
+		if ('serviceWorker' in navigator && location.protocol === 'https:') {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/sw.js')
+					.then((registration) => {
+						console.log('SW registered: ', registration);
+					})
+					.catch((registrationError) => {
+						console.log('SW registration failed: ', registrationError);
+					});
+			});
+		}
+		</script>
 	</body>
 </html>

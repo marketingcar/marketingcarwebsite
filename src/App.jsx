@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import ScrollToTop from '@/components/ScrollToTop';
+import { modulePreloader } from '@/utils/modulePreloader';
 
 // Lazy load footer for better initial performance
 const Footer = lazy(() => import('@/components/Footer'));
@@ -48,7 +49,15 @@ const App = () => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
       TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
     }
+    
+    // Initialize intelligent module preloading
+    modulePreloader.init();
   }, []);
+
+  // Preload modules for current route
+  useEffect(() => {
+    modulePreloader.preloadForRoute(location.pathname);
+  }, [location.pathname]);
 
   return (
     <>

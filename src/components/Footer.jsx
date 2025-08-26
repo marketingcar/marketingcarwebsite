@@ -4,8 +4,9 @@ import HubSpotNewsletterForm from '@/components/HubSpotNewsletterForm';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
-const Footer = () => {
-  const socialLinks = [
+const Footer = React.memo(() => {
+  // Memoize social links to prevent re-creation
+  const socialLinks = React.useMemo(() => [
     {
       href: "https://facebook.com/themarketingcar",
       label: "Follow us on Facebook",
@@ -13,17 +14,17 @@ const Footer = () => {
     },
     {
       href: "https://www.linkedin.com/company/marketingcar/",
-      label: "Connect with us on LinkedIn",
+      label: "Connect with us on LinkedIn", 
       icon: <Linkedin size={24} />
     }
-  ];
+  ], []);
 
   return (
     <footer className="py-10 px-4 sm:px-8 text-center text-muted-foreground bg-background border-t border-border">
       <div className="container mx-auto">
-        <div className="grid gap-8 items-start md:grid-cols-3">
-          {/* Left: brand, copyright, socials (3rd on mobile, 1st on desktop) */}
-          <div className="order-3 md:order-1 text-center md:text-left">
+        <div className="grid gap-8 items-start md:grid-cols-2">
+          {/* Left: brand, copyright, socials (2nd on mobile, 1st on desktop) */}
+          <div className="order-2 md:order-1 text-center md:text-left">
             <div className="flex justify-center md:justify-start items-center space-x-2 mb-4">
               <img
                 src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-JQ4WH.png"
@@ -61,19 +62,15 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Middle: Spacer (2nd on mobile, 2nd on desktop) */}
-          <div className="order-2 md:order-2 hidden md:block">
-            {/* Empty spacer column for desktop layout */}
-          </div>
 
-          {/* Right: Newsletter (1st on mobile, 3rd on desktop) */}
-          <div className="order-1 md:order-3">
+          {/* Right: Newsletter (1st on mobile, 2nd on desktop) */}
+          <div className="order-1 md:order-2">
             <HubSpotNewsletterForm />
           </div>
         </div>
       </div>
     </footer>
   );
-};
+});
 
 export default Footer;

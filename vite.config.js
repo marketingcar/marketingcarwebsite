@@ -255,28 +255,55 @@ export default defineConfig({
 			output: {
 				// Manual chunk splitting for better caching
 				manualChunks: (id) => {
-					// Vendor chunks
+					// Core React bundle - highest priority
+					if (id.includes('react') || id.includes('react-dom')) {
+						return 'react-core';
+					}
+					
+					// React Router - second priority for navigation
+					if (id.includes('react-router-dom')) {
+						return 'react-router';
+					}
+					
+					// Critical UI components
+					if (id.includes('@radix-ui') || id.includes('class-variance-authority') || id.includes('clsx')) {
+						return 'ui-core';
+					}
+					
+					// Icons - separate chunk since they're used selectively
+					if (id.includes('lucide-react')) {
+						return 'icons';
+					}
+					
+					// Animation library - separate and load later
+					if (id.includes('framer-motion')) {
+						return 'animations';
+					}
+					
+					// Form and utility libraries
+					if (id.includes('@supabase') || id.includes('react-helmet-async') || id.includes('react-gtm-module')) {
+						return 'utilities';
+					}
+					
+					// Other vendor code
 					if (id.includes('node_modules')) {
-						if (id.includes('framer-motion')) {
-							return 'framer-motion';
-						}
-						if (id.includes('@radix-ui')) {
-							return 'radix-ui';
-						}
-						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-							return 'react-vendor';
-						}
-						if (id.includes('lucide-react')) {
-							return 'icons';
-						}
-						// Separate other vendor code
 						return 'vendor';
 					}
-					// Split pages for better caching
+					
+					// App code splitting
 					if (id.includes('/src/pages/')) {
+						// Split landing pages separately (they're entry points)
+						if (id.includes('HomePage') || id.includes('LpSpinning') || id.includes('LpWebinar')) {
+							return 'landing-pages';
+						}
 						return 'pages';
 					}
+					
+					// Core components used across pages
 					if (id.includes('/src/components/')) {
+						if (id.includes('Header') || id.includes('Footer') || id.includes('SEO') || id.includes('OptimizedImage')) {
+							return 'layout';
+						}
 						return 'components';
 					}
 				},
