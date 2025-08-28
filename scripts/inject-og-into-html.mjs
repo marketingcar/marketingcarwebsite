@@ -34,6 +34,38 @@ if (existsSync(overridesPath)) {
   }
 }
 
+// Load blog post data for dynamic OG tags
+const blogDataPath = path.join(root, 'src/data/staticBlogPosts.js');
+let blogPosts = [];
+if (existsSync(blogDataPath)) {
+  try {
+    const blogDataContent = readFileSync(blogDataPath, 'utf8');
+    // Extract the blogPosts array from the JS module
+    const blogPostsMatch = blogDataContent.match(/export const blogPosts = (\[[\s\S]*?\]);/);
+    if (blogPostsMatch) {
+      blogPosts = JSON.parse(blogPostsMatch[1]);
+      console.log('[og-inject] Loaded', blogPosts.length, 'blog posts');
+    }
+  } catch (e) {
+    console.warn('[og-inject] Could not parse blog posts:', e.message);
+  }
+}
+
+// Create blog post overrides
+const blogOverrides = {};
+for (const post of blogPosts) {
+  const routePath = `/about/blog/${post.slug}`;
+  blogOverrides[routePath] = {
+    title: `${post.title} | Marketing Car Blog`,
+    description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim() + '...',
+    image: post.image_url || '/og/og-default.png',
+    type: 'article'
+  };
+}
+
+// Merge blog overrides with manual overrides
+overrides = { ...overrides, ...blogOverrides };
+
 function walk(dir) {
   const out = [];
   if (!existsSync(dir)) return out;
