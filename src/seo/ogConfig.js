@@ -24,6 +24,6 @@ export const SEO_DEFAULTS = {
   SITE_URL: import.meta.env.VITE_SITE_URL || 'https://www.marketingcar.com',
   SITE_NAME: 'Marketing Car',
   TITLE: 'Marketing Car',
-  DESCRIPTION: 'Marketing that actually drives your business forward.',
+  DESCRIPTION: 'Marketing that actually drives your small business forward.',
   IMAGE: '/og/og-default.png', // served from /public
 };

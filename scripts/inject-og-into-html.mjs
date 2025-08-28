@@ -19,7 +19,7 @@ const SITE_NAME = 'Marketing Car';
 
 const DEFAULTS = {
   title: 'Marketing Car',
-  desc: 'Marketing that actually drives your business forward.',
+  desc: 'Marketing that actually drives your small business forward.',
   image: '/og/og-default.png',
 };
 
