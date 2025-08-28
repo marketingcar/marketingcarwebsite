@@ -138,25 +138,34 @@ window.fetch = function(...args) {
 		.then(async response => {
 			const contentType = response.headers.get('Content-Type') || '';
 
-			// Exclude HTML document responses
+			// Exclude HTML document responses and known failing external services
 			const isDocumentResponse =
 				contentType.includes('text/html') ||
 				contentType.includes('application/xhtml+xml');
+			
+			const isKnownFailingService = 
+				url.includes('forms.hsforms.com') ||
+				url.includes('connect.facebook.net') ||
+				url.includes('js.hs-scripts.com');
 
-			if (!response.ok && !isDocumentResponse) {
+			if (!response.ok && !isDocumentResponse && !isKnownFailingService) {
+				try {
 					const responseClone = response.clone();
 					const errorFromRes = await responseClone.text();
 					const requestUrl = response.url;
-					console.error(\`Fetch error from \${requestUrl}: \${errorFromRes}\`);
+					console.warn(\`Fetch warning from \${requestUrl}: \${response.status}\`);
+				} catch (e) {
+					// Silently ignore errors when reading response
+				}
 			}
 
 			return response;
 		})
 		.catch(error => {
-			if (!url.match(/\.html?$/i)) {
-				console.error(error);
+			// Only log errors for our own resources, not external services
+			if (!url.includes('forms.hsforms.com') && !url.includes('connect.facebook.net') && !url.match(/\.html?$/i)) {
+				console.warn('Network error:', error.message);
 			}
-
 			throw error;
 		});
 };
@@ -340,7 +349,11 @@ export default defineConfig({
 	},
 	// Optimize dependencies
 	optimizeDeps: {
-		include: ['react', 'react-dom', 'framer-motion'],
-		exclude: ['@supabase/supabase-js']
+		include: ['react', 'react-dom'],
+		exclude: ['@supabase/supabase-js', 'framer-motion']
+	},
+	// Additional build optimizations
+	esbuild: {
+		drop: ['console', 'debugger'],
 	}
 });

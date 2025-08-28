@@ -2,8 +2,8 @@
 const config = {
   siteName: "Marketing Car",
   siteUrl: "https://www.marketingcar.com",
-  defaultTitle: "Marketing Car",
-  defaultDescription: "Your default site description.",
+  defaultTitle: "Small Business Marketing That Actually Works | Marketing Car",
+  defaultDescription: "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems.",
   defaultImage: "/og/og-default.png", // 1200x630 recommended
   twitterHandle: "@marketingcar", // optional, e.g. "@acme"
   favicon: "/favicon.svg", // optional

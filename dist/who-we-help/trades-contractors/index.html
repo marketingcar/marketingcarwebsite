@@ -19,11 +19,23 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-		<link rel="preconnect" href="https://js.hs-scripts.com">
-		<link rel="preconnect" href="https://js.hsforms.net">
-		<link rel="preconnect" href="https://connect.facebook.net">
 		<link rel="dns-prefetch" href="https://horizons-cdn.hostinger.com">
-		<link rel="dns-prefetch" href="https://connect.facebook.net">
+		<!-- Defer third-party connections until needed -->
+		<script>
+		setTimeout(() => {
+			const connections = [
+				{ href: 'https://js.hs-scripts.com', rel: 'dns-prefetch' },
+				{ href: 'https://js.hsforms.net', rel: 'dns-prefetch' },
+				{ href: 'https://connect.facebook.net', rel: 'dns-prefetch' }
+			];
+			connections.forEach(({ href, rel }) => {
+				const link = document.createElement('link');
+				link.rel = rel;
+				link.href = href;
+				document.head.appendChild(link);
+			});
+		}, 3000);
+		</script>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 		<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet"></noscript>
 		<!-- Inline critical hero font for instant LCP -->
@@ -77,42 +89,52 @@
 		.bg-background { background-color: hsl(var(--background)); }
 		.overflow-x-hidden { overflow-x: hidden; }
 		</style>
-		<!-- Meta Pixel Code - deferred further -->
+		<!-- Meta Pixel Code - ultra deferred -->
 		<script>
-		window.addEventListener('load', function() {
-			setTimeout(function() {
-				// Only load after user interaction or 5 seconds
-				var hasInteracted = false;
-				var loadPixel = function() {
-					if (hasInteracted) return;
+		// Only load after significant user engagement
+		(function() {
+			var loadPixel = function() {
+				if (window.fbq) return;
+				!function(f,b,e,v,n,t,s)
+				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+				if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+				n.queue=[];t=b.createElement(e);t.async=!0;
+				t.src=v;s=b.getElementsByTagName(e)[0];
+				s.parentNode.insertBefore(t,s)}(window, document,'script',
+				'https://connect.facebook.net/en_US/fbevents.js');
+				fbq('init', '1070904028444615');
+				fbq('track', 'PageView');
+			};
+			
+			var hasInteracted = false;
+			var interactions = 0;
+			var handleInteraction = function() {
+				interactions++;
+				if (!hasInteracted && interactions >= 2) {
 					hasInteracted = true;
-					!function(f,b,e,v,n,t,s)
-					{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-					n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-					if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-					n.queue=[];t=b.createElement(e);t.async=!0;
-					t.src=v;s=b.getElementsByTagName(e)[0];
-					s.parentNode.insertBefore(t,s)}(window, document,'script',
-					'https://connect.facebook.net/en_US/fbevents.js');
-					fbq('init', '1070904028444615');
-					fbq('track', 'PageView');
-				};
-				['scroll', 'click', 'touchstart'].forEach(function(event) {
-					document.addEventListener(event, loadPixel, {once: true, passive: true});
+					loadPixel();
+				}
+			};
+			
+			window.addEventListener('load', function() {
+				// Load after multiple interactions or 10 seconds of engagement
+				['scroll', 'click', 'touchstart', 'keydown'].forEach(function(event) {
+					document.addEventListener(event, handleInteraction, {passive: true});
 				});
-				setTimeout(loadPixel, 5000);
-			}, 1000);
-		});
+				setTimeout(loadPixel, 10000);
+			});
+		})();
 		</script>
 		<!-- End Meta Pixel Code -->
-		<script type="module" crossorigin="" src="/js/index-035bb0739765.js"></script>
+		<script type="module" crossorigin="" src="/js/index-bbd4287dfba5.js"></script>
 		<link rel="modulepreload" crossorigin="" href="/js/vendor-1ee75791255d.js">
 		<link rel="modulepreload" crossorigin="" href="/js/ui-core-f2acf8f293d2.js">
 		<link rel="modulepreload" crossorigin="" href="/js/react-core-e97f0229de14.js">
 		<link rel="modulepreload" crossorigin="" href="/js/utilities-29f4efdeffbd.js">
 		<link rel="modulepreload" crossorigin="" href="/js/animations-ecbb667bd5bd.js">
-		<link rel="modulepreload" crossorigin="" href="/js/layout-6152fae3f836.js">
-		<link rel="modulepreload" crossorigin="" href="/js/components-fa6cbcc6f735.js">
+		<link rel="modulepreload" crossorigin="" href="/js/layout-cd0c640db0ce.js">
+		<link rel="modulepreload" crossorigin="" href="/js/components-61f8c72db1e7.js">
 		<link rel="stylesheet" href="/assets/index-28099ad86b64.css">
 		<script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
@@ -218,25 +240,34 @@ window.fetch = function(...args) {
 		.then(async response => {
 			const contentType = response.headers.get('Content-Type') || '';
 
-			// Exclude HTML document responses
+			// Exclude HTML document responses and known failing external services
 			const isDocumentResponse =
 				contentType.includes('text/html') ||
 				contentType.includes('application/xhtml+xml');
+			
+			const isKnownFailingService = 
+				url.includes('forms.hsforms.com') ||
+				url.includes('connect.facebook.net') ||
+				url.includes('js.hs-scripts.com');
 
-			if (!response.ok && !isDocumentResponse) {
+			if (!response.ok && !isDocumentResponse && !isKnownFailingService) {
+				try {
 					const responseClone = response.clone();
 					const errorFromRes = await responseClone.text();
 					const requestUrl = response.url;
-					console.error(`Fetch error from ${requestUrl}: ${errorFromRes}`);
+					console.warn(`Fetch warning from ${requestUrl}: ${response.status}`);
+				} catch (e) {
+					// Silently ignore errors when reading response
+				}
 			}
 
 			return response;
 		})
 		.catch(error => {
-			if (!url.match(/.html?$/i)) {
-				console.error(error);
+			// Only log errors for our own resources, not external services
+			if (!url.includes('forms.hsforms.com') && !url.includes('connect.facebook.net') && !url.match(/.html?$/i)) {
+				console.warn('Network error:', error.message);
 			}
-
 			throw error;
 		});
 };
@@ -252,29 +283,41 @@ window.fetch = function(...args) {
 		
 		
 		<!-- Module preloading removed - chunks are loaded dynamically -->
-		<!-- Start of HubSpot Embed Code - deferred more -->
+		<!-- Start of HubSpot Embed Code - ultra deferred -->
 		<script>
-		window.addEventListener('load', function() {
-			setTimeout(function() {
-				// Only load after user interaction or 7 seconds
-				var hasInteracted = false;
-				var loadHubSpot = function() {
-					if (hasInteracted) return;
-					hasInteracted = true;
-					var script = document.createElement('script');
-					script.type = 'text/javascript';
-					script.id = 'hs-script-loader';
-					script.async = true;
-					script.defer = true;
-					script.src = '//js.hs-scripts.com/47574927.js';
-					document.body.appendChild(script);
+		(function() {
+			var loadHubSpot = function() {
+				if (document.getElementById('hs-script-loader')) return;
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.id = 'hs-script-loader';
+				script.async = true;
+				script.defer = true;
+				script.src = '//js.hs-scripts.com/47574927.js';
+				document.body.appendChild(script);
+			};
+			
+			// Only load when user engages with forms or after significant delay
+			window.addEventListener('load', function() {
+				var formInteracted = false;
+				var handleFormInteraction = function() {
+					if (!formInteracted) {
+						formInteracted = true;
+						loadHubSpot();
+					}
 				};
-				['scroll', 'click', 'touchstart'].forEach(function(event) {
-					document.addEventListener(event, loadHubSpot, {once: true, passive: true});
+				
+				// Listen for form interactions
+				document.addEventListener('focusin', function(e) {
+					if (e.target.matches('input, textarea, select')) {
+						handleFormInteraction();
+					}
 				});
-				setTimeout(loadHubSpot, 7000);
-			}, 2000);
-		});
+				
+				// Or load after 15 seconds
+				setTimeout(loadHubSpot, 15000);
+			});
+		})();
 		</script>
 		<!-- End of HubSpot Embed Code -->
 		

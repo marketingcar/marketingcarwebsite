@@ -15,14 +15,17 @@ const HomePage = () => {
     "name": "Marketing Car",
     "url": "https://www.marketingcar.com",
     "logo": "https://www.marketingcar.com/mainlogo.png",
-    "description": "Marketing Car accelerates your business growth with comprehensive digital marketing solutions. We turn complexity into a smooth ride to your goals."
+    "description": "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems.",
+    "knowsAbout": ["Small Business Marketing", "Digital Marketing", "Lead Generation", "SEO", "Social Media Marketing", "Content Marketing"],
+    "areaServed": "United States",
+    "serviceType": "Small Business Marketing Services"
   };
 
   return (
     <PageTransition>
       <SEOHelmet
-        title="Marketing Car | Full-Service Digital Marketing Agency"
-        description="Marketing Car accelerates your business growth with comprehensive digital marketing solutions. We turn complexity into a smooth ride to your goals."
+        title="Small Business Marketing That Actually Works | Marketing Car"
+        description="Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems."
         path="/"
         image="/og/og-default.png"
       />
