@@ -22,7 +22,8 @@
 		<link rel="dns-prefetch" href="https://horizons-cdn.hostinger.com">
 		<!-- Defer third-party connections until needed -->
 		<script>
-		setTimeout(() => {
+		// Use requestIdleCallback for non-critical resource loading
+		const loadThirdPartyConnections = () => {
 			const connections = [
 				{ href: 'https://js.hs-scripts.com', rel: 'dns-prefetch' },
 				{ href: 'https://js.hsforms.net', rel: 'dns-prefetch' },
@@ -34,7 +35,13 @@
 				link.href = href;
 				document.head.appendChild(link);
 			});
-		}, 3000);
+		};
+		
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(loadThirdPartyConnections, { timeout: 5000 });
+		} else {
+			setTimeout(loadThirdPartyConnections, 3000);
+		}
 		</script>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 		<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet"></noscript>
@@ -89,9 +96,9 @@
 		.bg-background { background-color: hsl(var(--background)); }
 		.overflow-x-hidden { overflow-x: hidden; }
 		</style>
-		<!-- Meta Pixel Code - ultra deferred -->
+		<!-- Meta Pixel Code - ultra deferred with facade -->
 		<script>
-		// Only load after significant user engagement
+		// Facade pattern - only load after significant user engagement
 		(function() {
 			var loadPixel = function() {
 				if (window.fbq) return;
@@ -111,31 +118,46 @@
 			var interactions = 0;
 			var handleInteraction = function() {
 				interactions++;
-				if (!hasInteracted && interactions >= 2) {
+				if (!hasInteracted && interactions >= 3) {
 					hasInteracted = true;
-					loadPixel();
+					if ('requestIdleCallback' in window) {
+						requestIdleCallback(loadPixel, { timeout: 2000 });
+					} else {
+						loadPixel();
+					}
 				}
 			};
 			
-			window.addEventListener('load', function() {
-				// Load after multiple interactions or 10 seconds of engagement
+			if (document.readyState === 'complete') {
+				// Page already loaded
 				['scroll', 'click', 'touchstart', 'keydown'].forEach(function(event) {
-					document.addEventListener(event, handleInteraction, {passive: true});
+					document.addEventListener(event, handleInteraction, {passive: true, once: false});
 				});
-				setTimeout(loadPixel, 10000);
-			});
+				setTimeout(loadPixel, 15000);
+			} else {
+				window.addEventListener('load', function() {
+					// Load after multiple interactions or 15 seconds of engagement
+					['scroll', 'click', 'touchstart', 'keydown'].forEach(function(event) {
+						document.addEventListener(event, handleInteraction, {passive: true, once: false});
+					});
+					setTimeout(loadPixel, 15000);
+				});
+			}
 		})();
 		</script>
 		<!-- End Meta Pixel Code -->
-		<script type="module" crossorigin="" src="/js/index-45d25f135eda.js"></script>
-		<link rel="modulepreload" crossorigin="" href="/js/vendor-1ee75791255d.js">
-		<link rel="modulepreload" crossorigin="" href="/js/ui-core-f2acf8f293d2.js">
-		<link rel="modulepreload" crossorigin="" href="/js/react-core-e97f0229de14.js">
-		<link rel="modulepreload" crossorigin="" href="/js/utilities-29f4efdeffbd.js">
-		<link rel="modulepreload" crossorigin="" href="/js/animations-ecbb667bd5bd.js">
-		<link rel="modulepreload" crossorigin="" href="/js/layout-cd0c640db0ce.js">
-		<link rel="modulepreload" crossorigin="" href="/js/components-61f8c72db1e7.js">
-		<link rel="stylesheet" href="/assets/index-28099ad86b64.css">
+		<script type="module" crossorigin="" src="/js/index-fdc225027e5e.js"></script>
+		<link rel="modulepreload" crossorigin="" href="/js/vendor-06bebdd72ed9.js">
+		<link rel="modulepreload" crossorigin="" href="/js/vendor-misc-14db30996658.js">
+		<link rel="modulepreload" crossorigin="" href="/js/ui-radix-db33e5c49416.js">
+		<link rel="modulepreload" crossorigin="" href="/js/react-core-05571200f835.js">
+		<link rel="modulepreload" crossorigin="" href="/js/supabase-08f08bf8721f.js">
+		<link rel="modulepreload" crossorigin="" href="/js/ui-utils-8a09c4bc99cd.js">
+		<link rel="modulepreload" crossorigin="" href="/js/animations-84fc8178e63c.js">
+		<link rel="modulepreload" crossorigin="" href="/js/components-6e84da50e680.js">
+		<link rel="modulepreload" crossorigin="" href="/js/hubspot-components-139d3e85efcc.js">
+		<link rel="modulepreload" crossorigin="" href="/js/layout-critical-9a8e6367d1a4.js">
+		<link rel="stylesheet" href="/assets/index-45ab1fbf2157.css">
 		<script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
 	const errorDetails = errorObj ? JSON.stringify({
@@ -283,7 +305,7 @@ window.fetch = function(...args) {
 		
 		
 		<!-- Module preloading removed - chunks are loaded dynamically -->
-		<!-- Start of HubSpot Embed Code - ultra deferred -->
+		<!-- Start of HubSpot Embed Code - ultra deferred with intersection observer -->
 		<script>
 		(function() {
 			var loadHubSpot = function() {
@@ -297,26 +319,55 @@ window.fetch = function(...args) {
 				document.body.appendChild(script);
 			};
 			
-			// Only load when user engages with forms or after significant delay
-			window.addEventListener('load', function() {
-				var formInteracted = false;
-				var handleFormInteraction = function() {
-					if (!formInteracted) {
-						formInteracted = true;
+			var formInteracted = false;
+			var handleFormInteraction = function() {
+				if (!formInteracted) {
+					formInteracted = true;
+					if ('requestIdleCallback' in window) {
+						requestIdleCallback(loadHubSpot, { timeout: 1000 });
+					} else {
 						loadHubSpot();
 					}
+				}
+			};
+			
+			// Use Intersection Observer for lazy loading when form areas come into view
+			if ('IntersectionObserver' in window) {
+				var observeFormAreas = function() {
+					var observer = new IntersectionObserver(function(entries) {
+						entries.forEach(function(entry) {
+							if (entry.isIntersecting) {
+								handleFormInteraction();
+								observer.disconnect();
+							}
+						});
+					}, { rootMargin: '100px' });
+					
+					// Observe form containers when they appear
+					setTimeout(function() {
+						var formContainers = document.querySelectorAll('form, [data-hubspot-form], .hubspot-form-container');
+						formContainers.forEach(function(el) {
+							observer.observe(el);
+						});
+					}, 2000);
 				};
 				
-				// Listen for form interactions
-				document.addEventListener('focusin', function(e) {
-					if (e.target.matches('input, textarea, select')) {
-						handleFormInteraction();
-					}
-				});
-				
-				// Or load after 15 seconds
-				setTimeout(loadHubSpot, 15000);
-			});
+				if (document.readyState === 'complete') {
+					observeFormAreas();
+				} else {
+					window.addEventListener('load', observeFormAreas);
+				}
+			}
+			
+			// Listen for form interactions
+			document.addEventListener('focusin', function(e) {
+				if (e.target.matches('input, textarea, select, button[type="submit"]')) {
+					handleFormInteraction();
+				}
+			}, { passive: true });
+			
+			// Or load after 20 seconds
+			setTimeout(loadHubSpot, 20000);
 		})();
 		</script>
 		<!-- End of HubSpot Embed Code -->

@@ -262,7 +262,7 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				// Manual chunk splitting for better caching
+				// Aggressive chunk splitting for better caching and parallel loading
 				manualChunks: (id) => {
 					// Core React bundle - highest priority
 					if (id.includes('react') || id.includes('react-dom')) {
@@ -274,9 +274,15 @@ export default defineConfig({
 						return 'react-router';
 					}
 					
-					// Critical UI components
-					if (id.includes('@radix-ui') || id.includes('class-variance-authority') || id.includes('clsx')) {
-						return 'ui-core';
+					// Critical UI components - split into smaller chunks
+					if (id.includes('@radix-ui/react-toast')) {
+						return 'ui-toast';
+					}
+					if (id.includes('@radix-ui')) {
+						return 'ui-radix';
+					}
+					if (id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge')) {
+						return 'ui-utils';
 					}
 					
 					// Icons - separate chunk since they're used selectively
@@ -284,34 +290,62 @@ export default defineConfig({
 						return 'icons';
 					}
 					
-					// Animation library - separate and load later
+					// Animation library - defer loading
 					if (id.includes('framer-motion')) {
 						return 'animations';
 					}
 					
-					// Form and utility libraries
-					if (id.includes('@supabase') || id.includes('react-helmet-async') || id.includes('react-gtm-module')) {
-						return 'utilities';
+					// Third-party integrations - load only when needed
+					if (id.includes('@supabase')) {
+						return 'supabase';
+					}
+					if (id.includes('react-helmet-async')) {
+						return 'helmet';
+					}
+					if (id.includes('react-gtm-module')) {
+						return 'gtm';
+					}
+					
+					// Lodash if present
+					if (id.includes('lodash')) {
+						return 'lodash';
 					}
 					
 					// Other vendor code
 					if (id.includes('node_modules')) {
+						// Group small modules together to avoid too many requests
+						const module = id.split('node_modules/')[1];
+						const packageName = module.split('/')[0];
+						if (packageName.length < 10) {
+							return 'vendor-misc';
+						}
 						return 'vendor';
 					}
 					
 					// App code splitting
 					if (id.includes('/src/pages/')) {
-						// Split landing pages separately (they're entry points)
-						if (id.includes('HomePage') || id.includes('LpSpinning') || id.includes('LpWebinar')) {
-							return 'landing-pages';
-						}
-						return 'pages';
+						// Split each major page separately for better caching
+						if (id.includes('HomePage')) return 'page-home';
+						if (id.includes('BlogPage') || id.includes('BlogPost')) return 'page-blog';
+						if (id.includes('LpSpinning')) return 'page-lp-spinning';
+						if (id.includes('LpWebinar')) return 'page-lp-webinar';
+						if (id.includes('ServiceDetailPage') || id.includes('ServicesPage')) return 'page-services';
+						return 'pages-other';
 					}
 					
 					// Core components used across pages
 					if (id.includes('/src/components/')) {
-						if (id.includes('Header') || id.includes('Footer') || id.includes('SEO') || id.includes('OptimizedImage')) {
-							return 'layout';
+						if (id.includes('Header') || id.includes('Footer')) {
+							return 'layout-critical';
+						}
+						if (id.includes('SEO') || id.includes('Schema')) {
+							return 'seo';
+						}
+						if (id.includes('Hero') || id.includes('OptimizedImage') || id.includes('LazyHeroImage')) {
+							return 'images';
+						}
+						if (id.includes('HubSpot')) {
+							return 'hubspot-components';
 						}
 						return 'components';
 					}
@@ -329,7 +363,7 @@ export default defineConfig({
 				entryFileNames: `js/[name]-[hash:12].js`,
 			},
 		},
-		// Enable tree shaking
+		// Enable tree shaking and better optimization
 		target: 'es2020',
 		minify: 'terser',
 		terserOptions: {
@@ -339,18 +373,38 @@ export default defineConfig({
 				pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.trace'],
 				unused: true,
 				dead_code: true,
+				passes: 3,
+				module: true,
+				toplevel: true,
 			},
 			mangle: {
 				safari10: true,
+				toplevel: true,
+			},
+			format: {
+				comments: false,
 			},
 		},
 		cssMinify: true,
+		cssCodeSplit: true,
 		assetsInlineLimit: 4096,
+		chunkSizeWarningLimit: 500,
+		sourcemap: false,
 	},
 	// Optimize dependencies
 	optimizeDeps: {
-		include: ['react', 'react-dom'],
-		exclude: ['@supabase/supabase-js', 'framer-motion']
+		include: [
+			'react', 
+			'react-dom',
+			'react-router-dom',
+			'clsx',
+			'class-variance-authority'
+		],
+		exclude: [
+			'@supabase/supabase-js', 
+			'framer-motion',
+			'react-gtm-module'
+		]
 	},
 	// Additional build optimizations
 	esbuild: {

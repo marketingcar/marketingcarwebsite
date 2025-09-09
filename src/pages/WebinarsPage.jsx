@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Calendar, Clock, Video } from 'lucide-react';
+import { Calendar, Clock, Video, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import SEOHelmet from '@/components/SEOHelmet';
 
@@ -33,10 +34,10 @@ const webinars = [
     category: 'The Paint Job – Graphic Design',
     title: 'First Impressions that Last: Small Business Visuals That Make Your Customers Remember You',
     focus: 'How to create brand-consistent, attention-grabbing designs that make your small business instantly recognizable in any channel.',
-    date: 'TBD',
-    time: '',
-    link: null,
-    status: 'Coming Soon'
+    date: 'November 11, 2025',
+    time: '1:00PM-1:30PM EST',
+    link: 'https://zoom.us/webinar/register/9717574359523/WN_SUqXKufWQKegcZM4RN1ZIA',
+    status: 'Upcoming'
   },
   {
     part: 4,
@@ -278,6 +279,54 @@ const WebinarsPage = () => {
           </div>
         </div>
       </div>
+
+      {/* CTA Section */}
+      <motion.section
+        className="py-20 px-4 sm:px-8 bg-gradient-to-r from-primary to-accent text-primary-foreground"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="container mx-auto text-center">
+          <motion.h3 
+            className="text-4xl sm:text-5xl font-bold mb-6"
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, type: 'spring', stiffness: 100 }}
+          >
+            Don't see a topic that you want?
+          </motion.h3>
+          <motion.p 
+            className="text-xl mb-10 max-w-2xl mx-auto"
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
+          >
+            Let us know! We're always looking for new ways to help small businesses succeed.
+          </motion.p>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
+          >
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="text-lg px-10 py-6 shadow-xl transform hover:scale-105 transition-transform duration-300 bg-white text-primary hover:bg-gray-100"
+              asChild
+            >
+              <Link to="/contact">
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Let us know!
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </motion.section>
     </PageTransition>
   );
 };
