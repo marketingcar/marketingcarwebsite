@@ -46,13 +46,58 @@ const Footer = React.memo(() => {
                 ))}
               </div>
 
-              <div className="mt-6">
-                <Link
-                  to="/book-now"
-                  className="underline font-semibold hover:text-primary transition"
-                >
-                  Book a Free Consultation
-                </Link>
+              <div className="mt-6 space-y-2">
+                <h3 className="font-semibold text-foreground mb-3">Quick Links</h3>
+                <div className="flex flex-col space-y-2">
+                  <Link
+                    to="/"
+                    className="hover:text-primary transition"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/services"
+                    className="hover:text-primary transition"
+                  >
+                    Services
+                  </Link>
+                  <Link
+                    to="/who-we-help"
+                    className="hover:text-primary transition"
+                  >
+                    Who We Help
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="hover:text-primary transition"
+                  >
+                    About
+                  </Link>
+                  <Link
+                    to="/about/webinars"
+                    className="hover:text-primary transition"
+                  >
+                    Webinars
+                  </Link>
+                  <Link
+                    to="/about/blog"
+                    className="hover:text-primary transition"
+                  >
+                    Blog
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="hover:text-primary transition"
+                  >
+                    Contact
+                  </Link>
+                  <Link
+                    to="/book-now"
+                    className="font-semibold text-primary hover:text-primary/80 transition"
+                  >
+                    Book a Free Consultation →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
