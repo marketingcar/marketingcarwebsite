@@ -11,7 +11,7 @@ const Footer = React.memo(() => {
 
   return (
     <footer className="border-t border-border bg-background text-muted-foreground">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
           
           {/* Left: cap to max-w-xl so we know its visual width */}
