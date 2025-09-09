@@ -308,3 +308,52 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
     color: #25EBD1; /* readable fallback */
   }
 }
+@layer utilities {
+  /* Keep form constrained and consistent */
+  .hs-form {
+    @apply w-full;
+  }
+
+  .hs-form fieldset.form-columns-1 .field,
+  .hs-form fieldset.form-columns-2 .field,
+  .hs-form .hs-form-field {
+    @apply w-full;
+  }
+
+  .hs-form .hs-input {
+    @apply w-full;
+  }
+
+  /* Trim rich text + legal consent spacing */
+  .hs-form .hs-richtext,
+  .hs-form .legal-consent-container {
+    @apply mt-3;
+  }
+
+  /* Reduce oversized margins HubSpot adds around groups */
+  .hs-form fieldset {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Phone input group can render a country select + input; keep them aligned */
+  .hs-form .input,
+  .hs-form .inputs-list {
+    @apply w-full;
+  }
+
+  .hs-form .hs-phone .input {
+    @apply flex gap-2 items-stretch;
+  }
+
+  .hs-form .hs-phone .input select,
+  .hs-form .hs-phone .input input {
+    @apply w-full;
+  }
+
+  /* Make submit button stretch nicely on mobile, natural on desktop */
+  .hs-form input[type="submit"] {
+    @apply w-full sm:w-auto;
+  }
+}
