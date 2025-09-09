@@ -1,3 +1,4 @@
+// HubSpotNewsletterForm.jsx
 import React, { useEffect, useRef } from 'react';
 
 const HubSpotNewsletterForm = () => {
@@ -34,19 +35,18 @@ const HubSpotNewsletterForm = () => {
     }
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
-      }
+      if (containerRef.current) containerRef.current.innerHTML = '';
       loaded.current = false;
     };
   }, []);
 
+  // No max-w here—parent controls width
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <div className="w-full">
       <div
         id="hubspot-newsletter-form-container"
         ref={containerRef}
-        className="w-full min-h-[160px]"
+        className="w-full min-h-[140px]"
       />
     </div>
   );
