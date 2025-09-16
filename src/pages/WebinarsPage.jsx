@@ -14,10 +14,10 @@ const webinars = [
     category: 'The GPS – Marketing Strategy',
     title: 'Small Business Roadmap: Building a Marketing Strategy That Gets Results',
     focus: 'How to create a realistic, results-focused plan for your small business, set achievable goals, and align every marketing component so it works toward your growth.',
-    date: 'September 16, 2025',
-    time: '12:00PM-12:30PM EST',
-    link: 'https://zoom.us/webinar/register/4417556050965/WN_oe6iPjC1QRKdj5Y0DNyq7w',
-    status: 'Upcoming'
+    date: 'On Demand',
+    time: 'On Demand',
+    link: 'https://zoom.us/webinar/register/WN_oe6iPjC1QRKdj5Y0DNyq7w',
+    status: 'On Demand'
   },
   {
     part: 2,
