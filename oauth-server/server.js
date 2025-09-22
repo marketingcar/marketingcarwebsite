@@ -65,13 +65,17 @@ function successHTML(accessToken) {
 (function () {
   try {
     if (window.opener) {
-      // Legacy Netlify/Decap string format
-      window.opener.postMessage("authorization:github:" + ${JSON.stringify(
+      // Decap CMS expects this exact format
+      window.opener.postMessage("authorization:github:success:" + ${JSON.stringify(
         payload
       )}, "*");
 
-      // Some bridges/CMS builds listen for an object event too
-      window.opener.postMessage({ type: "decap-cms:github", token: ${token} }, "*");
+      // Also try the object format
+      window.opener.postMessage({
+        type: "authorization",
+        provider: "github",
+        token: ${token}
+      }, "*");
 
       setTimeout(function(){ window.close(); }, 60);
     } else {

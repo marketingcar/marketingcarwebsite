@@ -6,6 +6,15 @@
   <title>Content Manager - Marketing Car</title>
 </head>
 <body>
+  <!-- Debug script to log postMessages -->
+  <script>
+    window.addEventListener('message', function(event) {
+      console.log('Received message:', event);
+      console.log('Message data:', event.data);
+      console.log('Message origin:', event.origin);
+    });
+  </script>
+
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" data-cms-config-path="/admin/config.yml"></script>
 </body>
