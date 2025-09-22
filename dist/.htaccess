@@ -1,6 +1,18 @@
+# --- MIME types for YAML ---
+<IfModule mod_mime.c>
+  AddType text/yaml .yml
+  AddType application/x-yaml .yaml
+</IfModule>
+
+# --- SPA rewrites (add an early exception for the CMS config) ---
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # 1) Never rewrite the CMS config file
+  RewriteRule ^admin/config\.(yml|yaml)$ - [L]
+
+  # 2) Your SPA catch-all
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
@@ -31,6 +43,12 @@
   
   # Default CDN caching
   Header set Cache-Control "public, s-maxage=604800, max-age=3600"
+
+  # --- Override specifically for the CMS config (place AFTER defaults so it wins) ---
+  <FilesMatch "^config\.(yml|yaml)$">
+    Header set Content-Type "text/yaml; charset=utf-8"
+    Header set Cache-Control "no-store"
+  </FilesMatch>
 </IfModule>
 
 <IfModule mod_deflate.c>
