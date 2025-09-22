@@ -1,11 +1,10 @@
 backend:
   name: github
-  repo: marketingcar/marketingcarwebsite  # Replace with your actual GitHub repo
-  branch: main # Branch to update (optional; defaults to master)
-  auth_type: pkce # Use PKCE for GitHub OAuth without a backend server
-  base_url: https://www.marketingcar.com # Your site URL
+  repo: marketingcar/marketingcarwebsite
+  branch: main
+  auth_type: implicit
+  app_id: Iv23liknTwNHDWkFKz3p
 
-# This section will be needed if you have an authorization flow
 publish_mode: editorial_workflow
 
 media_folder: "public/blog/images" # Media files will be stored in the repo under public/blog/images
