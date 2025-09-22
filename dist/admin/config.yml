@@ -2,7 +2,7 @@ backend:
   name: github
   repo: marketingcar/marketingcarwebsite
   branch: main
-  base_url: https://oauth-server-itfha6cep-nicole-halls-projects.vercel.app  # Replace with your deployed OAuth bridge URL
+  base_url: https://oauth-server-mdvsmg3b6-nicole-halls-projects.vercel.app  # Replace with your deployed OAuth bridge URL
   auth_endpoint: /auth
 
 publish_mode: editorial_workflow
