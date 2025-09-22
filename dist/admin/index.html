@@ -1,71 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Content Manager - Marketing Car</title>
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Manager - Marketing Car</title>
+<link rel="canonical" href="https://www.marketingcar.com/admin"><meta name="description" content="Marketing that actually drives your small business forward."><meta property="og:title" content="Content Manager - Marketing Car"><meta property="og:description" content="Marketing that actually drives your small business forward."><meta property="og:type" content="website"><meta property="og:url" content="https://www.marketingcar.com/admin"><meta property="og:image" content="https://www.marketingcar.com/og/og-default.png"><meta property="og:image:secure_url" content="https://www.marketingcar.com/og/og-default.png"><meta property="og:site_name" content="Marketing Car"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Content Manager - Marketing Car"><meta name="twitter:description" content="Marketing that actually drives your small business forward."><meta name="twitter:image" content="https://www.marketingcar.com/og/og-default.png"><meta name="robots" content="index,follow"></head>
+<body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" data-cms-config-path="/admin/config.yml"></script>
 
-<!-- Tell Decap we'll provide the config via JS -->
-<script>window.CMS_MANUAL_INIT = true;</script>
-
-<!-- Decap CMS -->
-<link rel="stylesheet" href="https://unpkg.com/decap-cms@^3/dist/decap-cms.css">
-<script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
-
-<script>
-  CMS.init({
-    config: {
-      backend: {
-        name: "github",
-        repo: "marketingcar/marketingcarwebsite",
-        branch: "main",
-        base_url: "https://oauth-server-nicole-halls-projects.vercel.app",
-        auth_endpoint: "/auth"
-      },
-
-      publish_mode: "editorial_workflow",
-
-      media_folder: "public/blog/images",
-      public_folder: "/blog/images",
-
-      collections: [
-        {
-          name: "blog",
-          label: "Blog",
-          folder: "content/blog",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { label: "Title", name: "title", widget: "string" },
-            { label: "Slug", name: "slug", widget: "string" },
-            { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" },
-            { label: "Excerpt", name: "excerpt", widget: "text" },
-            { label: "Featured Image", name: "image", widget: "image", required: false },
-            { label: "Published", name: "published", widget: "boolean", default: true },
-            { label: "Author", name: "author", widget: "string", default: "Marketing Car" },
-            { label: "Tags", name: "tags", widget: "list", required: false },
-            { label: "Body", name: "body", widget: "markdown" }
-          ]
-        },
-        {
-          name: "pages",
-          label: "Pages",
-          files: [
-            {
-              label: "About Page",
-              name: "about",
-              file: "content/pages/about.md",
-              fields: [
-                { label: "Title", name: "title", widget: "string" },
-                { label: "Body", name: "body", widget: "markdown" }
-              ]
-            }
-          ]
-        }
-      ],
-
-      site_url: "https://marketingcar.com",
-      logo_url: "https://www.marketingcar.com/mainlogo.png",
-
-      editor: { preview: false }
-    }
-  });
-</script>
-<link rel="canonical" href="https://www.marketingcar.com/admin"><meta name="description" content="Marketing that actually drives your small business forward."><meta property="og:title" content="Content Manager - Marketing Car"><meta property="og:description" content="Marketing that actually drives your small business forward."><meta property="og:type" content="website"><meta property="og:url" content="https://www.marketingcar.com/admin"><meta property="og:image" content="https://www.marketingcar.com/og/og-default.png"><meta property="og:image:secure_url" content="https://www.marketingcar.com/og/og-default.png"><meta property="og:site_name" content="Marketing Car"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Content Manager - Marketing Car"><meta name="twitter:description" content="Marketing that actually drives your small business forward."><meta name="twitter:image" content="https://www.marketingcar.com/og/og-default.png"><meta name="robots" content="index,follow"></head><body></body></html>
+</body></html>
