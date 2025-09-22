@@ -63,27 +63,60 @@ function successHTML(accessToken) {
 <body>Authentication successful!<br>Redirecting…</body>
 <script>
 (function () {
+  console.log('OAuth callback executing, token length:', ${token}.length);
+
   try {
     if (window.opener) {
-      // Decap CMS expects this exact format
-      window.opener.postMessage("authorization:github:success:" + ${JSON.stringify(
-        payload
-      )}, "*");
+      console.log('Window opener found, sending multiple message formats');
 
-      // Also try the object format
-      window.opener.postMessage({
+      // Multiple format attempts for Decap CMS compatibility
+
+      // Use wildcard origin due to cross-origin restrictions
+      console.log('Sending messages to wildcard origin due to CORS');
+
+      // Format 1: Exact Decap CMS expected format (string without extra wrapper)
+      var tokenData = { token: ${token}, provider: "github" };
+      var msg1 = "authorization:github:success:" + JSON.stringify(tokenData);
+      console.log('Sending format 1:', msg1);
+      window.opener.postMessage(msg1, "*");
+
+      // Format 2: Try with just token as string
+      var msg2 = "authorization:github:success:" + ${token};
+      console.log('Sending format 2:', msg2);
+      window.opener.postMessage(msg2, "*");
+
+      // Format 3: Modern object format
+      var msg3 = {
         type: "authorization",
         provider: "github",
         token: ${token}
-      }, "*");
+      };
+      console.log('Sending format 3:', msg3);
+      window.opener.postMessage(msg3, "*");
 
-      setTimeout(function(){ window.close(); }, 60);
+      // Format 4: Try the format without success suffix
+      var msg4 = "authorization:github:" + JSON.stringify(tokenData);
+      console.log('Sending format 4:', msg4);
+      window.opener.postMessage(msg4, "*");
+
+      // Format 5: Simple token event
+      var msg5 = {
+        token: ${token}
+      };
+      console.log('Sending format 5:', msg5);
+      window.opener.postMessage(msg5, "*");
+
+      setTimeout(function(){
+        console.log('Closing OAuth popup');
+        window.close();
+      }, 1000);
     } else {
-      // Opened directly (not as a popup)
+      console.log('No window opener found');
       document.body.innerHTML = "Token received. You can close this window.";
     }
   } catch (e) {
-    document.body.innerHTML = "Auth succeeded, but posting token to opener failed.";
+    console.error('OAuth postMessage error:', e);
+    document.body.innerHTML = "Auth succeeded, but posting token to opener failed: " + e.message;
   }
 })();
 </script>`;

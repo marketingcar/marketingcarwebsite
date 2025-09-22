@@ -4,6 +4,7 @@ backend:
   branch: main
   base_url: https://oauth-server-nicole-halls-projects.vercel.app  # Replace with your deployed OAuth bridge URL
   auth_endpoint: /auth
+  auth_scope: repo
 
 publish_mode: editorial_workflow
 
