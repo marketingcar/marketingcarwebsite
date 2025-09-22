@@ -2,8 +2,8 @@ backend:
   name: github
   repo: marketingcar/marketingcarwebsite
   branch: main
-  auth_type: implicit
-  app_id: Iv23liknTwNHDWkFKz3p
+  base_url: https://oauth-server-itfha6cep-nicole-halls-projects.vercel.app  # Replace with your deployed OAuth bridge URL
+  auth_endpoint: /auth
 
 publish_mode: editorial_workflow
 
