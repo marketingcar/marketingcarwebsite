@@ -1,199 +1,217 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
-require('dotenv').config();
+// server.js
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Enable CORS for your domain
-app.use(cors({
-  origin: ['https://www.marketingcar.com', 'https://marketingcar.com', 'http://localhost:5173', 'http://localhost:4173'],
-  credentials: true
-}));
+// ---- Config ----
+const CLIENT_ID =
+  process.env.GITHUB_CLIENT_ID ||
+  process.env.CLIENT_ID ||
+  "";
+const CLIENT_SECRET =
+  process.env.GITHUB_CLIENT_SECRET ||
+  process.env.CLIENT_SECRET ||
+  "";
 
+// The public base URL of this OAuth server (stable Vercel alias)
+const PUBLIC_BASE_URL =
+  process.env.PUBLIC_BASE_URL ||
+  "https://oauth-server-nicole-halls-projects.vercel.app";
+
+// Exact redirect/callback URL registered in your GitHub OAuth App
+const REDIRECT_URI =
+  process.env.REDIRECT_URI ||
+  process.env.CALLBACK_URL ||
+  `${PUBLIC_BASE_URL}/callback`;
+
+// Request the scope Decap needs:
+const SCOPE = process.env.SCOPE || "repo";
+
+// Allowed CMS origins (parent window)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS ||
+  "https://marketingcar.com,https://www.marketingcar.com,http://localhost:5173,http://localhost:4173")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+// ---- Middleware ----
+app.use(
+  cors({
+    origin(origin, cb) {
+      // allow no Origin (e.g., same-origin requests) & explicit allowlist
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error(`Origin not allowed: ${origin}`));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-// GitHub OAuth configuration
-const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || 'Ov23lia1gPoAKr9pfUXe';
-const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET; // You'll need to set this
+// Utility: success HTML that posts the token back to Decap and closes the popup
+function successHTML(accessToken) {
+  // Do NOT log the token. Only send it to the opener.
+  const token = JSON.stringify(accessToken);
+  const payload = JSON.stringify({ token: accessToken, provider: "github" });
 
-// Auth endpoint - redirects to GitHub OAuth
-app.get('/auth', (req, res) => {
-  const { provider } = req.query;
-
-  if (provider !== 'github') {
-    return res.status(400).json({ error: 'Only GitHub provider is supported' });
-  }
-
-  const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=repo&state=${req.query.state || 'state'}`;
-
-  res.redirect(githubAuthUrl);
-});
-
-// Callback endpoint - handles GitHub OAuth callback
-app.get('/callback', async (req, res) => {
-  const { code, state } = req.query;
-
-  if (!code) {
-    return res.status(400).json({ error: 'Authorization code not provided' });
-  }
-
+  return `<!doctype html>
+<meta charset="utf-8">
+<title>Authentication Success</title>
+<body>Authentication successful!<br>Redirecting…</body>
+<script>
+(function () {
   try {
-    // Exchange code for access token
-    const tokenResponse = await axios.post('https://github.com/login/oauth/access_token', {
-      client_id: GITHUB_CLIENT_ID,
-      client_secret: GITHUB_CLIENT_SECRET,
-      code: code
-    }, {
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
+    if (window.opener) {
+      // Legacy Netlify/Decap string format
+      window.opener.postMessage("authorization:github:" + ${JSON.stringify(
+        payload
+      )}, "*");
 
-    const { access_token } = tokenResponse.data;
+      // Some bridges/CMS builds listen for an object event too
+      window.opener.postMessage({ type: "decap-cms:github", token: ${token} }, "*");
 
-    if (!access_token) {
-      console.error('Token response:', tokenResponse.data);
-      return res.status(400).json({ error: 'Failed to get access token' });
+      setTimeout(function(){ window.close(); }, 60);
+    } else {
+      // Opened directly (not as a popup)
+      document.body.innerHTML = "Token received. You can close this window.";
     }
-
-    console.log('Access token obtained successfully');
-
-    // Return the token to the CMS with proper formatting
-    res.send(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Authentication Success</title>
-      </head>
-      <body>
-        <h2>Authentication successful!</h2>
-        <p>Redirecting...</p>
-        <script>
-          console.log('Callback script running');
-
-          const receiveMessage = (message, origin) => {
-            console.log('Received message:', message, 'from origin:', origin);
-          };
-
-          if (window.opener) {
-            console.log('Window opener found, posting message');
-
-            // Try multiple formats to ensure compatibility
-            const messageData = {
-              token: "${access_token}",
-              provider: "github"
-            };
-
-            // Format 1: Standard object
-            window.opener.postMessage(messageData, "*");
-
-            // Format 2: Netlify CMS style string format
-            window.opener.postMessage(
-              \`authorization:github:success:\${JSON.stringify(messageData)}\`,
-              "*"
-            );
-
-            setTimeout(() => {
-              console.log('Closing popup window');
-              window.close();
-            }, 1000);
-          } else {
-            console.log('No window opener found');
-            document.body.innerHTML = '<h2>Authentication successful!</h2><p>Token: ${access_token}</p><p>You can close this window.</p>';
-          }
-
-          window.addEventListener('message', receiveMessage, false);
-        </script>
-      </body>
-      </html>
-    `);
-
-  } catch (error) {
-    console.error('OAuth error:', error.response?.data || error.message);
-    res.status(500).send(`
-      <script>
-        if (window.opener) {
-          window.opener.postMessage(
-            'authorization:github:error:{"error":"${error.message}"}',
-            window.location.origin
-          );
-          window.close();
-        } else {
-          document.body.innerHTML = '<h2>Authentication failed</h2><p>Error: ${error.message}</p>';
-        }
-      </script>
-    `);
+  } catch (e) {
+    document.body.innerHTML = "Auth succeeded, but posting token to opener failed.";
   }
+})();
+</script>`;
+}
+
+function errorHTML(message) {
+  const safe = String(message || "OAuth error");
+  return `<!doctype html><meta charset="utf-8"><title>Authentication Error</title>
+<body>Authentication failed: ${safe}</body>
+<script>
+  try {
+    if (window.opener) {
+      window.opener.postMessage('authorization:github:error:' + JSON.stringify({ error: ${JSON.stringify(
+        safe
+      )} }), '*');
+      setTimeout(function(){ window.close(); }, 60);
+    }
+  } catch (e) {}
+</script>`;
+}
+
+// ---- Routes ----
+
+// Health
+app.get("/health", (_, res) => {
+  res.json({
+    status: "OK",
+    service: "OAuth Bridge for Decap CMS",
+    publicBaseUrl: PUBLIC_BASE_URL,
+  });
 });
 
-// Success endpoint for successful authentication
-app.get('/success', (req, res) => {
-  const { token } = req.query;
+// Start auth → GitHub
+app.get("/auth", (req, res) => {
+  const provider = req.query.provider || "github";
+  if (provider !== "github") {
+    return res.status(400).json({ error: "Only GitHub provider is supported" });
+  }
 
-  res.send(`
-    <script>
-      if (window.opener) {
-        const messageData = {
-          token: "${token}",
-          provider: "github"
-        };
+  if (!CLIENT_ID || !CLIENT_SECRET) {
+    return res
+      .status(500)
+      .json({ error: "Missing CLIENT_ID / CLIENT_SECRET environment vars" });
+  }
 
-        // Send both formats
-        window.opener.postMessage(messageData, "*");
-        window.opener.postMessage(\`authorization:github:success:\${JSON.stringify(messageData)}\`, "*");
-        window.close();
-      } else {
-        document.body.innerHTML = '<h2>Authentication successful!</h2><p>Token: ${token}</p><p>You can close this window.</p>';
-      }
-    </script>
-  `);
+  const state = req.query.state || "state";
+  const params = new URLSearchParams({
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
+    scope: SCOPE,
+    state,
+  });
+
+  res.redirect(`https://github.com/login/oauth/authorize?${params.toString()}`);
 });
 
-// Alternative token endpoint that returns JSON
-app.get('/token', async (req, res) => {
+// Callback → exchange code for token → postMessage to opener
+app.get("/callback", async (req, res) => {
   const { code } = req.query;
-
-  if (!code) {
-    return res.status(400).json({ error: 'Authorization code not provided' });
-  }
+  if (!code) return res.status(400).send(errorHTML("Missing ?code"));
 
   try {
-    const tokenResponse = await axios.post('https://github.com/login/oauth/access_token', {
-      client_id: GITHUB_CLIENT_ID,
-      client_secret: GITHUB_CLIENT_SECRET,
-      code: code
-    }, {
-      headers: {
-        'Accept': 'application/json'
+    // IMPORTANT: GitHub expects form-encoded
+    const body = new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code,
+      redirect_uri: REDIRECT_URI,
+    }).toString();
+
+    const tokenRes = await axios.post(
+      "https://github.com/login/oauth/access_token",
+      body,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        timeout: 10000,
       }
-    });
+    );
 
-    const { access_token } = tokenResponse.data;
-
+    const { access_token, error, error_description } = tokenRes.data || {};
     if (!access_token) {
-      return res.status(400).json({ error: 'Failed to get access token' });
+      const msg = error_description || error || "Failed to get access token";
+      return res.status(400).send(errorHTML(msg));
     }
 
-    res.json({
-      token: access_token,
-      provider: 'github'
-    });
-
-  } catch (error) {
-    console.error('Token exchange error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Token exchange failed' });
+    // Send the token back to Decap in the popup
+    res.status(200).type("html").send(successHTML(access_token));
+  } catch (e) {
+    const msg =
+      (e.response && JSON.stringify(e.response.data)) ||
+      e.message ||
+      "Token exchange failed";
+    res.status(500).send(errorHTML(msg));
   }
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', service: 'OAuth Bridge for Decap CMS' });
+// (Optional) JSON exchange endpoint — handy for debugging
+app.get("/token", async (req, res) => {
+  const { code } = req.query;
+  if (!code) return res.status(400).json({ error: "Missing ?code" });
+
+  try {
+    const body = new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code,
+      redirect_uri: REDIRECT_URI,
+    }).toString();
+
+    const tokenRes = await axios.post(
+      "https://github.com/login/oauth/access_token",
+      body,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+    res.json(tokenRes.data);
+  } catch (e) {
+    res
+      .status(500)
+      .json({ error: "Token exchange failed", details: e.response?.data || e.message });
+  }
 });
 
 app.listen(PORT, () => {
-  console.log(`OAuth bridge server running on port ${PORT}`);
-  console.log(`GitHub Client ID: ${GITHUB_CLIENT_ID}`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
+  console.log(`OAuth bridge running on :${PORT}`);
+  console.log(`Public base URL: ${PUBLIC_BASE_URL}`);
+  console.log(`Callback: ${REDIRECT_URI}`);
 });
