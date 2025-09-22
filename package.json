@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "rimraf dist && node scripts/build-blog-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
+    "build": "rimraf dist && node scripts/build-blog-markdown.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
+    "build:supabase": "rimraf dist && node scripts/build-blog-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
     "build:analyze": "npm run build && npx rollup-plugin-visualizer",
     "preview": "vite preview",
     "build:routes": "node scripts/prerender.routes.mjs"
@@ -42,20 +43,24 @@
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.16",
     "cheerio": "^1.1.2",
+    "decap-cms": "^3.0.0",
     "dotenv": "^17.2.1",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^16.3.0",
     "postcss": "^8.4.31",
     "rimraf": "^6.0.1",
+    "rollup-plugin-visualizer": "^5.9.2",
     "sitemap": "^8.0.0",
     "tailwindcss": "^3.3.3",
     "terser": "^5.39.0",
     "tsx": "^4.20.3",
+    "turndown": "^7.2.1",
     "vite": "^4.4.5",
     "vite-node": "^1.4.0",
-    "vite-plugin-prerender": "^1.0.8",
-    "rollup-plugin-visualizer": "^5.9.2"
+    "vite-plugin-prerender": "^1.0.8"
   }
 }
