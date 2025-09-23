@@ -12,7 +12,23 @@
   # 1) Never rewrite the CMS config file
   RewriteRule ^admin/config\.(yml|yaml)$ - [L]
 
-  # 2) Your SPA catch-all
+  # 2) 301 Redirects for blog URLs moved from /about/blog/ to /blog/
+  RewriteRule ^about/blog/5-quick-ways-to-improve-small-business-marketing/?$ /blog/5-quick-ways-to-improve-small-business-marketing [R=301,L]
+  RewriteRule ^about/blog/small-business-marketing-crying/?$ /blog/small-business-marketing-crying [R=301,L]
+  RewriteRule ^about/blog/small-business-marketing-like-bad-first-date/?$ /blog/small-business-marketing-like-bad-first-date [R=301,L]
+  RewriteRule ^about/blog/most-marketing-is-terrible/?$ /blog/most-marketing-is-terrible [R=301,L]
+  RewriteRule ^about/blog/lying-gps-marketing-not-broken/?$ /blog/lying-gps-marketing-not-broken [R=301,L]
+  RewriteRule ^about/blog/better-marketing-map-not-faster-car/?$ /blog/better-marketing-map-not-faster-car [R=301,L]
+  RewriteRule ^about/blog/how-to-build-content-strategy/?$ /blog/how-to-build-content-strategy [R=301,L]
+  RewriteRule ^about/blog/how-to-set-marketing-goals/?$ /blog/how-to-set-marketing-goals [R=301,L]
+
+  # General redirect for /about/blog to /blog
+  RewriteRule ^about/blog/?$ /blog [R=301,L]
+
+  # Handle future blog posts that might follow the old pattern
+  RewriteRule ^about/blog/([^/]+)/?$ /blog/$1 [R=301,L]
+
+  # 3) Your SPA catch-all
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]

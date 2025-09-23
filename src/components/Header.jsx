@@ -104,9 +104,10 @@ const Header = () => {
       <DropdownNavItem title="About" isMobile={isMobile} closeMenu={closeMenu}>
         <DropdownLink to="/about" isMobile={isMobile} closeMenu={closeMenu}>About Us</DropdownLink>
         <DropdownLink to="/about/the-marketing-car" isMobile={isMobile} closeMenu={closeMenu}>The Marketing Car</DropdownLink>
+        <DropdownLink to="/about/faq" isMobile={isMobile} closeMenu={closeMenu}>FAQ</DropdownLink>
         <DropdownLink to="/about/webinars" isMobile={isMobile} closeMenu={closeMenu}>Webinars</DropdownLink>
         <DropdownLink to="/about/case-studies" isMobile={isMobile} closeMenu={closeMenu}>Case Studies</DropdownLink>
-        <DropdownLink to="/about/blog" isMobile={isMobile} closeMenu={closeMenu}>Blog</DropdownLink>
+        <DropdownLink to="/blog" isMobile={isMobile} closeMenu={closeMenu}>Blog</DropdownLink>
       </DropdownNavItem>
       <DropdownNavItem title="Services" isMobile={isMobile} closeMenu={closeMenu}>
         <DropdownLink to="/services" isMobile={isMobile} closeMenu={closeMenu}>All Services</DropdownLink>

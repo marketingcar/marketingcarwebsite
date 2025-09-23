@@ -61,7 +61,7 @@ function sanitizeBabyLoveContent(content) {
   sanitized = sanitized.replace(/(<th[^>]*) style="[^"]*"/g, '$1');
 
   // Clean up links to ensure they're properly styled
-  sanitized = sanitized.replace(/<a([^>]*href="[^"]*"[^>]*)>/g, '<a$1 class="text-highlight hover:text-primary transition-colors underline">');
+  sanitized = sanitized.replace(/<a([^>]*href="[^"]*"[^>]*)>/g, '<a$1 style="color: #25EBD1; text-decoration: underline;">');
 
   return generalSanitization(sanitized);
 }
@@ -100,15 +100,12 @@ export function getProcessedContent(post) {
   // Remove duplicate H1 from content (BlogPostPage has its own H1)
   content = content.replace(/<h1[\s\S]*?<\/h1>/i, '');
 
-  // For BabyLoveGrowth posts, remove the first image if it matches the featured image
-  if (post.source === 'babylovegrowth' && post.image_url) {
-    const firstImgMatch = content.match(/<img[^>]*src="([^"]*)"[^>]*>/i);
-    if (firstImgMatch && firstImgMatch[1] === post.image_url) {
-      content = content.replace(/<img[^>]*>/i, '');
-    } else {
-      // If no match, still remove the first image as it's likely a duplicate
-      content = content.replace(/<img[^>]*>/i, '');
-    }
+  // For BabyLoveGrowth posts, remove the first TWO images since they're usually duplicates
+  if (post.source === 'babylovegrowth') {
+    // Remove first image
+    content = content.replace(/<img[^>]*>/i, '');
+    // Remove second image if it exists (often another duplicate)
+    content = content.replace(/<img[^>]*>/i, '');
   }
 
   // Apply content sanitization

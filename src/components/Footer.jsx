@@ -74,13 +74,19 @@ const Footer = React.memo(() => {
                     About
                   </Link>
                   <Link
+                    to="/about/faq"
+                    className="hover:text-primary transition"
+                  >
+                    FAQ
+                  </Link>
+                  <Link
                     to="/about/webinars"
                     className="hover:text-primary transition"
                   >
                     Webinars
                   </Link>
                   <Link
-                    to="/about/blog"
+                    to="/blog"
                     className="hover:text-primary transition"
                   >
                     Blog

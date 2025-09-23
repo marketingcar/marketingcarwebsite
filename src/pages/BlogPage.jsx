@@ -64,7 +64,7 @@ const BlogPage = () => {
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "url": "https://www.marketingcar.com/about/blog",
+    "url": "https://www.marketingcar.com/blog",
     "name": "Marketing Insights | Marketing Car Blog",
     "description": "Explore the latest marketing insights, tips, and strategies from Marketing Car to fuel your business growth and stay ahead of the competition.",
     "publisher": {
@@ -79,7 +79,7 @@ const BlogPage = () => {
       "@type": "BlogPosting",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://www.marketingcar.com/about/blog/${post.slug}`
+        "@id": `https://www.marketingcar.com/blog/${post.slug}`
       },
       "headline": post.title,
       "image": post.image_url,
@@ -132,7 +132,7 @@ const BlogPage = () => {
               {posts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
                   <Link 
-                    to={{ pathname: `/about/blog/${post.slug}`, search: queryParams }}
+                    to={{ pathname: `/blog/${post.slug}`, search: queryParams }}
                     className="block h-full"
                   >
                     <Card className="h-full flex flex-col overflow-hidden bg-secondary/20 border-border/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer">

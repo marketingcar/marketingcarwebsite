@@ -269,10 +269,7 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 .main-nav a:hover:not(.btn):not(.button):not([role="button"]),
 .main-nav a:focus-visible:not(.btn):not(.button):not([role="button"]),
 .main-nav a[aria-current="page"]:not(.btn):not(.button):not([role="button"]) {
-  background-image: var(--headline-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #25EBD1;
 }
 
 /* Mobile menus */
@@ -282,10 +279,7 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 .mobile-menu a:hover,
 .mobile-menu a:focus-visible,
 .mobile-menu a[aria-current="page"] {
-  background-image: var(--headline-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #25EBD1;
 }
 
 /* Fallback for very old browsers (no background-clip support) */
@@ -366,7 +360,12 @@ ol li {
 .post-content ul,
 .post-content ol {
   @apply mb-6 mt-4;
-  padding-left: 2rem;
+  padding-left: 2.5rem;
+}
+
+.post-content ol {
+  list-style-position: outside;
+  list-style-type: decimal;
 }
 
 .post-content li {
@@ -412,23 +411,22 @@ ol li {
   margin-right: auto;
 }
 
-/* Remove duplicate images that are too close together */
-.post-content img + img {
-  display: none;
-}
-
-.post-content img:first-of-type {
+/* Ensure all images display properly */
+.post-content img {
   display: block !important;
 }
 
 /* Better link styling within content */
 .post-content a {
-  @apply text-highlight hover:text-primary transition-colors underline;
-  text-decoration-color: hsl(var(--highlight) / 0.5);
+  color: #25EBD1;
+  text-decoration: underline;
+  text-decoration-color: rgba(37, 235, 209, 0.5);
+  transition: all 0.2s ease;
 }
 
 .post-content a:hover {
-  text-decoration-color: hsl(var(--primary));
+  color: #1fd4b8;
+  text-decoration-color: #1fd4b8;
 }
 
 /* Code styling */

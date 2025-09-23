@@ -98,7 +98,7 @@ const base = new Set([
   '/lp-free-marketing-tips/', '/lp-spinning-wheels/', '/lp-spinning-wheels-therapists/',
   '/lp-spinning-wheels-trades/', '/lp-webinar-1/', '/lp-webinar-2/', '/thank-you/',
   '/webinars/', '/case-studies/', '/about/case-studies/', '/about/the-marketing-car/',
-  '/about/webinars/', '/about/blog/'
+  '/about/faq/', '/about/webinars/', '/blog/'
 ].map(normalize));
 
 // add non dynamic routes declared in App.jsx, but skip "*" and params
@@ -113,7 +113,7 @@ for (const p of declaredRoutes) {
 const needsServices = declaredRoutes.some(p => typeof p === 'string' && p.includes('/services/:slug'));
 const needsWho = declaredRoutes.some(p => typeof p === 'string' && p.includes('/who-we-help/:slug'));
 const needsCase = declaredRoutes.some(p => typeof p === 'string' && (p.includes('/about/case-studies/:slug') || p.includes('/case-studies/:slug')));
-const needsBlog = declaredRoutes.some(p => typeof p === 'string' && (p.includes('/about/blog/:slug') || p.includes('/blog/:slug')));
+const needsBlog = declaredRoutes.some(p => typeof p === 'string' && p.includes('/blog/:slug'));
 
 if (needsServices) serviceSlugs.forEach(s => base.add(joinRoute('/services', s)));
 if (needsWho) whoSlugs.forEach(s => base.add(joinRoute('/who-we-help', s)));
@@ -122,8 +122,7 @@ if (needsCase) {
   caseSlugs.forEach(s => base.add(joinRoute(caseBase, s)));
 }
 if (needsBlog) {
-  const blogBase = declaredRoutes.find(p => typeof p === 'string' && p.includes('/about/blog/:slug')) ? '/about/blog' : '/blog';
-  blogSlugs.forEach(s => base.add(joinRoute(blogBase, s)));
+  blogSlugs.forEach(s => base.add(joinRoute('/blog', s)));
 }
 
 // 4) Clean, sort, write

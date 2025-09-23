@@ -58,7 +58,7 @@ const BlogPostPage = () => {
     return <div className="text-center py-24">Post not found.</div>;
   }
 
-  const pageUrl = `https://www.marketingcar.com/about/blog/${post.slug}`;
+  const pageUrl = `https://www.marketingcar.com/blog/${post.slug}`;
   const pageTitle = `${post.title} | Marketing Car Blog`;
 
   // Get processed and sanitized content
@@ -96,7 +96,7 @@ const BlogPostPage = () => {
       <SEOHelmet
         title={pageTitle}
         description={post.excerpt}
-        path={`/about/blog/${post.slug}`}
+        path={`/blog/${post.slug}`}
         image={post.image_url}
         type="article"
       />
@@ -111,7 +111,7 @@ const BlogPostPage = () => {
         >
           <div className="max-w-4xl mx-auto">
             <Button asChild variant="ghost" className="mb-8" aria-label="Back to Blog">
-              <Link to={{ pathname: "/about/blog", search: queryParams }}>
+              <Link to={{ pathname: "/blog", search: queryParams }}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Blog
               </Link>

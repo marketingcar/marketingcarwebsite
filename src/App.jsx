@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
@@ -30,6 +30,7 @@ const LpSpinningWheelsTherapistsPage = lazy(() => import('@/pages/LpSpinningWhee
 const LpSpinningWheelsTradesPage = lazy(() => import('@/pages/LpSpinningWheelsTradesPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const TheMarketingCarPage = lazy(() => import('@/pages/TheMarketingCarPage'));
+const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const LpFreeMarketingTips = lazy(() => import('@/pages/LpFreeMarketingTips'));
 const LpWebinar1 = lazy(() => import('@/pages/LpWebinar1'));
 const LpWebinar2 = lazy(() => import('@/pages/LpWebinar2'));
@@ -41,6 +42,12 @@ const PageLoader = () => (
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
   </div>
 );
+
+// Blog redirect component for old URLs
+const BlogRedirect = () => {
+  const { slug } = useParams();
+  return <Navigate to={`/blog/${slug}`} replace />;
+};
 
 const App = () => {
   const location = useLocation();
@@ -71,12 +78,14 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/about/the-marketing-car" element={<TheMarketingCarPage />} />
+                <Route path="/about/faq" element={<FAQPage />} />
                 <Route path="/about/webinars" element={<WebinarsPage />} />
                 <Route path="/about/case-studies" element={<CaseStudiesPage />} />
                 <Route path="/about/case-studies/:slug" element={<CaseStudyDetailPage />} />
-                <Route path="/about/blog" element={<BlogPage />} />
-                <Route path="/about/blog/:slug" element={<BlogPostPage />} />
-                <Route path="/blog" element={<Navigate to="/about/blog" replace />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/about/blog" element={<Navigate to="/blog" replace />} />
+                <Route path="/about/blog/:slug" element={<BlogRedirect />} />
                 <Route path="/services" element={<ServicesPage />} />
                 <Route path="/services/:slug" element={<ServiceDetailPage />} />
                 <Route path="/who-we-help" element={<WhoWeHelpPage />} />

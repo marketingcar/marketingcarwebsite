@@ -54,7 +54,7 @@ if (existsSync(blogDataPath)) {
 // Create blog post overrides
 const blogOverrides = {};
 for (const post of blogPosts) {
-  const routePath = `/about/blog/${post.slug}`;
+  const routePath = `/blog/${post.slug}`;
   blogOverrides[routePath] = {
     title: `${post.title} | Marketing Car Blog`,
     description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim() + '...',
