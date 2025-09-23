@@ -1,6 +1,0 @@
-# Handle SPA routing - but only for HTML pages, not assets
-/js/*     /js/:splat    404
-/css/*    /css/:splat   404  
-/assets/* /assets/:splat 404
-/images/* /images/:splat 404
-/*        /index.html   200
