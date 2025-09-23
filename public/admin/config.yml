@@ -50,7 +50,6 @@ collections:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
 
-site_url: https://marketingcar.com  # Replace with your site URL
 logo_url: https://www.marketingcar.com/mainlogo.png  # Replace with your logo URL
 
 # Editor configuration
