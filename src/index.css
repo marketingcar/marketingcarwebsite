@@ -16,8 +16,8 @@
     --popover: 260 5.1% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 279 64% 32%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 173 80% 53%; /* #25EBD1 in HSL */
+    --primary-foreground: 260 11% 11%;
 
     --secondary: 165 100% 29%;
     --secondary-foreground: 0 0% 100%;
@@ -61,8 +61,8 @@
     --popover: 260 5.1% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 279 64% 32%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 173 80% 53%; /* #25EBD1 in HSL */
+    --primary-foreground: 260 11% 11%;
 
     --secondary: 165 100% 29%;
     --secondary-foreground: 0 0% 100%;
@@ -111,7 +111,7 @@
   h4, h5, h6, .font-subheading { @apply font-semibold; }
 
   /* Base sizes and tightened rhythm */
-  h1 { @apply text-3xl leading-tight mt-8 mb-4; }
+  h1 { @apply text-3xl leading-normal mt-8 mb-4; }
   h2 { @apply text-2xl leading-snug mt-6 mb-3; }
   h3 { @apply text-xl  leading-snug mt-5 mb-3; }
   h4 { @apply text-lg  mt-4 mb-2; }
@@ -133,7 +133,7 @@
    ========================= */
 @layer base {
   @screen sm {
-    h1 { @apply text-4xl; }
+    h1 { @apply text-4xl leading-normal; }
     h2 { @apply text-3xl; }
     h3 { @apply text-2xl; }
     h4 { @apply text-xl; }
@@ -142,7 +142,7 @@
   }
 
   @screen md {
-    h1 { @apply text-5xl; }
+    h1 { @apply text-5xl leading-normal; }
     h2 { @apply text-4xl; }
     h3 { @apply text-3xl; }
     h4 { @apply text-2xl; }
@@ -151,7 +151,7 @@
   }
 
   @screen lg {
-    h1 { @apply text-6xl; }
+    h1 { @apply text-6xl leading-normal; }
   }
 }
 
