@@ -1,24 +1,53 @@
-name: Deploy "public" folder to FTP
+name: Build & Deploy to FTP
 
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main
+  schedule:
+    - cron: "0 11 * * *"   # Every day at 11:00 UTC
+  workflow_dispatch:        # Optional: run manually from the Actions tab
+
+concurrency:
+  group: deploy-to-ftp
+  cancel-in-progress: false
 
 jobs:
-  web-deploy:
-    name: Deploy to FTP
+  build-and-deploy:
+    name: Build site and deploy via FTP
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main  # Ensures scheduled runs build from main
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: yarn
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        env:
+          CI: true
+        run: yarn build
+
+      # Optional: verify the build artifact exists (helps fail fast with a clear error)
+      - name: Verify build output exists
+        run: |
+          test -d dist && echo "dist/ found" || (echo "dist/ not found. Check your build." && exit 1)
 
       - name: Deploy files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Using a popular FTP deployment action
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}  # FTP server hostname or IP address (stored in GitHub Secrets)
-          username: ${{ secrets.FTP_USERNAME }}  # FTP username (stored in GitHub Secrets)
-          password: ${{ secrets.FTP_PASSWORD }}  # FTP password (stored in GitHub Secrets)
-          local-dir: dist/  # The local folder to deploy
-          server-dir: /public_html/  # The remote folder on the FTP server
-          dangerous-clean-slate: false  # Set to true to delete all files on the remote before uploading (use with caution)
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
