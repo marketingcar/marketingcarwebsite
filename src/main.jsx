@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from '@/App';
 import '@/index.css';
-import { AuthProvider } from '@/contexts/SupabaseAuthContext';
 import { QueryParamProvider } from '@/contexts/QueryParamContext';
 
 const rootElement = document.getElementById('root');
@@ -24,9 +23,7 @@ root.render(
     <HelmetProvider>
       <BrowserRouter>
         <QueryParamProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <App />
         </QueryParamProvider>
       </BrowserRouter>
     </HelmetProvider>

@@ -19,7 +19,7 @@ const SITE_NAME = 'Marketing Car';
 
 const DEFAULTS = {
   title: 'Marketing Car',
-  desc: 'Marketing that actually drives your small business forward.',
+  desc: 'Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation today!',
   image: '/og/og-default.png',
 };
 
@@ -81,9 +81,16 @@ function walk(dir) {
 function ensure($, sel, attr, value) {
   const el = $(sel).first();
   if (el.length) {
+    // Update existing element
     el.attr(attr, value);
     return;
   }
+
+  // Special handling for meta description - remove any duplicates first
+  if (sel === 'meta[name="description"]') {
+    $('meta[name="description"]').remove();
+  }
+
   if (sel.startsWith('meta[')) {
     const $m = $('<meta/>');
     const m = sel.match(/\[(name|property)=["']([^"']+)["']\]/);

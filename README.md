@@ -27,16 +27,21 @@ Marketing Car was built to untangle digital chaos. Whether you're spinning your 
 ### Content Management System (CMS)
 - **[Decap CMS](https://decapcms.org/)** (formerly Netlify CMS) - Git-based headless CMS
   - **Access URL**: `https://marketingcar.com/admin/`
-  - **Authentication**: GitHub OAuth via DecapBridge
+  - **Authentication**: Auth via DecapBridge
   - **Content Types**: Blog posts, FAQ entries, Page content
   - **Repository**: `marketingcar/marketingcarwebsite` (main branch)
   - **Media Storage**: `public/blog/images/`
 
-### Database & Backend Services
-- **[Supabase](https://supabase.com/)** - Backend-as-a-Service platform
-  - **URL**: `https://jaiyxoysjethlblbicfd.supabase.co`
-  - **Features**: Authentication, Database, Storage, Real-time subscriptions
-  - **Usage**: Blog post fetching, analytics data, form submissions
+### Content & API Integrations
+- **[BabyLoveGrowth API](https://babylovegrowth.ai/)** - AI-powered SEO platform
+  - **API URL**: `https://api.babylovegrowth.ai/api/public`
+  - **Usage**: Fetching additional content
+  - **Integration**: Build-time content aggregation for enhanced blog content
+- **[HubSpot](https://hubspot.com/)** - Customer relationship management platform
+  - **Portal ID**: `47574927`
+  - **Region**: `na1` (North America)
+  - **Features**: Contact forms, newsletter subscriptions, lead management
+  - **Integration**: Embedded forms for lead capture and customer communications
 
 ### SEO & Analytics
 - **[React Helmet Async](https://github.com/staylor/react-helmet-async) 2.0** - Document head management
@@ -44,6 +49,12 @@ Marketing Car was built to untangle digital chaos. Whether you're spinning your 
 - **Custom SEO Components** - Schema markup, meta tags, Open Graph
 - **Sitemap Generation** - Automated XML and TXT sitemap creation
 - **RSS Feed** - Automated blog feed generation
+
+### Development & AI Tools
+- **[Claude Code](https://claude.ai/code)** by **[Anthropic](https://anthropic.com/)** - AI-powered development assistant
+  - **Usage**: Code generation, debugging, architecture planning, and documentation
+  - **Features**: Intelligent code suggestions, automated refactoring, technical guidance
+  - **Integration**: Direct IDE integration for real-time development assistance
 
 ## 🚀 DevOps & Deployment
 
@@ -78,7 +89,6 @@ npm run dev          # Start Vite dev server with hot reload
 
 # Building
 npm run build        # Full production build with all optimizations
-npm run build:supabase  # Build with Supabase blog integration
 npm run build:analyze  # Build with bundle analysis
 npm run preview      # Preview production build locally
 
@@ -143,7 +153,7 @@ marketingcar/
 The build system includes several optimization stages:
 
 1. **Image Optimization** - Converts images to WebP format for better performance
-2. **Content Processing** - Processes Markdown blog posts and FAQ entries
+2. **Content Processing** - Processes Markdown blog posts, BabyLoveGrowth API content, and FAQ entries
 3. **Route Pre-rendering** - Generates static HTML for all routes
 4. **Vite Build** - Bundles and optimizes JavaScript/CSS
 5. **SPA Route Handling** - Sets up client-side routing fallbacks
@@ -155,14 +165,14 @@ The build system includes several optimization stages:
 
 ### Accessing the CMS
 1. Navigate to `https://marketingcar.com/admin/`
-2. Click "Login with GitHub"
-3. Authenticate with GitHub account (requires repository access)
-4. Create, edit, and publish content
+2. Click "Login" after generating credentials at Decap Bridge (Root credentials stored in 1Password )
+3. Create, edit, and publish content
 
 ### Content Types
 - **Blog Posts**: Full markdown support with metadata, images, and SEO fields
 - **FAQ Entries**: Question/answer pairs with ordering and publishing controls
 - **Page Content**: Editable content for static pages (About, Services, Contact, etc.)
+- **AI-Generated Content**: Additional blog articles sourced from BabyLoveGrowth API during build time
 
 ### Editorial Workflow
 - Draft → Review → Publish workflow enabled
@@ -174,10 +184,10 @@ The build system includes several optimization stages:
 
 ### Required Environment Variables
 ```env
-SUPABASE_URL=https://jaiyxoysjethlblbicfd.supabase.co
-SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_SUPABASE_URL=https://jaiyxoysjethlblbicfd.supabase.co
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Add environment variables as needed for your specific integrations
+# Examples:
+# VITE_GOOGLE_GTM_ID=your_gtm_id
+# VITE_HUBSPOT_PORTAL_ID=47574927
 ```
 
 ### GitHub Secrets (for CI/CD)
@@ -192,7 +202,7 @@ FTP_PASSWORD=your_ftp_password
 ### Code Splitting
 - React core bundle (highest priority)
 - Route-based splitting for pages
-- Library-specific chunks (Supabase, Framer Motion, etc.)
+- Library-specific chunks (Framer Motion, Radix UI, etc.)
 - Component-based splitting
 
 ### Build Optimizations

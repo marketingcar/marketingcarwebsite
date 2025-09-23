@@ -30,7 +30,7 @@ const HomePage = () => {
         "Social Media Marketing",
         "Content Marketing"
       ],
-      "description": "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems.",
+      "description": "Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation today!",
       "serviceType": "Small Business Marketing Services"
     },
     {
@@ -54,7 +54,7 @@ const HomePage = () => {
         "@type": "Organization"
       },
       "inLanguage": "en-US",
-      "description": "Marketing that actually drives your small business forward."
+      "description": "Small business marketing that drives growth with SEO, local marketing, content, branding, and paid ads. Book a free consult today."
     },
     {
       "url": "https://marketingcar.com",
@@ -68,7 +68,7 @@ const HomePage = () => {
       "@type": "MarketingAgency",
       "@context": "https://schema.org",
       "areaServed": "United States",
-      "description": "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems.",
+      "description": "Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation today!",
       "serviceType": "Small Business Marketing Services"
     }
   ];
@@ -77,7 +77,7 @@ const HomePage = () => {
     <PageTransition>
       <SEOHelmet
         title="Small Business Marketing That Actually Works | Marketing Car"
-        description="Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems."
+        description="Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation today!"
         path="/"
         image="/og/og-default.png"
       />

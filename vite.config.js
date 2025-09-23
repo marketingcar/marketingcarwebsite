@@ -296,9 +296,6 @@ export default defineConfig({
 					}
 					
 					// Third-party integrations - load only when needed
-					if (id.includes('@supabase')) {
-						return 'supabase';
-					}
 					if (id.includes('react-helmet-async')) {
 						return 'helmet';
 					}
@@ -401,7 +398,6 @@ export default defineConfig({
 			'class-variance-authority'
 		],
 		exclude: [
-			'@supabase/supabase-js', 
 			'framer-motion',
 			'react-gtm-module'
 		]

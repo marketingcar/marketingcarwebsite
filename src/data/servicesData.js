@@ -1,8 +1,8 @@
-// Icons are referenced by name strings to avoid JSX parsing issues in build
+// Icons use emojis for consistent loading across all platforms
 export const services = [
-  { 
+  {
     slug: "marketing-strategy",
-    title: "Marketing Strategy", 
+    title: "Marketing Strategy",
     description: "Develop a comprehensive plan to achieve your business goals.",
     subtitle: "A clear roadmap to navigate the competitive landscape and drive measurable growth.",
     longDescription: "<p>We dive deep into your business to craft a bespoke marketing strategy that aligns with your objectives. Our process includes market research, competitive analysis, and identifying your target audience to create a roadmap for success. We focus on measurable results and long-term growth.</p>",
@@ -19,7 +19,7 @@ export const services = [
       ogTitle: "Custom Marketing Strategy Services | Marketing Car",
       ogDescription: "Let's build a roadmap for your success. Our marketing strategy services include in-depth analysis, goal setting, and multi-channel planning to drive growth."
     },
-    icon: "TrendingUp",
+    icon: "📈",
   },
   { 
     slug: "local-near-me-marketing",
@@ -40,7 +40,7 @@ export const services = [
       ogTitle: "Attract Local Customers | Near Me Marketing Services",
       ogDescription: "Be the top choice in your area. Our local marketing strategies boost your visibility in 'near me' searches and drive foot traffic to your business."
     },
-    icon: "MapPin",
+    icon: "📍",
   },
   { 
     slug: "graphic-design",
@@ -61,7 +61,7 @@ export const services = [
       ogTitle: "Creative Graphic Design for Your Brand | Marketing Car",
       ogDescription: "From logos to social media graphics, our designers create visuals that are not only beautiful but strategically effective. Tell your brand's story with style."
     },
-    icon: "Palette",
+    icon: "🎨",
   },
   {
     slug: "b2b-marketing",
@@ -82,7 +82,7 @@ export const services = [
       ogTitle: "Expert B2B Marketing Strategies | Marketing Car",
       ogDescription: "Navigate the B2B landscape with confidence. We develop targeted campaigns to generate high-quality leads and build lasting business relationships."
     },
-    icon: "Handshake",
+    icon: "🤝",
   },
   { 
     slug: "brand-strategy-design",
@@ -103,7 +103,7 @@ export const services = [
       ogTitle: "Craft a Powerful Brand Identity | Marketing Car",
       ogDescription: "Go beyond a logo. We help you build a cohesive brand experience, from strategy and voice to a stunning visual identity that connects with your audience."
     },
-    icon: "Sparkles",
+    icon: "✨",
   },
   { 
     slug: "marketing-consultation",
@@ -124,7 +124,7 @@ export const services = [
       ogTitle: "Expert Marketing Advice & Consultation | Marketing Car",
       ogDescription: "Stuck on a marketing problem? Book a consultation for a fresh perspective, performance reviews, and strategic guidance to get you back on the road to growth."
     },
-    icon: "Lightbulb",
+    icon: "💡",
   },
   { 
     slug: "seo-strategy",
@@ -145,7 +145,7 @@ export const services = [
       ogTitle: "Boost Your Rankings with Expert SEO | Marketing Car",
       ogDescription: "Improve your visibility on Google and attract more qualified traffic. Our comprehensive SEO services are designed for long-term, sustainable results."
     },
-    icon: "Search",
+    icon: "🔍",
   },
   { 
     slug: "content-marketing",
@@ -166,7 +166,7 @@ export const services = [
       ogTitle: "Strategic Content Marketing to Engage Your Audience | Marketing Car",
       ogDescription: "Attract, engage, and convert with content that matters. We develop and execute content strategies that build your brand and your bottom line."
     },
-    icon: "PenTool",
+    icon: "✏️",
   },
   { 
     slug: "paid-advertising",
@@ -187,7 +187,7 @@ export const services = [
       ogTitle: "Maximize ROI with Paid Advertising | Marketing Car",
       ogDescription: "Drive targeted traffic and get immediate results. Our paid advertising services cover Google Ads and social media, optimized for maximum performance."
     },
-    icon: "Target",
+    icon: "🎯",
   },
   { 
     slug: "social-media-management",
@@ -208,7 +208,7 @@ export const services = [
       ogTitle: "Engaging Social Media Management | Marketing Car",
       ogDescription: "Let's build your community. We manage your social media presence from strategy and content creation to engagement and reporting."
     },
-    icon: "Heart",
+    icon: "❤️",
   },
   { 
     slug: "email-marketing",
@@ -229,7 +229,7 @@ export const services = [
       ogTitle: "Effective Email Marketing & Automation | Marketing Car",
       ogDescription: "From newsletters to complex automation, we create email campaigns that nurture leads, drive sales, and build customer loyalty."
     },
-    icon: "Mail",
+    icon: "📧",
   },
   { 
     slug: "web-design-development",
@@ -250,6 +250,6 @@ export const services = [
       ogTitle: "Custom Web Design & Development | Marketing Car",
       ogDescription: "Your website is your most important marketing tool. We build beautiful, user-friendly sites that are optimized for performance and conversions."
     },
-    icon: "Monitor",
+    icon: "💻",
   },
 ];

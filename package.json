@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-markdown.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
-    "build:supabase": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-static.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
     "build:analyze": "npm run build && npx rollup-plugin-visualizer",
     "preview": "vite preview",
     "build:routes": "node scripts/prerender.routes.mjs",
@@ -24,7 +23,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
-    "@supabase/supabase-js": "^2.55.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
