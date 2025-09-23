@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from "@/components/ui/button";
 import { services } from '@/data/servicesData.js';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import { getIcon } from '@/utils/iconHelper';
 
 const ServicesPage = () => {
   const webPageSchema = {
@@ -70,7 +71,7 @@ const ServicesPage = () => {
               >
                 <Card className="h-full flex flex-col transform hover:-translate-y-2 transition-transform duration-300 ease-in-out shadow-lg hover:shadow-primary/20">
                   <CardHeader className="flex-grow">
-                    <div className="mb-4">{service.icon}</div>
+                    <div className="mb-4">{getIcon(service.icon)}</div>
                     <CardTitle className="font-heading text-2xl">{service.title}</CardTitle>
                     <CardDescription>{service.description}</CardDescription>
                   </CardHeader>

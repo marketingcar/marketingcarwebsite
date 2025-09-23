@@ -97,7 +97,7 @@ const ServicesSection = () => {
               <Link to={`/services/${service.slug}`} className="h-full block">
                 <Card className="h-full flex flex-col bg-slate-900/70 backdrop-blur-sm border-slate-700 hover:border-primary transition-all duration-300 hover:-translate-y-2">
                   <CardHeader className="items-center text-center">
-                    {React.cloneElement(service.icon, { "aria-label": service.name, className: "h-12 w-12 text-white" })}
+                    {React.cloneElement(componentMap[service.slug].icon, { "aria-label": service.name, className: "h-12 w-12 text-white" })}
                     <CardTitle className="mt-4 text-2xl text-white">{service.name}</CardTitle>
                     <CardDescription className="text-sm text-highlight font-semibold">{service.subName}</CardDescription>
                   </CardHeader>
