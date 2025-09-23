@@ -100,6 +100,17 @@ export function getProcessedContent(post) {
   // Remove duplicate H1 from content (BlogPostPage has its own H1)
   content = content.replace(/<h1[\s\S]*?<\/h1>/i, '');
 
+  // For BabyLoveGrowth posts, remove the first image if it matches the featured image
+  if (post.source === 'babylovegrowth' && post.image_url) {
+    const firstImgMatch = content.match(/<img[^>]*src="([^"]*)"[^>]*>/i);
+    if (firstImgMatch && firstImgMatch[1] === post.image_url) {
+      content = content.replace(/<img[^>]*>/i, '');
+    } else {
+      // If no match, still remove the first image as it's likely a duplicate
+      content = content.replace(/<img[^>]*>/i, '');
+    }
+  }
+
   // Apply content sanitization
   content = sanitizeBlogContent(content, post.source);
 
