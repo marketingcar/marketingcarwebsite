@@ -334,3 +334,145 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 ol li {
   margin-bottom: 1.5rem; /* adjust as needed */
 }
+
+/* =========================
+   Blog Post Content Styling
+   ========================= */
+.post-content {
+  /* Better spacing for all content elements */
+  line-height: 1.7;
+}
+
+.post-content h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-primary;
+  border-bottom: 2px solid hsl(var(--border));
+  padding-bottom: 0.5rem;
+}
+
+.post-content h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-primary;
+}
+
+.post-content h4 {
+  @apply text-lg font-medium mt-4 mb-2 text-primary;
+}
+
+.post-content p {
+  @apply mb-4;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.post-content ul,
+.post-content ol {
+  @apply mb-6 mt-4;
+  padding-left: 2rem;
+}
+
+.post-content li {
+  @apply mb-2;
+  line-height: 1.6;
+}
+
+.post-content blockquote {
+  @apply border-l-4 border-primary pl-6 py-2 my-6 italic;
+  background: hsl(var(--card));
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.post-content table {
+  @apply w-full my-6 border border-border rounded-lg overflow-hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.post-content th {
+  @apply bg-card px-4 py-3 text-left font-semibold border-b border-border;
+}
+
+.post-content td {
+  @apply px-4 py-3 border-b border-border;
+}
+
+.post-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.post-content tbody tr:hover {
+  @apply bg-card/50;
+}
+
+/* Blog images specific styling */
+.post-content .blog-image,
+.post-content img {
+  @apply w-full h-auto rounded-lg shadow-md my-8 object-cover;
+  max-height: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Remove duplicate images that are too close together */
+.post-content img + img {
+  display: none;
+}
+
+.post-content img:first-of-type {
+  display: block !important;
+}
+
+/* Better link styling within content */
+.post-content a {
+  @apply text-highlight hover:text-primary transition-colors underline;
+  text-decoration-color: hsl(var(--highlight) / 0.5);
+}
+
+.post-content a:hover {
+  text-decoration-color: hsl(var(--primary));
+}
+
+/* Code styling */
+.post-content code {
+  @apply bg-card px-2 py-1 rounded text-sm font-mono;
+}
+
+.post-content pre {
+  @apply bg-card p-4 rounded-lg overflow-x-auto my-4;
+}
+
+.post-content pre code {
+  @apply bg-transparent p-0;
+}
+
+/* Better spacing for nested elements */
+.post-content li p {
+  @apply mb-2 mt-1;
+}
+
+.post-content li ul,
+.post-content li ol {
+  @apply mt-2 mb-2;
+}
+
+/* FAQ sections common in BabyLove posts */
+.post-content h4[id*="faq"],
+.post-content h4[id*="question"],
+.post-content h4:has(+ p:last-child) {
+  @apply text-base font-medium mt-6 mb-2 text-highlight;
+}
+
+/* Better table of contents styling */
+.post-content h2[id*="table-of-contents"] + ul,
+.post-content h2[id*="contents"] + ul {
+  @apply bg-card p-4 rounded-lg border border-border;
+}
+
+.post-content h2[id*="table-of-contents"] + ul li,
+.post-content h2[id*="contents"] + ul li {
+  @apply mb-1;
+}
+
+.post-content h2[id*="table-of-contents"] + ul a,
+.post-content h2[id*="contents"] + ul a {
+  @apply no-underline hover:underline text-foreground hover:text-highlight;
+}

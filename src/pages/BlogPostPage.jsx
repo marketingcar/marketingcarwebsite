@@ -9,6 +9,7 @@ import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import SEOHelmet from '@/components/SEOHelmet';
 import { signalPrerenderReady } from '@/lib/prerenderReady';
+import { getProcessedContent } from '@/lib/contentSanitizer';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
@@ -60,11 +61,8 @@ const BlogPostPage = () => {
   const pageUrl = `https://www.marketingcar.com/about/blog/${post.slug}`;
   const pageTitle = `${post.title} | Marketing Car Blog`;
 
-  // Remove a duplicate H1 from the post HTML (keeps the template H1 as the only page H1)
-  const sanitizedContent =
-    typeof post.content === 'string'
-      ? post.content.replace(/<h1[\s\S]*?<\/h1>/i, '')
-      : post.content;
+  // Get processed and sanitized content
+  const sanitizedContent = getProcessedContent(post);
 
   const blogPostingSchema = {
     "@context": "https://schema.org",
