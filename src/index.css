@@ -282,12 +282,16 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
   color: #25EBD1;
 }
 
-/* React Navigation Component Overrides */
-/* Target the specific classes used in Header.jsx */
-.header nav a.hover\\:text-primary:hover,
-.header nav a.text-primary,
-.header nav a[aria-current="page"],
-.header nav button.hover\\:text-primary:hover {
+/* Override Tailwind's text-primary class specifically in navigation */
+.text-primary {
+  color: hsl(var(--primary));
+}
+
+/* But override it for navigation elements */
+header .text-primary,
+nav .text-primary,
+header .hover\\:text-primary:hover,
+nav .hover\\:text-primary:hover {
   color: #25EBD1 !important;
 }
 

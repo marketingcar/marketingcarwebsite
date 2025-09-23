@@ -43,7 +43,7 @@ const HeroSection = () => {
   // Disable animations if user prefers reduced motion
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const heroImageUrl = "https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fa6d981b4dffaf2b55e483e406049ee6.png";
+  const heroImageUrl = "/elements/hero.png";
   
   return (
     <motion.section 

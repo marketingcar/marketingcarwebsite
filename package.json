@@ -5,11 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "rimraf dist && node scripts/build-blog-markdown.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
-    "build:supabase": "rimraf dist && node scripts/build-blog-static.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs",
+    "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-markdown.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
+    "build:supabase": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-static.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
     "build:analyze": "npm run build && npx rollup-plugin-visualizer",
     "preview": "vite preview",
-    "build:routes": "node scripts/prerender.routes.mjs"
+    "build:routes": "node scripts/prerender.routes.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.1",
@@ -53,6 +54,7 @@
     "postcss": "^8.4.31",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.9.2",
+    "sharp": "^0.34.4",
     "sitemap": "^8.0.0",
     "tailwindcss": "^3.3.3",
     "terser": "^5.39.0",

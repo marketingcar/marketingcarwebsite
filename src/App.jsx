@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import ScrollToTop from '@/components/ScrollToTop';
+import PerformanceOptimizer from '@/components/PerformanceOptimizer';
 import { modulePreloader } from '@/utils/modulePreloader';
 
 // Lazy load footer for better initial performance
@@ -68,6 +69,7 @@ const App = () => {
 
   return (
     <>
+      <PerformanceOptimizer />
       <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
         <Header />
         <ScrollToTop />

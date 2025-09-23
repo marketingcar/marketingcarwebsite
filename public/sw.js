@@ -6,6 +6,9 @@ const RUNTIME_CACHE = 'runtime-cache-v2';
 // Resources to cache immediately (only same-origin resources)
 const PRECACHE_URLS = [
   '/',
+  '/elements/hero.webp',
+  '/elements/hero.png',
+  '/mainlogo.webp',
   '/mainlogo.png',
   '/favicon.svg'
 ];
