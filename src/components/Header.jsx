@@ -14,7 +14,7 @@ const NavItem = ({
 }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
-  return <NavLink to={to} className={`text-lg font-medium transition-colors duration-300 relative ${isMobile ? 'block px-4 py-3 text-foreground' : 'text-foreground hover:text-primary'} ${isActive ? 'text-primary' : ''}`} onClick={closeMenu}>
+  return <NavLink to={to} className={`text-lg font-medium transition-colors duration-300 relative ${isMobile ? 'block px-4 py-3 text-foreground' : 'text-foreground'}`} style={isActive ? { color: '#25EBD1' } : {}} onMouseEnter={(e) => !isMobile && (e.target.style.color = '#25EBD1')} onMouseLeave={(e) => !isActive && !isMobile && (e.target.style.color = '')} onClick={closeMenu}>
       {children}
       {!isMobile && <span className={`absolute left-0 -bottom-1 w-full h-0.5 bg-primary transform transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0'}`} />}
     </NavLink>;
@@ -27,7 +27,7 @@ const DropdownNavItem = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return <div className="relative" onMouseEnter={() => !isMobile && setIsOpen(true)} onMouseLeave={() => !isMobile && setIsOpen(false)}>
-      <button onClick={() => isMobile && setIsOpen(!isOpen)} className={`flex items-center text-lg font-medium transition-colors duration-300 ${isMobile ? 'w-full px-4 py-3 text-left text-foreground' : 'text-foreground hover:text-primary'}`}>
+      <button onClick={() => isMobile && setIsOpen(!isOpen)} className={`flex items-center text-lg font-medium transition-colors duration-300 ${isMobile ? 'w-full px-4 py-3 text-left text-foreground' : 'text-foreground'}`} onMouseEnter={(e) => !isMobile && (e.target.style.color = '#25EBD1')} onMouseLeave={(e) => !isMobile && (e.target.style.color = '')}>
         {title}
         <ChevronDown className={`ml-1 h-5 w-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>

@@ -16,8 +16,8 @@
     --popover: 260 5.1% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 173 80% 53%; /* #25EBD1 in HSL */
-    --primary-foreground: 260 11% 11%;
+    --primary: 279 64% 32%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 165 100% 29%;
     --secondary-foreground: 0 0% 100%;
@@ -61,8 +61,8 @@
     --popover: 260 5.1% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 173 80% 53%; /* #25EBD1 in HSL */
-    --primary-foreground: 260 11% 11%;
+    --primary: 279 64% 32%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 165 100% 29%;
     --secondary-foreground: 0 0% 100%;
@@ -280,6 +280,15 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
 .mobile-menu a:focus-visible,
 .mobile-menu a[aria-current="page"] {
   color: #25EBD1;
+}
+
+/* React Navigation Component Overrides */
+/* Target the specific classes used in Header.jsx */
+.header nav a.hover\\:text-primary:hover,
+.header nav a.text-primary,
+.header nav a[aria-current="page"],
+.header nav button.hover\\:text-primary:hover {
+  color: #25EBD1 !important;
 }
 
 /* Fallback for very old browsers (no background-clip support) */
