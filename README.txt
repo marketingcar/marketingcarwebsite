@@ -26,4 +26,4 @@ dist/
   about/blog/index.html
   about/blog/<slug>/index.html
   lp-free-marketing-tips/index.html
-  ...
+  
