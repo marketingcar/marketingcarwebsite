@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { fetchAndTransformBabyloveArticles } from '../src/lib/babyloveApi.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -18,6 +19,7 @@ async function generateRSSFeed() {
   const blogDirectory = path.join(root, 'content', 'blog');
   const posts = [];
 
+  // Load static markdown blog posts
   if (existsSync(blogDirectory)) {
     try {
       const files = readdirSync(blogDirectory);
@@ -43,12 +45,33 @@ async function generateRSSFeed() {
         }
       }
 
-      console.log(`✅ Processed ${posts.length} published blog posts`);
+      console.log(`✅ Processed ${posts.length} static blog posts`);
     } catch (error) {
       console.warn('📁 Error reading blog directory:', error.message);
     }
   } else {
     console.log('📁 No blog directory found');
+  }
+
+  // Load API blog posts from Babylove
+  try {
+    console.log('🌐 Fetching API blog posts...');
+    const apiPosts = await fetchAndTransformBabyloveArticles();
+
+    for (const apiPost of apiPosts) {
+      posts.push({
+        title: apiPost.title || 'Untitled',
+        slug: apiPost.slug,
+        description: apiPost.excerpt || apiPost.title,
+        date: new Date(apiPost.created_at || Date.now()),
+        author: 'Marketing Car',
+        content: apiPost.content || ''
+      });
+    }
+
+    console.log(`✅ Processed ${apiPosts.length} API blog posts`);
+  } catch (error) {
+    console.warn('🌐 Error fetching API blog posts:', error.message);
   }
 
   // Sort posts by date (newest first)
@@ -94,7 +117,7 @@ ${rssItems}
   writeFileSync(path.join(dist, 'feed.xml'), rssXml, 'utf-8');
   writeFileSync(path.join(feedDir, 'index.xml'), rssXml, 'utf-8');
 
-  console.log(`✅ Generated RSS feed with ${posts.length} posts at:`);
+  console.log(`✅ Generated RSS feed with ${posts.length} total posts at:`);
   console.log(`   - ${SITE_URL}/feed.xml`);
   console.log(`   - ${SITE_URL}/feed/`);
 

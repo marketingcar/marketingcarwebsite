@@ -62,7 +62,7 @@ const HeroSection = () => {
           height={1080}
           style={{aspectRatio: '16/9'}}
         />
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
       </div>
 
       <div className="relative z-10 max-w-3xl mx-auto">
