@@ -1,15 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const supabaseUrl = 'https://jaiyxoysjethlblbicfd.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphaXl4b3lzamV0aGxibGJpY2ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE1NzA4NDYsImV4cCI6MjA2NzE0Njg0Nn0.h3YXLROOz1hdqs5IvSzvbNCpA1C96x6X5Wnf-H7dzTs';
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const BABYLOVE_API_BASE_URL = 'https://api.babylovegrowth.ai/api/public';
 const BABYLOVE_API_KEY = '84dbc772-cacd-44d5-8957-474a29a9c4cf';
@@ -19,22 +13,8 @@ const babyloveHeaders = {
   'Content-Type': 'application/json'
 };
 
-async function fetchBlogPosts() {
-  console.log('= Fetching blog posts from Supabase...');
-
-  const { data: posts, error } = await supabase
-    .from('posts')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('L Error fetching posts:', error);
-    throw error;
-  }
-
-  console.log(` Fetched ${posts.length} blog posts from Supabase`);
-  return posts || [];
-}
+// Note: Supabase blog posts removed - using only Babylove posts
+// If you need Supabase posts, add '@supabase/supabase-js' to package.json
 
 async function fetchBabyloveArticles() {
   console.log('= Fetching articles from Babylove API...');
@@ -125,27 +105,17 @@ export function getAllBlogPosts() {
 
 async function main() {
   try {
-    console.log('=📝 Starting static blog generation...');
+    console.log('=📝 Starting static blog generation (Babylove API only)...');
 
-    // Fetch posts from both sources
-    const [supabasePosts, babylovePosts] = await Promise.all([
-      fetchBlogPosts(),
-      fetchBabyloveArticles()
-    ]);
+    // Fetch posts from Babylove API
+    const babylovePosts = await fetchBabyloveArticles();
 
-    // Combine and sort: Supabase posts first, then by creation date within each source
-    const allPosts = [...supabasePosts, ...babylovePosts]
-      .sort((a, b) => {
-        // First, prioritize by source (Supabase posts come first)
-        if (a.source !== b.source) {
-          if (!a.source) return -1; // Supabase posts have no source field, so they come first
-          if (!b.source) return 1;
-        }
-        // Then sort by creation date (newest first)
-        return new Date(b.created_at) - new Date(a.created_at);
-      });
+    // Sort by creation date (newest first)
+    const allPosts = babylovePosts.sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
 
-    console.log(` Combined ${allPosts.length} total posts (${supabasePosts.length} from Supabase + ${babylovePosts.length} from Babylove)`);
+    console.log(` Generated ${allPosts.length} total posts from Babylove API`);
 
     await generateStaticBlogData(allPosts);
 
