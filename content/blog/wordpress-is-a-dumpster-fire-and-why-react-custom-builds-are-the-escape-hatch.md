@@ -1,5 +1,5 @@
 ---
-title: WordPress is a Small Business Website Dumpster Fire (and Why React Custom Builds Are the Escape Hatch)
+title: WordPress is a Small Business Website Dumpster Fire
 slug: small-business-websites-wordpress-is-bad
 date: 2025-09-28
 excerpt: Ah, WordPress. The “free” CMS that’s somehow cost more small businesses

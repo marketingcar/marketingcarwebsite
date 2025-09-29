@@ -370,6 +370,20 @@ ol li {
   hyphens: auto;
 }
 
+/* Bold text styling */
+.post-content strong,
+.post-content b {
+  font-weight: 700 !important;
+  color: hsl(var(--foreground));
+}
+
+/* Italic text styling */
+.post-content em,
+.post-content i {
+  font-style: italic;
+  color: hsl(var(--foreground));
+}
+
 .post-content ul,
 .post-content ol {
   @apply mb-6 mt-4;
@@ -403,6 +417,13 @@ ol li {
 .post-content li {
   @apply mb-2;
   line-height: 1.6;
+  color: hsl(var(--foreground));
+}
+
+/* Ensure bold text in lists is visible */
+.post-content li strong,
+.post-content li b {
+  font-weight: 700 !important;
   color: hsl(var(--foreground));
 }
 
@@ -529,6 +550,32 @@ ol li {
 .post-content ul + p,
 .post-content ol + p {
   margin-top: 1rem;
+}
+
+/* Additional bold text overrides */
+.post-content * strong,
+.post-content * b,
+strong,
+b {
+  font-weight: 700 !important;
+  font-family: inherit;
+}
+
+/* Ensure prose styles don't override our bold styling */
+.prose strong,
+.prose b,
+.prose-invert strong,
+.prose-invert b {
+  font-weight: 700 !important;
+  color: inherit !important;
+}
+
+/* Make sure headings with bold elements are visible */
+.post-content h1 strong, .post-content h1 b,
+.post-content h2 strong, .post-content h2 b,
+.post-content h3 strong, .post-content h3 b,
+.post-content h4 strong, .post-content h4 b {
+  font-weight: 900 !important;
 }
 
 /* FAQ sections common in BabyLove posts */
