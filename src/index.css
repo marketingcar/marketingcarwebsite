@@ -587,16 +587,121 @@ b {
 
 /* Better table of contents styling */
 .post-content h2[id*="table-of-contents"] + ul,
-.post-content h2[id*="contents"] + ul {
+.post-content h2[id*="contents"] + ul,
+.post-content h2:contains("Table of Contents") + ul,
+.post-content h2:contains("Contents") + ul {
   @apply bg-card p-4 rounded-lg border border-border;
+  list-style: none !important;
+  padding-left: 1rem !important;
 }
 
 .post-content h2[id*="table-of-contents"] + ul li,
-.post-content h2[id*="contents"] + ul li {
+.post-content h2[id*="contents"] + ul li,
+.post-content h2:contains("Table of Contents") + ul li,
+.post-content h2:contains("Contents") + ul li {
   @apply mb-1;
+  list-style: none !important;
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.post-content h2[id*="table-of-contents"] + ul li::marker,
+.post-content h2[id*="contents"] + ul li::marker,
+.post-content h2:contains("Table of Contents") + ul li::marker,
+.post-content h2:contains("Contents") + ul li::marker {
+  content: none !important;
+  display: none !important;
 }
 
 .post-content h2[id*="table-of-contents"] + ul a,
-.post-content h2[id*="contents"] + ul a {
+.post-content h2[id*="contents"] + ul a,
+.post-content h2:contains("Table of Contents") + ul a,
+.post-content h2:contains("Contents") + ul a {
   @apply no-underline hover:underline text-foreground hover:text-highlight;
+}
+
+/* Additional TOC styling patterns */
+.post-content ul li a[href^="#"] {
+  color: #25EBD1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.post-content ul li a[href^="#"]:hover {
+  color: #1fd4b8;
+  text-decoration: underline;
+}
+
+/* Special handling for nested TOC lists */
+.post-content h2[id*="table-of-contents"] + ul ul,
+.post-content h2[id*="contents"] + ul ul {
+  list-style: none !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+.post-content h2[id*="table-of-contents"] + ul ul li,
+.post-content h2[id*="contents"] + ul ul li {
+  list-style: none !important;
+  display: block !important;
+}
+
+.post-content h2[id*="table-of-contents"] + ul ul li::marker,
+.post-content h2[id*="contents"] + ul ul li::marker {
+  content: none !important;
+  display: none !important;
+}
+
+/* General TOC detection and styling */
+.post-content ul:has(li a[href^="#"]) {
+  background: hsl(var(--card));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  list-style: none !important;
+  margin: 1.5rem 0;
+}
+
+.post-content ul:has(li a[href^="#"]) li {
+  list-style: none !important;
+  display: block !important;
+  margin-bottom: 0.5rem;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.post-content ul:has(li a[href^="#"]) li::marker {
+  content: none !important;
+  display: none !important;
+}
+
+/* Purple heading detection for TOC */
+.post-content h2[style*="color"] + ul,
+.post-content h3[style*="color"] + ul,
+.post-content h4[style*="color"] + ul {
+  background: hsl(var(--card));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  list-style: none !important;
+  margin: 1.5rem 0;
+}
+
+.post-content h2[style*="color"] + ul li,
+.post-content h3[style*="color"] + ul li,
+.post-content h4[style*="color"] + ul li {
+  list-style: none !important;
+  display: block !important;
+  margin-bottom: 0.5rem;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.post-content h2[style*="color"] + ul li::marker,
+.post-content h3[style*="color"] + ul li::marker,
+.post-content h4[style*="color"] + ul li::marker {
+  content: none !important;
+  display: none !important;
 }
