@@ -376,14 +376,45 @@ ol li {
   padding-left: 2.5rem;
 }
 
+.post-content ul {
+  list-style-position: outside;
+  list-style-type: disc;
+}
+
+.post-content ul li {
+  display: list-item;
+  list-style: disc outside;
+  margin-left: 0;
+  padding-left: 0.5rem;
+}
+
 .post-content ol {
   list-style-position: outside;
   list-style-type: decimal;
 }
 
+.post-content ol li {
+  display: list-item;
+  list-style: decimal outside;
+  margin-left: 0;
+  padding-left: 0.5rem;
+}
+
 .post-content li {
   @apply mb-2;
   line-height: 1.6;
+  color: hsl(var(--foreground));
+}
+
+/* Ensure bullet points are visible */
+.post-content ul li::marker {
+  color: hsl(var(--primary));
+  font-size: 1.2em;
+}
+
+.post-content ol li::marker {
+  color: hsl(var(--primary));
+  font-weight: 600;
 }
 
 .post-content blockquote {
@@ -463,6 +494,41 @@ ol li {
 .post-content li ul,
 .post-content li ol {
   @apply mt-2 mb-2;
+  padding-left: 2rem;
+}
+
+/* Nested list styling */
+.post-content ul ul {
+  list-style-type: circle;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-content ul ul ul {
+  list-style-type: square;
+}
+
+/* Force list visibility */
+.post-content * {
+  box-sizing: border-box;
+}
+
+.post-content ul li,
+.post-content ol li {
+  position: relative;
+  display: list-item !important;
+  margin-bottom: 0.75rem;
+}
+
+/* Additional fallback for problematic content */
+.post-content p + ul,
+.post-content p + ol {
+  margin-top: 1rem;
+}
+
+.post-content ul + p,
+.post-content ol + p {
+  margin-top: 1rem;
 }
 
 /* FAQ sections common in BabyLove posts */

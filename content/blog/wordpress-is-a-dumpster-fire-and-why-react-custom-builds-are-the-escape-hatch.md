@@ -1,5 +1,5 @@
 ---
-title: WordPress is a Dumpster Fire (and Why React Custom Builds Are the Escape Hatch)
+title: WordPress is a Small Business Website Dumpster Fire (and Why React Custom Builds Are the Escape Hatch)
 slug: small-business-websites-wordpress-is-bad
 date: 2025-09-28
 excerpt: Ah, WordPress. The “free” CMS that’s somehow cost more small businesses
@@ -69,4 +69,4 @@ At Marketing Car, we don’t just “make websites.” We build engines that *dr
 
 ---
 
-👉 Want to stop patching plugins and start cruising on a site that actually works? [Contact Marketing Car](#) and let’s trade in your website lemon for something worth showing off.
+👉 Want to stop patching plugins and start cruising on a site that actually works? [Contact Marketing Car](https://www.marketingcar.com/book-now) and let’s trade in your website lemon for something worth showing off.

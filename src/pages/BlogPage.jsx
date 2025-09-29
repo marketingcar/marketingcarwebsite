@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAllBlogPosts } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
@@ -9,12 +10,14 @@ import { Button } from '@/components/ui/button';
 import { useQueryParams } from '@/contexts/QueryParamContext';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { signalPrerenderReady } from '@/lib/prerenderReady'; // ✅ NEW
-import SEOHelmet from '@/components/SEOHelmet';
 import OptimizedImage from '@/components/OptimizedImage';
 
 
+const POSTS_PER_PAGE = 9;
+
 const BlogPage = () => {
-  const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { queryParams } = useQueryParams();
@@ -24,12 +27,12 @@ const BlogPage = () => {
       setLoading(true);
       try {
         const staticPosts = getAllBlogPosts();
-        setPosts(staticPosts || []);
+        setAllPosts(staticPosts || []);
         setError(null);
       } catch (error) {
         console.error('Error loading static posts:', error);
         setError('Could not load blog posts. Please try again later.');
-        setPosts([]);
+        setAllPosts([]);
       }
       setLoading(false);
     };
@@ -42,7 +45,18 @@ const BlogPage = () => {
     if (!loading) {
       signalPrerenderReady();
     }
-  }, [loading, error, posts.length]);
+  }, [loading, error, allPosts.length]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const currentPosts = allPosts.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -75,7 +89,7 @@ const BlogPage = () => {
         "url": "https://www.marketingcar.com/mainlogo.png"
       }
     },
-    "blogPost": posts.map(post => ({
+    "blogPost": currentPosts.map(post => ({
       "@type": "BlogPosting",
       "mainEntityOfPage": {
         "@type": "WebPage",
@@ -129,7 +143,7 @@ const BlogPage = () => {
               initial="hidden"
               animate="visible"
             >
-              {posts.map((post) => (
+              {currentPosts.map((post) => (
                 <motion.div key={post.id} variants={itemVariants}>
                   <Link 
                     to={{ pathname: `/blog/${post.slug}`, search: queryParams }}
@@ -159,6 +173,81 @@ const BlogPage = () => {
                   </Link>
                 </motion.div>
               ))}
+            </motion.div>
+          )}
+
+          {/* Pagination Controls */}
+          {!loading && !error && totalPages > 1 && (
+            <motion.div
+              className="flex justify-center items-center mt-16 space-x-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="flex items-center space-x-2"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span>Previous</span>
+              </Button>
+
+              <div className="flex space-x-1">
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const page = index + 1;
+                  const isCurrentPage = page === currentPage;
+
+                  // Show first, last, current, and pages around current
+                  const shouldShow =
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1);
+
+                  if (!shouldShow) {
+                    // Show ellipsis if there's a gap
+                    if (page === currentPage - 2 || page === currentPage + 2) {
+                      return <span key={page} className="px-2 py-2 text-muted-foreground">...</span>;
+                    }
+                    return null;
+                  }
+
+                  return (
+                    <Button
+                      key={page}
+                      variant={isCurrentPage ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePageChange(page)}
+                      className="min-w-[40px]"
+                    >
+                      {page}
+                    </Button>
+                  );
+                })}
+              </div>
+
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="flex items-center space-x-2"
+              >
+                <span>Next</span>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </motion.div>
+          )}
+
+          {/* Post count indicator */}
+          {!loading && !error && allPosts.length > 0 && (
+            <motion.div
+              className="text-center mt-8 text-muted-foreground text-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              Showing {startIndex + 1}-{Math.min(endIndex, allPosts.length)} of {allPosts.length} posts
             </motion.div>
           )}
         </div>
