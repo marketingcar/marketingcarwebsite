@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-markdown.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
+    "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-static.mjs && node scripts/build-blog-markdown.mjs && node scripts/build-faq-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs",
     "build:analyze": "npm run build && npx rollup-plugin-visualizer",
     "preview": "vite preview",
     "build:routes": "node scripts/prerender.routes.mjs",
