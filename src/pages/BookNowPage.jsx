@@ -66,9 +66,7 @@ const BookNowPage = () => {
                 </li>
               ))}
             </ul>
-            <p className="mt-8 text-sm italic text-muted-foreground">
-              Need ads in Spanish? We do that too.
-            </p>
+
           </div>
           <div className="rounded-lg overflow-hidden shadow-2xl shadow-primary/20 min-h-[650px]">
             <HubSpotEmbed />
