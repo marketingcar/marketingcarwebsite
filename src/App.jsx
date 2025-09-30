@@ -10,7 +10,6 @@ import { modulePreloader } from '@/utils/modulePreloader';
 
 // Lazy load footer for better initial performance
 const Footer = lazy(() => import('@/components/Footer'));
-import TagManager from 'react-gtm-module';
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -55,9 +54,13 @@ const App = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-      TagManager.initialize({ gtmId: 'GTM-MT4W7K78' });
+      import('react-gtm-module').then((TagManager) => {
+        TagManager.default?.initialize({ gtmId: 'GTM-MT4W7K78' });
+      }).catch(() => {
+        // GTM initialization failed, continue without it
+      });
     }
-    
+
     // Initialize intelligent module preloading
     modulePreloader.init();
   }, []);
