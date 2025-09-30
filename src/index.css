@@ -282,17 +282,18 @@ span.block.bg-clip-text.text-transparent.bg-gradient-to-r.from-primary.via-highl
   color: #25EBD1;
 }
 
-/* Override Tailwind's text-primary class specifically in navigation */
-.text-primary {
-  color: hsl(var(--primary));
+/* Navigation link color - custom teal for header only */
+.nav-link-active {
+  color: #25EBD1 !important;
 }
 
-/* But override it for navigation elements */
-header .text-primary,
-nav .text-primary,
-header .hover\\:text-primary:hover,
-nav .hover\\:text-primary:hover {
+.nav-link-hover:hover {
   color: #25EBD1 !important;
+}
+
+/* Ensure the underline indicator also uses teal */
+.nav-link-underline {
+  background-color: #25EBD1 !important;
 }
 
 /* Fallback for very old browsers (no background-clip support) */

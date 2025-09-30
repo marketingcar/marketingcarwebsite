@@ -14,9 +14,9 @@ const NavItem = ({
 }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
-  return <NavLink to={to} className={`text-lg font-medium transition-colors duration-300 relative ${isMobile ? 'block px-4 py-3 text-foreground' : 'text-foreground hover:text-primary'} ${isActive ? 'text-primary' : ''}`} onClick={closeMenu}>
+  return <NavLink to={to} className={`text-lg font-medium transition-colors duration-300 relative ${isMobile ? 'block px-4 py-3 text-foreground' : 'text-foreground nav-link-hover'} ${isActive ? 'nav-link-active' : ''}`} onClick={closeMenu}>
       {children}
-      {!isMobile && <span className={`absolute left-0 -bottom-1 w-full h-0.5 bg-primary transform transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0'}`} />}
+      {!isMobile && <span className={`absolute left-0 -bottom-1 w-full h-0.5 nav-link-underline transform transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0'}`} />}
     </NavLink>;
 };
 const DropdownNavItem = ({
@@ -27,7 +27,7 @@ const DropdownNavItem = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return <div className="relative" onMouseEnter={() => !isMobile && setIsOpen(true)} onMouseLeave={() => !isMobile && setIsOpen(false)}>
-      <button onClick={() => isMobile && setIsOpen(!isOpen)} className={`flex items-center text-lg font-medium transition-colors duration-300 ${isMobile ? 'w-full px-4 py-3 text-left text-foreground' : 'text-foreground hover:text-primary'}`}>
+      <button onClick={() => isMobile && setIsOpen(!isOpen)} className={`flex items-center text-lg font-medium transition-colors duration-300 ${isMobile ? 'w-full px-4 py-3 text-left text-foreground' : 'text-foreground nav-link-hover'}`}>
         {title}
         <ChevronDown className={`ml-1 h-5 w-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
@@ -61,7 +61,7 @@ const DropdownLink = ({
   closeMenu
 }) => <NavLink to={to} onClick={closeMenu} className={({
   isActive
-}) => `block transition-colors duration-200 ${isMobile ? 'px-4 py-2 text-sm' : 'px-4 py-2 text-base'} ${isActive ? 'text-primary bg-primary/10' : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'}`}>
+}) => `block transition-colors duration-200 ${isMobile ? 'px-4 py-2 text-sm' : 'px-4 py-2 text-base'} ${isActive ? 'nav-link-active bg-primary/10' : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'}`}>
     {children}
   </NavLink>;
 const Header = () => {
@@ -133,15 +133,15 @@ const Header = () => {
           <Link to="/" className="flex-shrink-0" onClick={closeMenu}>
             <img className="h-14 w-auto" src="https://horizons-cdn.hostinger.com/4d84324a-cf58-49bf-a9fe-718fd0642a7d/fulllogo-IDmgO.png" alt="Marketing Car Logo" width="200" height="56" loading="eager" />
           </Link>
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden xl:flex items-center space-x-8">
             {navLinks()}
           </nav>
-          <div className="hidden lg:flex items-center">
+          <div className="hidden xl:flex items-center">
             <Button asChild className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300">
               <Link to="/book-now">Book Now</Link>
             </Button>
           </div>
-          <div className="lg:hidden">
+          <div className="xl:hidden">
             <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none">
               {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
@@ -159,7 +159,7 @@ const Header = () => {
       }} exit={{
         opacity: 0,
         height: 0
-      }} className="lg:hidden bg-background/95 backdrop-blur-sm will-change-transform">
+      }} className="xl:hidden bg-background/95 backdrop-blur-sm will-change-transform">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks(true)}
             </div>
