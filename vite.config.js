@@ -256,21 +256,7 @@ export default defineConfig({
 		},
 	},
 	build: {
-		modulePreload: {
-			polyfill: false,
-			resolveDependencies: (filename, deps, { hostId, hostType }) => {
-				// Only preload critical chunks for the entry point
-				if (hostType === 'html') {
-					// Filter to only truly critical chunks
-					return deps.filter(dep =>
-						dep.includes('react-core') ||
-						dep.includes('index') ||
-						dep.includes('layout-critical')
-					);
-				}
-				return deps;
-			}
-		},
+		modulePreload: false, // Disable modulepreload to avoid console warnings
 		rollupOptions: {
 			output: {
 				// Aggressive chunk splitting for better caching and parallel loading
