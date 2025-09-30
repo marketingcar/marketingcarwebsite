@@ -28,6 +28,9 @@
   # Handle future blog posts that might follow the old pattern
   RewriteRule ^about/blog/([^/]+)/?$ /blog/$1 [R=301,L]
 
+  # Redirect old FAQ URL to new location
+  RewriteRule ^about/faq/?$ /faq [R=301,L]
+
   # 3) Your SPA catch-all
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
