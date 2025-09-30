@@ -4,28 +4,26 @@ export const services = [
     slug: "marketing-strategy",
     title: "Marketing Strategy",
     description: "Develop a comprehensive plan to achieve your business goals.",
-    subtitle: "A clear roadmap to navigate the competitive landscape and drive measurable growth.",
+    subtitle: "A clear roadmap that turns maybes into yes and detours into shortcuts.",
     longDescription: `
       <h3>Your Roadmap to Marketing Success</h3>
-      <p>Every successful business needs a well-crafted marketing strategy. We don't just create another generic plan – we dive deep into your unique business challenges, opportunities, and goals to develop a comprehensive strategy that serves as your roadmap to growth.</p>
+      <p>We do not hand you a pretty PDF and wish you luck. We build a plan you can actually drive, with lanes, turn signals, and a real destination.</p>
 
       <h4>Our Strategic Approach</h4>
-      <p>Our process begins with a thorough discovery phase where we analyze your current market position, identify your competitive landscape, and understand your target audience's behaviors, preferences, and pain points. We examine your existing marketing efforts to identify what's working, what isn't, and where the biggest opportunities lie.</p>
+      <p>Discovery is not small talk. We dig into market position, competitors, and what your audience really cares about. Then we map channels that work together instead of fighting for budget.</p>
 
-      <p>From there, we develop a multi-faceted strategy that encompasses all relevant marketing channels – from digital platforms like SEO, social media, and paid advertising to traditional methods when appropriate. We ensure each component works synergistically to amplify your overall marketing impact.</p>
+      <h4>Data-Driven Decisions</h4>
+      <p>Gut checks meet hard numbers. We define KPIs up front so you can see traction, not guess at it.</p>
 
-      <h4>Data-Driven Decision Making</h4>
-      <p>Every recommendation we make is backed by data and market research. We establish clear KPIs and benchmarks so you can track progress and ROI. Our strategies are designed to be agile, allowing for optimization and pivoting as market conditions change.</p>
-
-      <h4>Implementation & Ongoing Support</h4>
-      <p>A strategy is only as good as its execution. We provide detailed implementation timelines, resource allocation recommendations, and can either guide your internal team or execute the strategy ourselves. We believe in long-term partnerships, not one-off projects.</p>
+      <h4>Implementation and Support</h4>
+      <p>A plan without execution is a parking lot. We can coach your team or run the playbook for you. No mystery levers. No smoke.</p>
     `,
     whatsIncluded: [
-      "In-depth market and competitor analysis",
-      "Target audience profiling and segmentation",
-      "Goal setting and KPI definition",
-      "Multi-channel strategy development (digital & offline)",
-      "Budget allocation and ROI forecasting",
+      "Market and competitor analysis",
+      "Audience profiles and segmentation",
+      "Goals and KPI framework",
+      "Multi-channel plan with sequencing",
+      "Budget guidance and ROI modeling"
     ],
     meta: {
       title: "Marketing Strategy Services | Marketing Car",
@@ -33,37 +31,35 @@ export const services = [
       ogTitle: "Custom Marketing Strategy Services | Marketing Car",
       ogDescription: "Let's build a roadmap for your success. Our marketing strategy services include in-depth analysis, goal setting, and multi-channel planning to drive growth."
     },
-    icon: "📈",
+    icon: "📈"
   },
   { 
     slug: "local-near-me-marketing",
     title: "Local/Near Me Marketing", 
     description: "Attract local customers and dominate your geographic market.",
-    subtitle: "Be the first choice for customers in your neighborhood.",
+    subtitle: "Own your neighborhood without buying every billboard in it.",
     longDescription: `
       <h3>Dominate Your Local Market</h3>
-      <p>When potential customers search for businesses "near me," you want to be the first result they see. Local marketing isn't just about being found – it's about being chosen over your competition, again and again.</p>
+      <p>When people search "near me," you should be the obvious choice. We tune all the signals that make you pop up, stand out, and get picked.</p>
 
       <h4>The Power of Local Search</h4>
-      <p>Over 80% of consumers conduct local searches, and 76% of people who search for something nearby visit a business within 24 hours. We help you capture this high-intent traffic by optimizing every aspect of your local online presence.</p>
-
-      <p>Our local marketing strategy goes far beyond basic Google Business Profile optimization. We create a comprehensive local SEO foundation that includes consistent NAP (Name, Address, Phone) data across all platforms, strategic local keyword targeting, and location-specific content that resonates with your community.</p>
+      <p>Local intent is high intent. We go past basic listings and build a real local footprint with consistent data, smart keywords, and content that feels like it lives where you do.</p>
 
       <h4>Building Local Authority</h4>
-      <p>We help establish your business as a trusted local authority through strategic content marketing, community engagement, and reputation management. This includes creating location-specific landing pages, highlighting local partnerships and sponsorships, and showcasing your involvement in community events.</p>
+      <p>You become the local favorite by showing up, not by shouting. We highlight partnerships, service to your community, and proof you are the safe pick.</p>
 
-      <h4>Hyperlocal Advertising</h4>
-      <p>Our geofenced advertising campaigns target potential customers when they're in specific locations – whether that's near your business, at competitor locations, or at relevant venues where your target audience spends time. We use advanced location data to create highly targeted campaigns that drive immediate results.</p>
+      <h4>Hyperlocal Ads</h4>
+      <p>We put ads in the right places at the right moments. Think less scatter, more bullseye.</p>
 
-      <h4>Reputation & Review Management</h4>
-      <p>Online reviews are the new word-of-mouth. We implement systems to encourage satisfied customers to leave reviews, respond professionally to all feedback, and use review insights to improve your business operations and customer experience.</p>
+      <h4>Reviews and Reputation</h4>
+      <p>Reviews are fuel. We help you collect them, respond with grace, and learn from them.</p>
     `,
     whatsIncluded: [
       "Google Business Profile optimization",
-      "Local SEO and citation building",
-      "Geofenced advertising campaigns",
-      "Reputation management on local review sites",
-      "Local content and event marketing",
+      "Local SEO and citations",
+      "Geofenced and proximity ads",
+      "Review and reputation systems",
+      "Location content and promotions"
     ],
     meta: {
       title: "Local Marketing & Near Me SEO | Marketing Car",
@@ -71,37 +67,32 @@ export const services = [
       ogTitle: "Attract Local Customers | Near Me Marketing Services",
       ogDescription: "Be the top choice in your area. Our local marketing strategies boost your visibility in 'near me' searches and drive foot traffic to your business."
     },
-    icon: "📍",
+    icon: "📍"
   },
   { 
     slug: "graphic-design",
     title: "Graphic Design", 
     description: "Create stunning visuals that capture attention and convey your message.",
-    subtitle: "Make a lasting impression with designs that tell your story.",
+    subtitle: "Beautiful on purpose. Designed to sell, not just sit there.",
     longDescription: `
       <h3>Design That Drives Results</h3>
-      <p>Great design isn't just about making things look pretty – it's about strategic visual communication that captures attention, conveys your message clearly, and motivates people to take action. Our design philosophy combines aesthetic excellence with marketing effectiveness.</p>
+      <p>We balance art with outcomes. Great design should make sense at a glance and move people to act.</p>
 
       <h4>Strategic Visual Storytelling</h4>
-      <p>Every design element we create serves a purpose. We understand color psychology, typography hierarchy, and visual flow to ensure your designs not only look professional but also guide viewers toward your desired outcome. Whether it's a social media post, digital ad, or printed brochure, each design is crafted with your specific marketing objectives in mind.</p>
+      <p>Every color, type choice, and layout has a job. We build designs that guide eyes and win clicks.</p>
 
-      <p>We begin every project by understanding your brand personality, target audience, and campaign goals. This foundation ensures that all visual elements work cohesively to reinforce your brand identity while achieving specific marketing objectives.</p>
+      <h4>Multi-Platform Consistency</h4>
+      <p>Your brand should look like itself everywhere. We package assets that behave across feeds, ads, and print.</p>
 
-      <h4>Multi-Platform Design Expertise</h4>
-      <p>Today's marketing requires designs that work across numerous platforms and formats. We create scalable design systems that maintain consistency whether your content appears on Instagram, LinkedIn, Google Ads, billboards, or business cards. Our designs are optimized for each platform's unique requirements and best practices.</p>
-
-      <h4>Data-Informed Creative Decisions</h4>
-      <p>We don't just rely on creative instinct – we use performance data to inform our design decisions. A/B testing different visual approaches, analyzing engagement metrics, and studying conversion rates help us continually refine and improve design performance.</p>
-
-      <h4>Brand Consistency & Evolution</h4>
-      <p>While maintaining brand consistency is crucial, we also understand that brands need to evolve. We help you maintain your core visual identity while adapting to new trends, platforms, and market demands. Our design libraries and brand guidelines ensure consistency across all team members and external partners.</p>
+      <h4>Informed by Performance</h4>
+      <p>We test. We learn. We refine. Pretty is good. Effective is better.</p>
     `,
     whatsIncluded: [
-      "Logo and brand identity design",
-      "Social media graphics and templates",
-      "Digital ad creatives",
-      "Infographics and data visualization",
-      "Brochures, flyers, and print materials",
+      "Logos and identity systems",
+      "Social templates and ad creatives",
+      "Infographics and one-pagers",
+      "Pitch decks and sales collateral",
+      "Print pieces that people keep"
     ],
     meta: {
       title: "Graphic Design Services | Marketing Car",
@@ -109,37 +100,35 @@ export const services = [
       ogTitle: "Creative Graphic Design for Your Brand | Marketing Car",
       ogDescription: "From logos to social media graphics, our designers create visuals that are not only beautiful but strategically effective. Tell your brand's story with style."
     },
-    icon: "🎨",
+    icon: "🎨"
   },
   {
     slug: "b2b-marketing",
     title: "B2B Marketing",
     description: "Drive growth with strategies tailored for business-to-business clients.",
-    subtitle: "Connect with key decision-makers and build valuable partnerships.",
+    subtitle: "Fewer leads. Better leads. Shorter sales cycles.",
     longDescription: `
       <h3>Navigate Complex B2B Sales Cycles</h3>
-      <p>B2B marketing is a different beast entirely. Unlike B2C sales, you're not just convincing one person – you're often navigating complex organizational hierarchies, longer decision-making processes, and multiple stakeholders with different priorities and concerns.</p>
+      <p>Committee decisions and long timelines do not scare us. We plan for the real path from first touch to signed deal.</p>
 
-      <h4>Understanding the B2B Buyer Journey</h4>
-      <p>The B2B buyer journey can span months or even years, involving extensive research, committee discussions, and budget approvals. We map out this journey for your specific industry and create touchpoints that provide value at each stage, from initial awareness through final decision and beyond.</p>
+      <h4>Buyer Journey Clarity</h4>
+      <p>We map research, objections, and approvals. Then we place the right content at the right mile marker.</p>
 
-      <p>Our approach recognizes that B2B buyers are often 67% through their journey before they even engage with sales. We ensure your company is present throughout their research phase with valuable content, thought leadership, and strategic positioning.</p>
+      <h4>Account-Based Focus</h4>
+      <p>High value targets get a tailored experience that feels one to one, not one to many.</p>
 
-      <h4>Account-Based Marketing Excellence</h4>
-      <p>For high-value prospects, we implement sophisticated Account-Based Marketing (ABM) strategies that treat each target account as a market of one. This includes personalized content creation, multi-channel orchestration, and sales-marketing alignment to create a seamless experience for your prospects.</p>
+      <h4>Quality Over Quantity</h4>
+      <p>Volume can clog a pipeline. We optimize for fit, readiness, and revenue.</p>
 
-      <h4>Lead Quality Over Quantity</h4>
-      <p>B2B marketing is about generating fewer, higher-quality leads rather than casting a wide net. We develop detailed buyer personas, implement lead scoring systems, and create nurture campaigns that qualify prospects before they reach your sales team, resulting in higher conversion rates and shorter sales cycles.</p>
-
-      <h4>Building Industry Authority</h4>
-      <p>In B2B markets, trust and credibility are paramount. We help establish your company as an industry thought leader through strategic content marketing, speaking engagements, industry partnerships, and media relations that position your team as the go-to experts in your field.</p>
+      <h4>Authority Building</h4>
+      <p>We help you earn trust with useful ideas, not buzzwords. Thought leadership that is actually thoughtful.</p>
     `,
     whatsIncluded: [
-      "Account-Based Marketing (ABM) strategy and execution",
-      "LinkedIn and professional network advertising",
-      "B2B lead generation and nurturing funnels",
-      "Content creation for decision-makers (whitepapers, case studies)",
-      "CRM and marketing automation integration",
+      "ABM strategy and orchestration",
+      "LinkedIn and professional ads",
+      "Lead scoring and nurture flows",
+      "Case studies and white papers",
+      "CRM and attribution setup"
     ],
     meta: {
       title: "B2B Marketing Services | Marketing Car",
@@ -147,40 +136,35 @@ export const services = [
       ogTitle: "Expert B2B Marketing Strategies | Marketing Car",
       ogDescription: "Navigate the B2B landscape with confidence. We develop targeted campaigns to generate high-quality leads and build lasting business relationships."
     },
-    icon: "🤝",
+    icon: "🤝"
   },
   { 
     slug: "brand-strategy-design",
     title: "Brand Strategy & Design", 
     description: "Build a powerful and memorable brand identity from the ground up.",
-    subtitle: "Craft a brand that connects, resonates, and stands out.",
+    subtitle: "Clarity first. Pretty second. Loyal customers third.",
     longDescription: `
       <h3>Build a Brand That Resonates</h3>
-      <p>Your brand is the sum total of every interaction people have with your business. It's not just your logo or your colors – it's the feeling people get when they think about your company, the promises you make, and the experience you deliver.</p>
+      <p>Your brand is how people remember you when you are not in the room. We make that memory clear and consistent.</p>
 
-      <h4>Brand Strategy Foundation</h4>
-      <p>Great branding starts with deep introspection. We guide you through comprehensive brand discovery workshops where we uncover your company's core purpose, mission, values, and unique value proposition. We examine what makes your business different, what drives your team, and what matters most to your customers.</p>
+      <h4>Strategy Before Style</h4>
+      <p>Purpose, promise, and position guide every choice. The logo comes after the logic.</p>
 
-      <p>This foundation informs every aspect of your brand identity, from your messaging framework to your visual design language. We ensure your brand strategy is authentic, differentiated, and sustainable for long-term growth.</p>
+      <h4>Visual Systems</h4>
+      <p>We design identity kits that scale, so every touchpoint looks related and intentional.</p>
 
-      <h4>Visual Identity Systems</h4>
-      <p>Once we've established your brand strategy, we translate it into a comprehensive visual identity system. This goes far beyond just creating a logo – we develop a complete design language including typography, color palettes, iconography, photography style, and layout principles that work across all applications.</p>
+      <h4>Voice and Messaging</h4>
+      <p>Say the right thing the same way every time. We document it so your team can ship without guessing.</p>
 
-      <h4>Brand Voice & Messaging</h4>
-      <p>How you say something is just as important as what you say. We develop your brand's unique voice and tone, create messaging frameworks for different audiences and situations, and establish communication guidelines that ensure consistency across all touchpoints.</p>
-
-      <h4>Brand Guidelines & Implementation</h4>
-      <p>A brand is only as strong as its most inconsistent application. We create comprehensive brand guidelines that serve as a roadmap for anyone who creates content or materials for your company. These guidelines ensure brand consistency whether content is created internally or by external partners.</p>
-
-      <h4>Brand Evolution & Management</h4>
-      <p>Brands aren't static – they need to evolve with changing markets, customer needs, and business growth. We help you manage your brand evolution thoughtfully, maintaining core equity while adapting to new opportunities and challenges.</p>
+      <h4>Governance</h4>
+      <p>Guidelines that people will actually use, not just admire. Consistency that survives real life.</p>
     `,
     whatsIncluded: [
-      "Brand discovery and positioning workshops",
-      "Voice and tone development",
-      "Complete visual identity system (logo, color, typography)",
-      "Comprehensive brand guidelines",
-      "Brand messaging and storytelling framework",
+      "Brand discovery and positioning",
+      "Voice and tone playbook",
+      "Logo and full identity system",
+      "Usable brand guidelines",
+      "Messaging frameworks"
     ],
     meta: {
       title: "Brand Strategy & Design Services | Marketing Car",
@@ -188,40 +172,35 @@ export const services = [
       ogTitle: "Craft a Powerful Brand Identity | Marketing Car",
       ogDescription: "Go beyond a logo. We help you build a cohesive brand experience, from strategy and voice to a stunning visual identity that connects with your audience."
     },
-    icon: "✨",
+    icon: "✨"
   },
   { 
     slug: "marketing-consultation",
     title: "Marketing Consultation", 
     description: "Get expert advice and actionable insights tailored to your unique challenges.",
-    subtitle: "Expert guidance to navigate your marketing roadblocks.",
+    subtitle: "Ask the hard questions. Leave with clear next steps.",
     longDescription: `
-      <h3>Expert Guidance When You Need It Most</h3>
-      <p>Sometimes you don't need a full marketing overhaul – you just need expert perspective on specific challenges or opportunities. Our marketing consultations provide direct access to senior strategists who can help you navigate complex decisions, optimize existing efforts, or plan your next growth phase.</p>
+      <h3>Expert Guidance When You Need It</h3>
+      <p>Bring your bottlenecks and your dashboards. We will find what moves the needle and what to ignore.</p>
 
-      <h4>Strategic Problem-Solving</h4>
-      <p>Whether you're facing declining performance, considering new market opportunities, or dealing with competitive pressures, our consultants bring fresh eyes and deep expertise to your situation. We've seen it all across dozens of industries, and we can quickly identify patterns, opportunities, and solutions that might not be obvious from inside your organization.</p>
+      <h4>Problem Solving</h4>
+      <p>We separate symptoms from causes. Then we hand you fixes you can implement this week.</p>
 
-      <p>Our consultations aren't just advice sessions – they're collaborative working sessions where we dive deep into your specific challenges and develop actionable solutions together.</p>
+      <h4>Audits and Roadmaps</h4>
+      <p>From channel reviews to quarterly plans, we make the path visible and doable.</p>
 
-      <h4>Marketing Performance Audits</h4>
-      <p>We conduct comprehensive audits of your current marketing efforts, identifying what's working, what's not, and where the biggest opportunities for improvement lie. This includes technical assessments, competitive analysis, and performance benchmarking against industry standards.</p>
+      <h4>Team Upskilling</h4>
+      <p>Keep more execution in house. We train for practical wins, not trivia.</p>
 
-      <h4>Strategic Planning & Roadmapping</h4>
-      <p>Need help planning your marketing roadmap for the next quarter or year? We help you prioritize initiatives, allocate resources effectively, and create realistic timelines that align with your business goals and available resources.</p>
-
-      <h4>Team Development & Training</h4>
-      <p>Sometimes the best solution is building internal capabilities. We provide training and mentorship for your marketing team, helping them develop new skills, implement best practices, and stay current with evolving marketing trends and technologies.</p>
-
-      <h4>Technology & Tool Evaluation</h4>
-      <p>The marketing technology landscape is vast and constantly evolving. We help you evaluate and select the right tools for your needs, ensuring you're not over-investing in features you don't need or missing critical capabilities that could drive better results.</p>
+      <h4>Tool Selection</h4>
+      <p>Right size your stack. Pay for what you use and skip the bells you never ring.</p>
     `,
     whatsIncluded: [
-      "One-on-one strategy sessions",
-      "Marketing audit and performance review",
-      "Campaign planning and brainstorming",
-      "Technology stack recommendations",
-      "Team training and upskilling",
+      "Strategy sessions",
+      "Performance audits",
+      "Campaign planning",
+      "Tool and stack recommendations",
+      "Team training"
     ],
     meta: {
       title: "Marketing Consultation Services | Marketing Car",
@@ -229,42 +208,38 @@ export const services = [
       ogTitle: "Expert Marketing Advice & Consultation | Marketing Car",
       ogDescription: "Stuck on a marketing problem? Book a consultation for a fresh perspective, performance reviews, and strategic guidance to get you back on the road to growth."
     },
-    icon: "💡",
+    icon: "💡"
   },
   { 
     slug: "seo-strategy",
     title: "SEO", 
     description: "Climb search rankings and drive organic traffic.",
-    subtitle: "Drive high-quality, organic traffic to your website.",
+    subtitle: "Earn attention while you sleep. Keep it with substance.",
     longDescription: `
       <h3>Sustainable Organic Growth</h3>
-      <p>SEO isn't about gaming search engines – it's about creating a website and content experience that both search engines and users love. Our approach focuses on sustainable, white-hat techniques that build long-term organic visibility and drive qualified traffic to your website.</p>
+      <p>No hacks. No secret sauce. Just clean architecture, useful content, and authority built the right way.</p>
 
-      <h4>Technical SEO Excellence</h4>
-      <p>The foundation of great SEO is a technically sound website. We audit and optimize site architecture, page load speeds, mobile responsiveness, crawlability, and indexability. We implement structured data markup, optimize XML sitemaps, and ensure your website provides the technical signals search engines need to understand and rank your content.</p>
+      <h4>Technical Foundation</h4>
+      <p>We fix crawl traps, speed issues, and structure. Search engines understand you. Visitors enjoy you.</p>
 
-      <p>Our technical audits often uncover critical issues that are silently hampering performance – from duplicate content problems to crawl budget waste to Core Web Vitals issues that impact user experience and rankings.</p>
+      <h4>Intent-First Keywords</h4>
+      <p>We target what your buyers actually type and map it to the journey they are on.</p>
 
-      <h4>Strategic Keyword Research & Content Planning</h4>
-      <p>Effective SEO starts with understanding exactly what your potential customers are searching for and how they describe their problems and needs. We conduct comprehensive keyword research that goes beyond search volume to understand user intent, competition levels, and business value.</p>
+      <h4>Content That Deserves to Rank</h4>
+      <p>Helpful beats fluffy. We optimize what you have and plan what you need.</p>
 
-      <p>We map keywords to specific stages of the buyer journey, ensuring you're not just driving traffic, but driving the right traffic – people who are ready to engage with your business.</p>
+      <h4>Authority Building</h4>
+      <p>Real mentions from real sites. Links that bring traffic and trust.</p>
 
-      <h4>Content Optimization & Creation</h4>
-      <p>Content is still king in SEO, but it needs to be the right content. We optimize existing content for better search performance while creating new content that addresses gaps in your current coverage. Our content strategy balances search optimization with genuine value for your audience.</p>
-
-      <h4>Authority Building Through Link Acquisition</h4>
-      <p>Quality backlinks remain one of the strongest ranking signals. We build your domain authority through strategic outreach, digital PR, content partnerships, and earning mentions from authoritative sources in your industry. Our approach focuses on earning links that provide both SEO value and referral traffic.</p>
-
-      <h4>Local SEO Optimization</h4>
-      <p>For businesses with local presence, we optimize for local search visibility, including Google Business Profile optimization, local citation building, and location-specific content strategies that help you dominate local search results.</p>
+      <h4>Local Visibility</h4>
+      <p>If you serve a city, we make you findable in that city.</p>
     `,
     whatsIncluded: [
-      "Comprehensive SEO audits",
+      "Technical SEO audits",
       "Keyword research and mapping",
-      "Technical SEO (site speed, structured data)",
-      "On-page content optimization",
-      "Link building and digital PR",
+      "On-page optimization",
+      "Content planning and refresh",
+      "Digital PR and link outreach"
     ],
     meta: {
       title: "SEO Services | Marketing Car",
@@ -272,40 +247,35 @@ export const services = [
       ogTitle: "Boost Your Rankings with Expert SEO | Marketing Car",
       ogDescription: "Improve your visibility on Google and attract more qualified traffic. Our comprehensive SEO services are designed for long-term, sustainable results."
     },
-    icon: "🔍",
+    icon: "🔍"
   },
   { 
     slug: "content-marketing",
     title: "Content Marketing", 
     description: "Engage your audience with compelling stories and content.",
-    subtitle: "Build authority and connect with your audience through valuable content.",
+    subtitle: "Teach first. Sell second. Win long term.",
     longDescription: `
-      <h3>Content That Builds Authority & Drives Action</h3>
-      <p>In today's noisy digital landscape, quality content is what cuts through the clutter and connects you with your audience. But content marketing isn't just about publishing blog posts – it's about creating valuable experiences that establish your expertise, build trust, and guide prospects through your sales funnel.</p>
+      <h3>Content That Builds Authority</h3>
+      <p>We make things worth reading and sharing. Value that earns trust and leads to yes.</p>
 
-      <h4>Strategic Content Planning</h4>
-      <p>Great content starts with understanding your audience's questions, challenges, and interests at every stage of their journey. We develop comprehensive content strategies based on keyword research, competitor analysis, and customer insights to ensure every piece of content serves a specific purpose in your marketing ecosystem.</p>
+      <h4>Strategy and Calendar</h4>
+      <p>We plan themes and topics that align with demand, seasonality, and goals. No random acts of content.</p>
 
-      <p>Our editorial calendars balance different content types, topics, and formats to maintain audience engagement while supporting your broader business objectives. We plan content themes around seasonal trends, industry events, and your product/service launches.</p>
+      <h4>Multi-Format Creation</h4>
+      <p>Blogs, videos, guides, and case studies. Right format for the job at hand.</p>
 
-      <h4>Multi-Format Content Creation</h4>
-      <p>Different audiences prefer different content formats, and different stages of the buyer journey call for different approaches. We create blog posts that establish thought leadership, videos that demonstrate expertise, infographics that simplify complex topics, case studies that prove results, and interactive content that drives engagement.</p>
+      <h4>Built for Search</h4>
+      <p>Optimized structure without robotic writing. Humans first. Algorithms happy.</p>
 
-      <h4>SEO-Optimized Content</h4>
-      <p>All our content is created with search optimization in mind, but not at the expense of readability or value. We naturally integrate target keywords, optimize for featured snippets, and structure content for both human readers and search engines.</p>
-
-      <h4>Content Distribution & Amplification</h4>
-      <p>Creating great content is only half the battle – getting it seen is equally important. We develop distribution strategies that leverage social media, email marketing, partnerships, and paid promotion to ensure your content reaches its intended audience and achieves maximum impact.</p>
-
-      <h4>Performance Measurement & Optimization</h4>
-      <p>We track content performance across multiple metrics – from traffic and engagement to leads and conversions. This data informs our ongoing content optimization and helps us double down on what's working while pivoting away from less effective approaches.</p>
+      <h4>Distribution</h4>
+      <p>Content does not go viral by hoping. We promote through the right channels and partners.</p>
     `,
     whatsIncluded: [
-      "Content strategy and editorial calendar planning",
-      "Blog writing and article creation",
-      "Video scripting and production",
-      "Ebooks, whitepapers, and lead magnets",
-      "Content distribution and promotion",
+      "Editorial strategy",
+      "Blog writing and long form",
+      "Video scripts and light production",
+      "Lead magnets and ebooks",
+      "Content promotion"
     ],
     meta: {
       title: "Content Marketing Services | Marketing Car",
@@ -313,42 +283,38 @@ export const services = [
       ogTitle: "Strategic Content Marketing to Engage Your Audience | Marketing Car",
       ogDescription: "Attract, engage, and convert with content that matters. We develop and execute content strategies that build your brand and your bottom line."
     },
-    icon: "✏️",
+    icon: "✏️"
   },
   { 
     slug: "paid-advertising",
     title: "Paid Advertising", 
     description: "Maximize ROI with targeted PPC campaigns.",
-    subtitle: "Get immediate visibility and measurable results with targeted ads.",
+    subtitle: "Less waste. More wins. Proof in the dashboard.",
     longDescription: `
-      <h3>Immediate Results Through Strategic Paid Advertising</h3>
-      <p>While organic marketing builds long-term value, paid advertising delivers immediate visibility and measurable results. Our approach to paid advertising focuses on maximizing ROI through strategic targeting, compelling creative, and continuous optimization based on real performance data.</p>
+      <h3>Immediate Results With Control</h3>
+      <p>We put your offer in front of the right people and keep tuning until your cost per win makes sense.</p>
 
-      <h4>Multi-Platform Campaign Management</h4>
-      <p>We manage campaigns across the full spectrum of paid advertising platforms, from Google Ads and Microsoft Ads to Facebook, Instagram, LinkedIn, and emerging platforms. Each platform requires unique strategies, ad formats, and optimization approaches – we're experts in navigating these differences to maximize performance.</p>
+      <h4>Cross-Platform Mastery</h4>
+      <p>Search, social, and display. Each gets a plan that fits how people use it.</p>
 
-      <p>Our platform selection is always based on where your target audience spends their time and how they prefer to consume content, not on what's trendy or convenient.</p>
+      <h4>Smart Targeting</h4>
+      <p>Audiences built on intent and behavior. Retargeting that feels helpful, not creepy.</p>
 
-      <h4>Advanced Targeting & Audience Development</h4>
-      <p>Successful paid advertising is built on reaching the right people with the right message at the right time. We develop sophisticated targeting strategies using demographics, interests, behaviors, custom audiences, and lookalike modeling to ensure your ads are seen by people most likely to convert.</p>
+      <h4>Creative Testing</h4>
+      <p>We test variations the way scientists test hypotheses. Best ideas earn budget.</p>
 
-      <p>We also implement retargeting campaigns to re-engage visitors who didn't convert on their first visit, using dynamic creative to show them relevant products or services based on their browsing behavior.</p>
+      <h4>Landing Page Alignment</h4>
+      <p>Clicks are not the goal. Conversions are. Pages match ads so visitors do not bounce.</p>
 
-      <h4>Creative Testing & Optimization</h4>
-      <p>The best-targeted campaign in the world won't succeed with poor creative. We continuously test ad copy, images, videos, and calls-to-action to identify what resonates most with your audience. Our creative testing goes beyond simple A/B tests to include multivariate testing and sequential creative optimization.</p>
-
-      <h4>Landing Page Optimization</h4>
-      <p>Traffic is worthless without conversions. We optimize landing pages to ensure they align with ad messaging, load quickly, and guide visitors toward your desired action. This includes mobile optimization, form optimization, and user experience improvements.</p>
-
-      <h4>Performance Analytics & ROI Tracking</h4>
-      <p>We implement comprehensive tracking to measure not just clicks and impressions, but actual business results. This includes conversion tracking, customer lifetime value analysis, and attribution modeling to understand the true impact of your advertising investment.</p>
+      <h4>Real Metrics</h4>
+      <p>You get clarity on spend, returns, and what to do next.</p>
     `,
     whatsIncluded: [
-      "Google Ads (Search, Display, Shopping)",
-      "Social Media Ads (Facebook, Instagram, LinkedIn)",
-      "A/B testing of ad copy and creatives",
+      "Google and Microsoft Ads",
+      "Meta, LinkedIn, and programmatic",
+      "Creative testing and iteration",
       "Landing page optimization",
-      "Performance tracking and ROI analysis",
+      "Full-funnel tracking"
     ],
     meta: {
       title: "Paid Advertising & PPC Services | Marketing Car",
@@ -356,43 +322,35 @@ export const services = [
       ogTitle: "Maximize ROI with Paid Advertising | Marketing Car",
       ogDescription: "Drive targeted traffic and get immediate results. Our paid advertising services cover Google Ads and social media, optimized for maximum performance."
     },
-    icon: "🎯",
+    icon: "🎯"
   },
   { 
     slug: "social-media-management",
     title: "Social Media", 
     description: "Build a vibrant community around your brand.",
-    subtitle: "Engage your audience and build a loyal following.",
+    subtitle: "Less chasing algorithms. More real conversation.",
     longDescription: `
-      <h3>Build Meaningful Connections on Social Media</h3>
-      <p>Social media isn't just about posting content – it's about building genuine relationships with your audience, creating community around your brand, and driving real business outcomes through authentic engagement and strategic content.</p>
+      <h3>Build Meaningful Connections</h3>
+      <p>We make content that fits the platform and sounds like you. Then we show up for the comments and DMs that actually matter.</p>
 
-      <h4>Platform-Specific Strategy Development</h4>
-      <p>Each social platform has its own culture, best practices, and algorithms. We develop tailored strategies for each platform based on where your audience is most active and engaged. Whether it's LinkedIn for B2B networking, Instagram for visual storytelling, or TikTok for reaching younger demographics, we adapt our approach accordingly.</p>
+      <h4>Platform Strategy</h4>
+      <p>Each network has rules. We follow them where it helps and break them where it wins.</p>
 
-      <p>Our platform strategies consider optimal posting times, content formats, hashtag strategies, and engagement tactics specific to each network's unique characteristics and user behaviors.</p>
+      <h4>Creation and Scheduling</h4>
+      <p>On-brand assets shipped on time. Your feed stops looking like a ransom note.</p>
 
-      <h4>Content Creation & Curation</h4>
-      <p>We create original, engaging content that reflects your brand voice and resonates with your audience. This includes graphics, videos, carousel posts, stories, and written content optimized for each platform. We also curate relevant industry content and user-generated content to provide additional value to your followers.</p>
+      <h4>Community and Listening</h4>
+      <p>We respond like humans. We track sentiment and jump on opportunities.</p>
 
-      <h4>Community Management & Engagement</h4>
-      <p>Social media is social – it requires active participation and genuine engagement with your community. We monitor your accounts, respond to comments and messages promptly, and proactively engage with relevant conversations in your industry to build relationships and establish thought leadership.</p>
-
-      <h4>Social Media Advertising</h4>
-      <p>We amplify your organic efforts with strategic social media advertising campaigns designed to reach new audiences, promote specific content, or drive specific actions. Our advertising strategies leverage detailed targeting options and platform-specific ad formats for maximum impact.</p>
-
-      <h4>Influencer Collaboration</h4>
-      <p>We identify and collaborate with relevant influencers and brand advocates who can authentically promote your business to their engaged audiences. This includes micro-influencers in your local market as well as industry thought leaders who can lend credibility to your brand.</p>
-
-      <h4>Social Listening & Reputation Management</h4>
-      <p>We monitor mentions of your brand across social platforms, track relevant industry conversations, and provide insights about sentiment and trends that could impact your business. This helps you stay ahead of potential issues and capitalize on opportunities.</p>
+      <h4>Paid Social</h4>
+      <p>We amplify what works. No volume knobs without purpose.</p>
     `,
     whatsIncluded: [
-      "Platform-specific content strategy",
-      "Content creation and scheduling",
-      "Community engagement and moderation",
-      "Influencer outreach and collaboration",
-      "Analytics and performance reporting",
+      "Channel-specific strategies",
+      "Content creation and calendars",
+      "Community management",
+      "Influencer collaborations",
+      "Reporting and insights"
     ],
     meta: {
       title: "Social Media Management Services | Marketing Car",
@@ -400,43 +358,35 @@ export const services = [
       ogTitle: "Engaging Social Media Management | Marketing Car",
       ogDescription: "Let's build your community. We manage your social media presence from strategy and content creation to engagement and reporting."
     },
-    icon: "❤️",
+    icon: "❤️"
   },
   { 
     slug: "email-marketing",
     title: "Email Marketing", 
     description: "Nurture leads and retain customers effectively.",
-    subtitle: "The most direct line to your customers' inboxes.",
+    subtitle: "The channel you own. The results you can prove.",
     longDescription: `
-      <h3>Direct Access to Your Customers' Inboxes</h3>
-      <p>Email marketing continues to deliver the highest ROI of any marketing channel, generating an average of $42 for every $1 spent. But success requires more than just sending promotional messages – it requires strategic segmentation, valuable content, and sophisticated automation that nurtures relationships over time.</p>
+      <h3>Direct Access That Converts</h3>
+      <p>Smart segmentation and automation turn inboxes into revenue. We send fewer emails that do more work.</p>
 
-      <h4>List Building & Segmentation</h4>
-      <p>A quality email list is built on permission and value, not purchased contacts. We create compelling lead magnets, optimize signup forms, and develop referral programs that organically grow your subscriber base with engaged, interested prospects.</p>
+      <h4>List Growth and Hygiene</h4>
+      <p>We grow with permission and keep your list clean so deliverability stays healthy.</p>
 
-      <p>We segment your list based on demographics, behavior, purchase history, and engagement levels to ensure each subscriber receives relevant, personalized content that matches their interests and stage in the customer journey.</p>
+      <h4>Design and Builds</h4>
+      <p>Readable, responsive, and accessible. Dark mode friendly. Easy on the thumbs.</p>
 
-      <h4>Email Design & Development</h4>
-      <p>Our emails are designed to look great and perform well across all devices and email clients. We use responsive design principles, optimize for dark mode, and ensure accessibility for all subscribers. Our designs balance visual appeal with clear calls-to-action that drive results.</p>
+      <h4>Automation</h4>
+      <p>Welcome, nurture, reactivation, and post-purchase flows that run while you sleep.</p>
 
-      <h4>Marketing Automation & Drip Campaigns</h4>
-      <p>We build sophisticated automation sequences that nurture leads, onboard new customers, and re-engage inactive subscribers. These automated journeys can include welcome series, abandoned cart reminders, post-purchase follow-ups, and win-back campaigns that operate 24/7 to drive conversions.</p>
-
-      <h4>Behavioral Triggered Campaigns</h4>
-      <p>The most effective emails are triggered by subscriber actions and behaviors. We set up automated campaigns that respond to website visits, content downloads, purchase behavior, and other signals to deliver timely, relevant messages when subscribers are most engaged.</p>
-
-      <h4>A/B Testing & Optimization</h4>
-      <p>We continuously test subject lines, send times, content, and design elements to optimize open rates, click-through rates, and conversions. Our testing approach is systematic and statistical, ensuring we make data-driven decisions about what works best for your audience.</p>
-
-      <h4>Deliverability & List Hygiene</h4>
-      <p>Even the best email content is worthless if it doesn't reach the inbox. We monitor deliverability metrics, maintain list hygiene by removing inactive subscribers, and follow best practices to ensure your emails consistently reach your subscribers' inboxes.</p>
+      <h4>Testing and Optimization</h4>
+      <p>Subject lines, layouts, and timing. We test like it matters because it does.</p>
     `,
     whatsIncluded: [
-      "Email list growth and segmentation",
-      "Campaign design and copywriting",
-      "Marketing automation and drip campaigns",
-      "A/B testing and optimization",
-      "Performance analysis and reporting",
+      "List growth and segmentation",
+      "Campaign copy and design",
+      "Automation and drip flows",
+      "A/B testing and iteration",
+      "Reporting with next steps"
     ],
     meta: {
       title: "Email Marketing Services | Marketing Car",
@@ -444,53 +394,52 @@ export const services = [
       ogTitle: "Effective Email Marketing & Automation | Marketing Car",
       ogDescription: "From newsletters to complex automation, we create email campaigns that nurture leads, drive sales, and build customer loyalty."
     },
-    icon: "📧",
+    icon: "📧"
   },
   { 
     slug: "web-design-development",
     title: "Web Design & Development", 
     description: "Create stunning, high-performance websites.",
-    subtitle: "Your digital storefront, designed for performance and conversions.",
+    subtitle: "Custom, fast, and secure. Built like a race car and maintained like a daily driver.",
     longDescription: `
-      <h3>Your Digital Storefront, Optimized for Success</h3>
-      <p>Your website is often the first impression potential customers have of your business. It needs to load fast, look professional, work perfectly on all devices, and most importantly, guide visitors toward becoming customers. Our approach to web design and development balances aesthetic appeal with performance and conversion optimization.</p>
+      <h3>Your Digital Storefront, Engineered for Speed and Safety</h3>
+      <p>We build fully custom sites using a modern React stack with Static Site Generation. You get the control of a custom build and the peace of mind of a static site that is fast, secure, and easy to scale.</p>
 
-      <h4>User Experience (UX) Design</h4>
-      <p>Before we design a single pixel, we map out your users' journey and identify potential friction points. Our UX design process includes user research, wireframing, and usability testing to ensure your website is intuitive and guides visitors naturally toward your desired actions.</p>
+      <h4>Why Custom Beats Templates</h4>
+      <p>Templates start cheap and end expensive. You spend hours fighting layouts and plugins that were not designed for your brand. We design around your goals first, then ship only the parts you need. No theme bloat. No plugin roulette.</p>
 
-      <p>We consider factors like cognitive load, visual hierarchy, and conversion psychology to create websites that not only look great but also perform exceptionally well at turning visitors into customers.</p>
+      <h4>Why SSG Beats WordPress for Security and Performance</h4>
+      <ul>
+        <li><strong>Smaller attack surface:</strong> Static files mean there is no live database to hack and no PHP admin panel to brute force.</li>
+        <li><strong>Fewer moving parts:</strong> No monthly plugin patch parade. Fewer updates. Fewer surprises.</li>
+        <li><strong>CDN native:</strong> Pages are prebuilt and served globally. Time to first byte is fast, even on mobile.</li>
+        <li><strong>SEO friendly:</strong> Real HTML at every route. Search engines crawl with less effort and more accuracy.</li>
+        <li><strong>Resilient by default:</strong> Traffic spikes do not melt servers. Static sites scale without drama.</li>
+      </ul>
 
-      <h4>Mobile-First, Responsive Design</h4>
-      <p>With over 60% of web traffic coming from mobile devices, we design with mobile users as our primary consideration. Our responsive designs adapt flawlessly to any screen size while maintaining optimal performance and user experience across all devices.</p>
+      <h4>Editing Without the Headache</h4>
+      <p>You still get an editor. We use a git-based CMS so content changes are simple, trackable, and safe. Think clean revision history instead of mystery edits.</p>
 
-      <h4>Performance Optimization</h4>
-      <p>Site speed directly impacts both user experience and search engine rankings. We optimize images, minimize code, implement caching strategies, and use content delivery networks (CDNs) to ensure your website loads quickly regardless of where your visitors are located.</p>
+      <h4>UX and Conversion</h4>
+      <p>We map the buyer journey, remove friction, and design pages that help visitors do what they came to do.</p>
 
-      <h4>Search Engine Optimization</h4>
-      <p>We build SEO best practices into every website from the ground up, including proper heading structure, schema markup, XML sitemaps, and clean, crawlable code. This foundation helps your website rank better in search results from day one.</p>
-
-      <h4>E-commerce Solutions</h4>
-      <p>For businesses selling products online, we create e-commerce experiences that are both user-friendly and conversion-optimized. This includes streamlined checkout processes, product search and filtering, inventory management, and integration with payment processors and shipping providers.</p>
-
-      <h4>Content Management Systems</h4>
-      <p>We implement user-friendly content management systems that allow you to easily update your website content, add new pages, and manage your online presence without technical expertise. We provide training and ongoing support to ensure you can maintain your website effectively.</p>
-
-      <h4>Security & Maintenance</h4>
-      <p>We implement security best practices including SSL certificates, regular backups, security monitoring, and software updates to protect your website and customer data. Our maintenance services ensure your website continues to perform optimally over time.</p>
+      <h4>Ongoing Care</h4>
+      <p>We maintain the build pipeline, run backups, and monitor performance. You focus on customers. We handle the nerdy bits.</p>
     `,
     whatsIncluded: [
-      "Custom web design (UI/UX)",
-      "Responsive web development",
-      "E-commerce solutions",
-      "Content Management System (CMS) integration",
-      "Website maintenance and support",
+      "Custom UI and UX",
+      "Static Site Generation with modern build pipeline",
+      "Performance tuning and Core Web Vitals",
+      "Search-friendly architecture and schema",
+      "CMS integration and training",
+      "Security hardening and backups"
     ],
     meta: {
       title: "Web Design & Development Services | Marketing Car",
-      description: "Create a stunning, high-performance website with Marketing Car. Our services include custom UI/UX design, responsive development, and e-commerce solutions.",
-      ogTitle: "Custom Web Design & Development | Marketing Car",
-      ogDescription: "Your website is your most important marketing tool. We build beautiful, user-friendly sites that are optimized for performance and conversions."
+      description: "Custom SSG websites that are fast, secure, and built for growth. Marketing Car designs and ships modern sites with clean UX, strong SEO, and simple editing.",
+      ogTitle: "Custom, Secure, and Fast Websites | Marketing Car",
+      ogDescription: "Ditch template bloat and plugin roulette. Get a custom static site that loads fast, ranks well, and shrugs off security risks."
     },
-    icon: "💻",
-  },
+    icon: "💻"
+  }
 ];
