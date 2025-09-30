@@ -82,7 +82,7 @@ const FAQPage = () => {
       <SEOHelmet
         title="Frequently Asked Questions | Marketing Car"
         description="Get answers to common questions about Marketing Car's marketing services, pricing, timelines, and how we help small businesses grow."
-        path="/about/faq"
+        path="/faq"
       />
 
       <SchemaMarkup schema={faqSchema} />
@@ -137,9 +137,10 @@ const FAQPage = () => {
                     className="px-6 pb-4"
                   >
                     <div className="pt-2 border-t border-border/50">
-                      <p className="text-muted-foreground leading-relaxed">
-                        {faq.answer}
-                      </p>
+                      <div
+                        className="text-muted-foreground leading-relaxed prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{ __html: faq.answer }}
+                      />
                     </div>
                   </motion.div>
                 )}

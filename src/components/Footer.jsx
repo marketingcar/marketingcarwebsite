@@ -74,7 +74,7 @@ const Footer = React.memo(() => {
                     About
                   </Link>
                   <Link
-                    to="/about/faq"
+                    to="/faq"
                     className="hover:text-primary transition"
                   >
                     FAQ

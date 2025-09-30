@@ -98,7 +98,7 @@ const base = new Set([
   '/lp-free-marketing-tips/', '/lp-spinning-wheels/', '/lp-spinning-wheels-therapists/',
   '/lp-spinning-wheels-trades/', '/lp-webinar-1/', '/lp-webinar-2/', '/thank-you/',
   '/webinars/', '/case-studies/', '/about/case-studies/', '/about/the-marketing-car/',
-  '/about/faq/', '/about/webinars/', '/blog/'
+  '/faq/', '/about/webinars/', '/blog/'
 ].map(normalize));
 
 // add non dynamic routes declared in App.jsx, but skip "*" and params
