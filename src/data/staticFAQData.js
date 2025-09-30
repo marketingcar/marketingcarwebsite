@@ -1,5 +1,5 @@
-// This file is auto-generated during build time
-// Do not edit manually - changes will be overwritten
+// Static FAQ data for Marketing Car
+// This file contains all FAQ content with rich HTML formatting
 
 export const faqData = [
   {
