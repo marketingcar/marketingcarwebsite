@@ -179,7 +179,7 @@ const BlogPage = () => {
           {/* Pagination Controls */}
           {!loading && !error && totalPages > 1 && (
             <motion.div
-              className="flex justify-center items-center mt-16 space-x-2"
+              className="flex justify-center items-center mt-16 gap-2 flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -188,27 +188,33 @@ const BlogPage = () => {
                 variant="outline"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="flex items-center space-x-2"
+                className="flex items-center gap-1 sm:gap-2"
+                size="sm"
               >
                 <ChevronLeft className="h-4 w-4" />
-                <span>Previous</span>
+                <span className="hidden sm:inline">Previous</span>
               </Button>
 
-              <div className="flex space-x-1">
+              <div className="flex gap-1 flex-wrap justify-center">
                 {Array.from({ length: totalPages }, (_, index) => {
                   const page = index + 1;
                   const isCurrentPage = page === currentPage;
 
-                  // Show first, last, current, and pages around current
-                  const shouldShow =
-                    page === 1 ||
-                    page === totalPages ||
-                    (page >= currentPage - 1 && page <= currentPage + 1);
+                  // On mobile, show fewer pages
+                  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+                  const shouldShow = isMobile
+                    ? (page === 1 ||
+                       page === totalPages ||
+                       page === currentPage)
+                    : (page === 1 ||
+                       page === totalPages ||
+                       (page >= currentPage - 1 && page <= currentPage + 1));
 
                   if (!shouldShow) {
                     // Show ellipsis if there's a gap
-                    if (page === currentPage - 2 || page === currentPage + 2) {
-                      return <span key={page} className="px-2 py-2 text-muted-foreground">...</span>;
+                    if (page === currentPage - 2 || page === currentPage + 2 ||
+                        (isMobile && (page === 2 || page === totalPages - 1))) {
+                      return <span key={page} className="px-1 sm:px-2 py-2 text-muted-foreground text-sm">...</span>;
                     }
                     return null;
                   }
@@ -219,7 +225,7 @@ const BlogPage = () => {
                       variant={isCurrentPage ? "default" : "outline"}
                       size="sm"
                       onClick={() => handlePageChange(page)}
-                      className="min-w-[40px]"
+                      className="min-w-[36px] sm:min-w-[40px] h-8 sm:h-9 text-sm"
                     >
                       {page}
                     </Button>
@@ -231,9 +237,10 @@ const BlogPage = () => {
                 variant="outline"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="flex items-center space-x-2"
+                className="flex items-center gap-1 sm:gap-2"
+                size="sm"
               >
-                <span>Next</span>
+                <span className="hidden sm:inline">Next</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </motion.div>
