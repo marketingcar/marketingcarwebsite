@@ -352,17 +352,32 @@ ol li {
 }
 
 .post-content h2 {
-  @apply text-2xl font-bold mt-8 mb-4 text-primary;
+  @apply text-2xl font-bold mt-8 mb-4;
   border-bottom: 2px solid hsl(var(--border));
   padding-bottom: 0.5rem;
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .post-content h3 {
-  @apply text-xl font-semibold mt-6 mb-3 text-primary;
+  @apply text-xl font-semibold mt-6 mb-3;
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .post-content h4 {
-  @apply text-lg font-medium mt-4 mb-2 text-primary;
+  @apply text-lg font-medium mt-4 mb-2;
+  background-image: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .post-content p {
@@ -430,12 +445,12 @@ ol li {
 
 /* Ensure bullet points are visible */
 .post-content ul li::marker {
-  color: hsl(var(--primary));
+  color: #25EBD1;
   font-size: 1.2em;
 }
 
 .post-content ol li::marker {
-  color: hsl(var(--primary));
+  color: #25EBD1;
   font-weight: 600;
 }
 
