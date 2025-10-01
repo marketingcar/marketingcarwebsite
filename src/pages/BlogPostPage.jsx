@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { getBlogPostBySlug } from '@/data/staticBlogPosts';
+import { getBlogPostBySlug } from '@/lib/strapi';
+import { blogPosts as staticBlogPosts } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -19,26 +20,36 @@ const BlogPostPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const loadStaticPost = () => {
+    const loadPost = async () => {
       setLoading(true);
       try {
-        const staticPost = getBlogPostBySlug(slug);
-        if (staticPost) {
-          setPost(staticPost);
+        // Try Strapi first
+        const fetchedPost = await getBlogPostBySlug(slug);
+
+        if (fetchedPost) {
+          setPost(fetchedPost);
           setError(null);
         } else {
-          setError('Could not find this post. It might have been moved or deleted.');
-          setPost(null);
+          // If not found in Strapi, try static posts (includes babylove posts)
+          const staticPost = staticBlogPosts.find(post => post.slug === slug);
+
+          if (staticPost) {
+            setPost(staticPost);
+            setError(null);
+          } else {
+            setError('Could not find this post. It might have been moved or deleted.');
+            setPost(null);
+          }
         }
       } catch (error) {
-        console.error('Error loading static post:', error);
+        console.error('Error loading post:', error);
         setError('Could not find this post. It might have been moved or deleted.');
         setPost(null);
       }
       setLoading(false);
     };
 
-    loadStaticPost();
+    loadPost();
   }, [slug]);
 
   // ✅ Tell the prerender plugin the page is ready (success OR error)

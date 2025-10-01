@@ -94,8 +94,17 @@ function generalSanitization(content) {
 export function getProcessedContent(post) {
   if (!post) return '';
 
-  // Use the existing sanitizedContent logic from BlogPostPage but enhanced
   let content = post.content || '';
+
+  // Check if content is Strapi Rich Text blocks (array) and convert to HTML
+  if (Array.isArray(content)) {
+    content = strapiBlocksToHTML(content);
+  }
+
+  // If content is still not a string, return empty
+  if (typeof content !== 'string') {
+    return '';
+  }
 
   // Remove duplicate H1 from content (BlogPostPage has its own H1)
   content = content.replace(/<h1[\s\S]*?<\/h1>/i, '');
@@ -112,4 +121,65 @@ export function getProcessedContent(post) {
   content = sanitizeBlogContent(content, post.source);
 
   return content;
+}
+
+/**
+ * Convert Strapi Rich Text blocks to HTML
+ */
+function strapiBlocksToHTML(blocks) {
+  if (!Array.isArray(blocks)) return '';
+
+  return blocks.map(block => blockToHTML(block)).join('');
+}
+
+function blockToHTML(block) {
+  if (!block || !block.type) return '';
+
+  switch (block.type) {
+    case 'paragraph':
+      return `<p>${childrenToHTML(block.children)}</p>`;
+
+    case 'heading':
+      const level = block.level || 2;
+      return `<h${level}>${childrenToHTML(block.children)}</h${level}>`;
+
+    case 'list':
+      const tag = block.format === 'ordered' ? 'ol' : 'ul';
+      const items = block.children.map(item => {
+        if (item.type === 'list-item') {
+          return `<li>${childrenToHTML(item.children)}</li>`;
+        }
+        return '';
+      }).join('');
+      return `<${tag}>${items}</${tag}>`;
+
+    case 'quote':
+      return `<blockquote>${childrenToHTML(block.children)}</blockquote>`;
+
+    case 'code':
+      return `<pre><code>${childrenToHTML(block.children)}</code></pre>`;
+
+    default:
+      return '';
+  }
+}
+
+function childrenToHTML(children) {
+  if (!Array.isArray(children)) return '';
+
+  return children.map(child => {
+    if (child.type === 'text') {
+      let text = child.text || '';
+      if (child.bold) text = `<strong>${text}</strong>`;
+      if (child.italic) text = `<em>${text}</em>`;
+      return text;
+    }
+
+    if (child.type === 'link') {
+      const linkText = childrenToHTML(child.children);
+      return `<a href="${child.url}">${linkText}</a>`;
+    }
+
+    return '';
+  }).join('');
 }

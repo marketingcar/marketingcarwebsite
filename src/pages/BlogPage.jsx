@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getAllBlogPosts } from '@/data/staticBlogPosts';
+import { getAllBlogPosts } from '@/lib/strapi';
+import { blogPosts as staticBlogPosts } from '@/data/staticBlogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,21 +24,34 @@ const BlogPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const loadStaticPosts = () => {
+    const loadPosts = async () => {
       setLoading(true);
       try {
-        const staticPosts = getAllBlogPosts();
-        setAllPosts(staticPosts || []);
+        // Fetch Strapi posts
+        const strapiPosts = await getAllBlogPosts();
+
+        // Filter staticBlogPosts to only get babylove posts (those with source: 'babylovegrowth' or id starting with 'babylove_')
+        const babylovePosts = staticBlogPosts.filter(post =>
+          post.source === 'babylovegrowth' || post.id?.startsWith('babylove_')
+        );
+
+        // Combine posts: Strapi first, then BabyLoveGrowth
+        const combinedPosts = [
+          ...(strapiPosts || []),
+          ...(babylovePosts || [])
+        ];
+
+        setAllPosts(combinedPosts);
         setError(null);
       } catch (error) {
-        console.error('Error loading static posts:', error);
+        console.error('Error loading posts:', error);
         setError('Could not load blog posts. Please try again later.');
         setAllPosts([]);
       }
       setLoading(false);
     };
 
-    loadStaticPosts();
+    loadPosts();
   }, []);
 
   // ✅ Signal prerender readiness when loading has finished (success or error)
