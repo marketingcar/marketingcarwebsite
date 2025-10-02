@@ -25,18 +25,28 @@ Marketing Car was built to untangle digital chaos. Whether you're spinning your 
 - **[Tailwind Merge](https://github.com/dcastil/tailwind-merge) 1.14** - Utility for merging Tailwind CSS classes
 
 ### Content Management System (CMS)
-- **[Decap CMS](https://decapcms.org/)** (formerly Netlify CMS) - Git-based headless CMS
-  - **Access URL**: `https://marketingcar.com/admin/`
-  - **Authentication**: Auth via DecapBridge
-  - **Content Types**: Blog posts, FAQ entries, Page content
-  - **Repository**: `marketingcar/marketingcarwebsite` (main branch)
-  - **Media Storage**: `public/blog/images/`
+- **[Strapi](https://strapi.io/) 5.25** - Headless CMS for blog content
+  - **Cloud URL**: `https://prized-comfort-f8701bc0e2.strapiapp.com`
+  - **Local Development**: `http://localhost:1337` (SQLite database)
+  - **Cloud Database**: PostgreSQL
+  - **Content Types**: Blog posts with Rich Text (blocks format)
+  - **API Integration**: RESTful API with bearer token authentication
+  - **Preview Mode**: Configured for live preview at `https://www.marketingcar.com`
+  - **Features**:
+    - Rich text editor with blocks format
+    - Media library with image uploads
+    - Draft/publish workflow
+    - Multi-environment support (local & cloud)
 
 ### Content & API Integrations
+- **[Strapi Cloud API](https://prized-comfort-f8701bc0e2.strapiapp.com)** - Blog content management
+  - **Build-time fetching**: All blog posts fetched during build and pre-rendered as static HTML
+  - **API Token**: Read-only token for public API access
+  - **Content Format**: Rich text blocks converted to HTML for rendering
 - **[BabyLoveGrowth API](https://babylovegrowth.ai/)** - AI-powered SEO platform
   - **API URL**: `https://api.babylovegrowth.ai/api/public`
-  - **Usage**: Fetching additional content
-  - **Integration**: Build-time content aggregation for enhanced blog content
+  - **Build-time fetching**: All articles fetched during build and baked into static files
+  - **Integration**: Additional blog content aggregated at build time
 - **[HubSpot](https://hubspot.com/)** - Customer relationship management platform
   - **Portal ID**: `47574927`
   - **Region**: `na1` (North America)
@@ -103,91 +113,148 @@ npm run optimize-images # Optimize images to WebP format
 marketingcar/
 ├── .github/
 │   └── workflows/
-│       └── main.yml              # CI/CD pipeline configuration
-├── content/                      # CMS content files
-│   ├── blog/                     # Blog posts (Markdown)
-│   ├── faq/                      # FAQ entries (Markdown)
-│   └── pages/                    # Page content (Markdown)
+│       └── main.yml                      # CI/CD pipeline configuration
+├── cms/                                  # Strapi CMS (local development)
+│   ├── config/                           # Strapi configuration
+│   │   └── plugins.ts                    # Preview mode & plugin config
+│   ├── src/                              # Strapi source files
+│   ├── database/                         # SQLite database (local)
+│   └── .env                              # Strapi environment variables
+├── content/                              # Markdown content files
+│   ├── blog/                             # Blog posts (Markdown)
+│   ├── faq/                              # FAQ entries (Markdown)
+│   └── pages/                            # Page content (Markdown)
 ├── plugins/
-│   └── visual-editor/            # Development visual editing tools
-├── public/                       # Static assets
-│   ├── admin/
-│   │   └── config.yml            # Decap CMS configuration
-│   ├── blog/                     # Blog images and assets
-│   ├── elements/                 # UI element assets
-│   ├── og/                       # Open Graph images
-│   └── webinars/                 # Webinar assets
-├── scripts/                      # Build and optimization scripts
-│   ├── build-blog-markdown.mjs   # Blog post processing
-│   ├── build-blog-static.mjs     # Static blog generation
-│   ├── build-faq-static.mjs      # FAQ processing
-│   ├── generate-rss.mjs          # RSS feed generation
-│   ├── generate-sitemaps.mjs     # Sitemap generation
-│   ├── inject-og-into-html.mjs   # Open Graph injection
-│   ├── optimize-images.mjs       # Image optimization
-│   ├── prerender.routes.mjs      # Route pre-rendering
-│   └── spa-copy-routes.mjs       # SPA route copying
+│   └── visual-editor/                    # Development visual editing tools
+├── public/                               # Static assets
+│   ├── blog/                             # Blog images and assets
+│   ├── elements/                         # UI element assets
+│   ├── og/                               # Open Graph images
+│   └── webinars/                         # Webinar assets
+├── scripts/                              # Build and optimization scripts
+│   ├── build-blog-markdown.mjs           # Markdown blog post processing
+│   ├── build-blog-static.mjs             # BabyLoveGrowth API fetching
+│   ├── build-faq-static.mjs              # FAQ processing
+│   ├── generate-prerender-routes.mjs     # Fetch Strapi posts & generate routes
+│   ├── generate-rss.mjs                  # RSS feed generation
+│   ├── generate-sitemaps.mjs             # Sitemap generation
+│   ├── html-to-strapi-blocks.mjs         # HTML to Strapi blocks converter
+│   ├── inject-og-into-html.mjs           # Open Graph injection
+│   ├── migrate-to-cloud.mjs              # Strapi local → cloud migration
+│   ├── optimize-images.mjs               # Image optimization
+│   └── spa-copy-routes.mjs               # SPA route copying
 ├── src/
-│   ├── components/               # Reusable React components
-│   │   └── ui/                   # UI component library
-│   ├── contexts/                 # React context providers
-│   ├── data/                     # Static data files
-│   ├── lib/                      # Utility libraries
-│   ├── pages/                    # Route-based page components
-│   ├── seo/                      # SEO configurations
-│   ├── utils/                    # Helper functions
-│   ├── App.jsx                   # Main application component
-│   ├── index.css                 # Global styles
-│   └── main.jsx                  # Application entry point
-├── tools/                        # Development tools
-├── .env                          # Environment variables
-├── .prerender-routes.json        # Pre-render route configuration
-├── package.json                  # Dependencies and scripts
-├── postcss.config.js             # PostCSS configuration
-├── tailwind.config.js            # Tailwind CSS configuration
-└── vite.config.js                # Vite build configuration
+│   ├── components/                       # Reusable React components
+│   │   └── ui/                           # UI component library
+│   ├── contexts/                         # React context providers
+│   ├── data/
+│   │   └── staticBlogPosts.js            # Generated at build (Strapi + BabyLove + Markdown)
+│   ├── lib/
+│   │   ├── strapi.js                     # Strapi API utilities
+│   │   └── contentSanitizer.js           # Content processing & blocks → HTML
+│   ├── pages/                            # Route-based page components
+│   ├── seo/                              # SEO configurations
+│   ├── utils/                            # Helper functions
+│   ├── App.jsx                           # Main application component
+│   ├── index.css                         # Global styles
+│   └── main.jsx                          # Application entry point
+├── tools/                                # Development tools
+├── .env                                  # Environment variables (Strapi URLs & tokens)
+├── .prerender-routes.json                # Generated routes (including blog posts)
+├── package.json                          # Dependencies and scripts
+├── postcss.config.js                     # PostCSS configuration
+├── tailwind.config.js                    # Tailwind CSS configuration
+└── vite.config.js                        # Vite build configuration
 ```
 
 ## 🔧 Build Process
 
-The build system includes several optimization stages:
+The build system includes several optimization stages executed in sequence:
 
-1. **Image Optimization** - Converts images to WebP format for better performance
-2. **Content Processing** - Processes Markdown blog posts, BabyLoveGrowth API content, and FAQ entries
-3. **Route Pre-rendering** - Generates static HTML for all routes
-4. **Vite Build** - Bundles and optimizes JavaScript/CSS
-5. **SPA Route Handling** - Sets up client-side routing fallbacks
-6. **SEO Enhancement** - Injects Open Graph tags and meta data
-7. **Sitemap Generation** - Creates XML and TXT sitemaps
-8. **RSS Feed** - Generates blog RSS feed
+1. **Image Optimization** (`optimize-images.mjs`)
+   - Converts images to WebP format for better performance
+   - Compresses and optimizes all static images
+
+2. **Content Fetching & Processing** (Build-time static generation)
+   - `build-blog-static.mjs` - Fetches all BabyLoveGrowth articles from API
+   - `build-blog-markdown.mjs` - Processes local Markdown blog posts
+   - Generates `src/data/staticBlogPosts.js` with all content baked in
+
+3. **Route Generation** (`generate-prerender-routes.mjs`)
+   - Fetches all blog posts from Strapi Cloud API
+   - Reads BabyLoveGrowth posts from static file
+   - Generates `.prerender-routes.json` with all routes (including blog posts)
+
+4. **Vite Build**
+   - Bundles and optimizes JavaScript/CSS
+   - Pre-renders all routes to static HTML using `.prerender-routes.json`
+   - Code splitting and tree shaking
+
+5. **Post-Build Processing**
+   - `spa-copy-routes.mjs` - Sets up client-side routing fallbacks
+   - `inject-og-into-html.mjs` - Injects Open Graph tags and meta data
+   - `generate-sitemaps.mjs` - Creates XML and TXT sitemaps from prerender routes
+   - `generate-rss.mjs` - Generates blog RSS feed
+
+**Key Feature**: All blog content (Strapi + BabyLoveGrowth + Markdown) is fetched at build time and pre-rendered to static HTML. No runtime API calls needed for blog posts.
 
 ## 📝 Content Management
 
-### Accessing the CMS
-1. Navigate to `https://marketingcar.com/admin/`
-2. Click "Login" after generating credentials at Decap Bridge (Root credentials stored in 1Password )
-3. Create, edit, and publish content
+### Strapi CMS
+**Access**: `https://prized-comfort-f8701bc0e2.strapiapp.com/admin`
 
-### Content Types
-- **Blog Posts**: Full markdown support with metadata, images, and SEO fields
-- **FAQ Entries**: Question/answer pairs with ordering and publishing controls
-- **Page Content**: Editable content for static pages (About, Services, Contact, etc.)
-- **AI-Generated Content**: Additional blog articles sourced from BabyLoveGrowth API during build time
+#### Local Development
+```bash
+cd cms
+npm run develop  # Starts Strapi on http://localhost:1337
+```
+
+#### Content Types
+- **Blog Posts** (api::blog.blog)
+  - Fields: title, slug, excerpt, content (Rich Text blocks), image_url, main_image (Media), published, tags (JSON)
+  - Rich text editor with blocks format (paragraph, heading, list, quote, code, link)
+  - Draft/publish workflow
+  - Preview mode enabled (opens preview at `https://www.marketingcar.com/blog/{slug}`)
+
+#### Content Sources
+1. **Strapi Cloud** - Primary blog CMS (7+ posts)
+   - Managed via Strapi admin UI
+   - Rich text content with media library
+   - API: `https://prized-comfort-f8701bc0e2.strapiapp.com/api/blogs`
+
+2. **BabyLoveGrowth API** - AI-generated content (10+ posts)
+   - Fetched automatically at build time
+   - No manual management needed
+
+3. **Markdown Files** - Local content (`content/blog/`)
+   - Processed at build time
+   - Full markdown support with frontmatter
 
 ### Editorial Workflow
-- Draft → Review → Publish workflow enabled
-- Version control through Git commits
-- Media files stored in repository
-- Automatic deployment on publish
+- **Strapi**: Draft → Publish workflow in admin UI
+- **Build-time fetch**: All content pulled during build and pre-rendered to static HTML
+- **Preview mode**: Test changes before publishing via Strapi preview button
+- **Deployment**: Automatic on git push to main branch
 
 ## 🌐 Environment Configuration
 
 ### Required Environment Variables
 ```env
-# Add environment variables as needed for your specific integrations
-# Examples:
-# VITE_GOOGLE_GTM_ID=your_gtm_id
-# VITE_HUBSPOT_PORTAL_ID=47574927
+# Frontend (.env)
+VITE_STRAPI_URL=https://prized-comfort-f8701bc0e2.strapiapp.com
+VITE_STRAPI_API_TOKEN=your_read_only_token
+
+# Strapi CMS (cms/.env)
+CLIENT_URL=https://www.marketingcar.com
+PREVIEW_URL=https://www.marketingcar.com
+HOST=0.0.0.0
+PORT=1337
+DATABASE_CLIENT=sqlite
+DATABASE_FILENAME=.tmp/data.db
+
+# Optional
+VITE_GOOGLE_GTM_ID=your_gtm_id
+VITE_HUBSPOT_PORTAL_ID=47574927
 ```
 
 ### GitHub Secrets (for CI/CD)
@@ -259,8 +326,20 @@ yarn build:analyze    # Build with bundle analysis
 - Git-based authentication for CMS
 - FTP credentials stored as GitHub secrets
 
+## 🔄 Migration Notes
+
+### Decap CMS → Strapi (October 2025)
+- **Reason**: Moved from Git-based CMS to headless API-based CMS for better content management
+- **Changes**:
+  - Strapi installed locally in `/cms` directory
+  - Strapi Cloud deployment at `https://prized-comfort-f8701bc0e2.strapiapp.com`
+  - Blog content migrated with HTML → Rich Text blocks conversion
+  - Build process updated to fetch from Strapi API at build time
+  - All content pre-rendered to static HTML (no runtime API calls)
+  - Preview mode enabled for content editors
+
 ---
 
 **Live Site**: [https://marketingcar.com](https://marketingcar.com)
-**CMS Access**: [https://marketingcar.com/admin/](https://marketingcar.com/admin/)
+**Strapi CMS**: [https://prized-comfort-f8701bc0e2.strapiapp.com/admin](https://prized-comfort-f8701bc0e2.strapiapp.com/admin)
 **Repository**: [https://github.com/marketingcar/marketingcarwebsite](https://github.com/marketingcar/marketingcarwebsite)
