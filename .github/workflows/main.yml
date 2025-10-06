@@ -5,9 +5,9 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 12 * * *"   # Every day at 11:00 UTC
-  workflow_dispatch:        # Optional: run manually from the Actions tab
-  repository_dispatch:      # ← listen to ALL custom dispatch events
+    - cron: "0 12 * * *"   # Every day at 12:00 UTC
+  workflow_dispatch:
+  repository_dispatch:      # listens to ALL custom dispatch events
 
 concurrency:
   group: deploy-to-ftp
@@ -19,10 +19,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug repository_dispatch
+        if: github.event_name == 'repository_dispatch'
+        run: |
+          echo "action=${{ github.event.action }}"
+          echo 'payload=${{ toJson(github.event.client_payload) }}'
+
       - name: Checkout main
         uses: actions/checkout@v4
         with:
-          ref: main  # Ensures scheduled runs build from main
+          ref: main
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
@@ -38,7 +44,6 @@ jobs:
           CI: true
         run: yarn build
 
-      # Optional: verify the build artifact exists (helps fail fast with a clear error)
       - name: Verify build output exists
         run: |
           test -d dist && echo "dist/ found" || (echo "dist/ not found. Check your build." && exit 1)
