@@ -7,6 +7,7 @@ on:
   schedule:
     - cron: "0 12 * * *"   # Every day at 11:00 UTC
   workflow_dispatch:        # Optional: run manually from the Actions tab
+  repository_dispatch:      # ← listen to ALL custom dispatch events
 
 concurrency:
   group: deploy-to-ftp
