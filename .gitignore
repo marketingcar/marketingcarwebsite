@@ -12,3 +12,5 @@ yarn.lock
 package-lock.json
 Archive.zip
 dist
+non-babylove-posts.json
+.DS_Store

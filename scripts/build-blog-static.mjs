@@ -13,8 +13,56 @@ const babyloveHeaders = {
   'Content-Type': 'application/json'
 };
 
-// Note: Supabase blog posts removed - using only Babylove posts
-// If you need Supabase posts, add '@supabase/supabase-js' to package.json
+// Ghost CMS configuration
+const GHOST_API_URL = 'https://mc.marketingcarcontent.com';
+const GHOST_CONTENT_API_KEY = 'de3290ace76f6e6e4a1404c591';
+
+async function fetchGhostPosts() {
+  console.log('= Fetching posts from Ghost CMS...');
+
+  try {
+    const url = `${GHOST_API_URL}/ghost/api/content/posts/?key=${GHOST_CONTENT_API_KEY}&include=tags,authors&limit=all&fields=id,title,slug,html,feature_image,published_at,excerpt,meta_description,meta_title,og_image,og_title,og_description,twitter_image,twitter_title,twitter_description,custom_excerpt`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Ghost API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const posts = data.posts || [];
+
+    console.log(` Fetched ${posts.length} posts from Ghost CMS`);
+
+    // Transform Ghost posts to our format
+    const transformedPosts = posts.map(post => ({
+      id: `ghost_${post.id}`,
+      created_at: post.published_at,
+      title: post.title,
+      slug: post.slug,
+      content: post.html,
+      excerpt: post.custom_excerpt || post.excerpt || '',
+      image_url: post.feature_image || '',
+      published: true,
+      author: post.primary_author?.name || 'Marketing Car',
+      source: 'ghost',
+      tags: post.tags?.map(tag => tag.name) || [],
+      meta_title: post.meta_title || post.title,
+      meta_description: post.meta_description || post.excerpt,
+      og_image: post.og_image || post.feature_image,
+      og_title: post.og_title || post.title,
+      og_description: post.og_description || post.excerpt,
+      twitter_image: post.twitter_image || post.feature_image,
+      twitter_title: post.twitter_title || post.title,
+      twitter_description: post.twitter_description || post.excerpt,
+    }));
+
+    return transformedPosts;
+  } catch (error) {
+    console.error('Error fetching Ghost posts:', error);
+    return [];
+  }
+}
 
 async function fetchBabyloveArticles() {
   console.log('= Fetching articles from Babylove API...');
@@ -105,17 +153,23 @@ export function getAllBlogPosts() {
 
 async function main() {
   try {
-    console.log('=📝 Starting static blog generation (Babylove API only)...');
+    console.log('=📝 Starting static blog generation (Ghost + Babylove)...');
 
-    // Fetch posts from Babylove API
-    const babylovePosts = await fetchBabyloveArticles();
+    // Fetch posts from both sources
+    const [ghostPosts, babylovePosts] = await Promise.all([
+      fetchGhostPosts(),
+      fetchBabyloveArticles()
+    ]);
+
+    // Combine: Ghost posts FIRST, then Babylove posts
+    const allPosts = [...ghostPosts, ...babylovePosts];
 
     // Sort by creation date (newest first)
-    const allPosts = babylovePosts.sort((a, b) => {
+    allPosts.sort((a, b) => {
       return new Date(b.created_at) - new Date(a.created_at);
     });
 
-    console.log(` Generated ${allPosts.length} total posts from Babylove API`);
+    console.log(` Generated ${allPosts.length} total posts (${ghostPosts.length} from Ghost + ${babylovePosts.length} from Babylove)`);
 
     await generateStaticBlogData(allPosts);
 

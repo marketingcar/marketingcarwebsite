@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getAllBlogPosts } from '@/data/staticBlogPosts';
+import { getAllBlogPosts } from '@/data/blogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,21 +23,21 @@ const BlogPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const loadStaticPosts = () => {
+    const loadPosts = async () => {
       setLoading(true);
       try {
-        const staticPosts = getAllBlogPosts();
-        setAllPosts(staticPosts || []);
+        const posts = await getAllBlogPosts();
+        setAllPosts(posts || []);
         setError(null);
       } catch (error) {
-        console.error('Error loading static posts:', error);
+        console.error('Error loading blog posts:', error);
         setError('Could not load blog posts. Please try again later.');
         setAllPosts([]);
       }
       setLoading(false);
     };
 
-    loadStaticPosts();
+    loadPosts();
   }, []);
 
   // ✅ Signal prerender readiness when loading has finished (success or error)

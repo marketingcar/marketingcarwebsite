@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { getBlogPostBySlug } from '@/data/staticBlogPosts';
+import { getBlogPostBySlug } from '@/data/blogPosts';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -19,26 +19,26 @@ const BlogPostPage = () => {
   const { queryParams } = useQueryParams();
 
   useEffect(() => {
-    const loadStaticPost = () => {
+    const loadPost = async () => {
       setLoading(true);
       try {
-        const staticPost = getBlogPostBySlug(slug);
-        if (staticPost) {
-          setPost(staticPost);
+        const foundPost = await getBlogPostBySlug(slug);
+        if (foundPost) {
+          setPost(foundPost);
           setError(null);
         } else {
           setError('Could not find this post. It might have been moved or deleted.');
           setPost(null);
         }
       } catch (error) {
-        console.error('Error loading static post:', error);
+        console.error('Error loading blog post:', error);
         setError('Could not find this post. It might have been moved or deleted.');
         setPost(null);
       }
       setLoading(false);
     };
 
-    loadStaticPost();
+    loadPost();
   }, [slug]);
 
   // ✅ Tell the prerender plugin the page is ready (success OR error)
