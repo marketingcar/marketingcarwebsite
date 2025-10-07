@@ -145,7 +145,7 @@ const PrivacyPolicyPage = () => {
                   <li><strong>Data Portability:</strong> Request a copy of your data in a portable format</li>
                 </ul>
                 <p className="mt-4">
-                  To exercise these rights, please contact us at <a href="mailto:privacy@marketingcar.com" className="text-primary hover:underline">privacy@marketingcar.com</a>.
+                  To exercise these rights, please contact us at <a href="mailto:mechanic@marketingcar.com" className="text-primary hover:underline">mechanic@marketingcar.com</a>.
                 </p>
               </section>
 
@@ -177,7 +177,7 @@ const PrivacyPolicyPage = () => {
                 </p>
                 <div className="mt-4 space-y-2">
                   <p><strong>Marketing Car</strong></p>
-                  <p>Email: <a href="mailto:privacy@marketingcar.com" className="text-primary hover:underline">privacy@marketingcar.com</a></p>
+                  <p>Email: <a href="mailto:mechanic@marketingcar.com" className="text-primary hover:underline">mechanic@marketingcar.com</a></p>
                   <p>Website: <a href="https://www.marketingcar.com" className="text-primary hover:underline">www.marketingcar.com</a></p>
                 </div>
               </section>

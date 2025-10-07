@@ -1,6 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import sharp from 'sharp';
+import { existsSync, mkdirSync } from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -229,6 +231,63 @@ export function getAllPages() {
   return outputFile;
 }
 
+async function downloadAndOptimizeImage(imageUrl, slug, source) {
+  if (!imageUrl || imageUrl === '') return null;
+
+  try {
+    // Skip if already a local path
+    if (imageUrl.startsWith('/') || imageUrl.startsWith('./')) {
+      return imageUrl;
+    }
+
+    // Create blog images directory
+    const blogImagesDir = path.join(__dirname, '..', 'public', 'blog');
+    if (!existsSync(blogImagesDir)) {
+      mkdirSync(blogImagesDir, { recursive: true });
+    }
+
+    // Create filename from slug
+    const filename = `${slug}.webp`;
+    const outputPath = path.join(blogImagesDir, filename);
+
+    // Skip if already exists
+    if (existsSync(outputPath)) {
+      console.log(`  ⏭️  Image already exists for ${slug}`);
+      return `/blog/${filename}`;
+    }
+
+    console.log(`  🖼️  Downloading and optimizing image for ${slug}...`);
+
+    // Download image
+    const response = await fetch(imageUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to download image: ${response.status}`);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Optimize and convert to WebP
+    await sharp(buffer)
+      .resize(1200, null, {
+        withoutEnlargement: true,
+        fastShrinkOnLoad: true
+      })
+      .webp({
+        quality: 85,
+        effort: 6
+      })
+      .toFile(outputPath);
+
+    console.log(`  ✅ Optimized and saved image for ${slug}`);
+    return `/blog/${filename}`;
+
+  } catch (error) {
+    console.warn(`  ⚠️  Failed to download/optimize image for ${slug}:`, error.message);
+    return imageUrl; // Return original URL if optimization fails
+  }
+}
+
 async function main() {
   try {
     console.log('=📝 Starting static content generation (Ghost Posts/Pages + Babylove)...');
@@ -240,6 +299,22 @@ async function main() {
       fetchBabyloveArticles()
     ]);
 
+    console.log('\n=🖼️  Downloading and optimizing blog post images...');
+
+    // Download and optimize images for all posts
+    for (const post of [...ghostPosts, ...babylovePosts]) {
+      if (post.image_url) {
+        const optimizedUrl = await downloadAndOptimizeImage(post.image_url, post.slug, post.source);
+        if (optimizedUrl) {
+          post.image_url = optimizedUrl;
+          // Update og_image if it matches the original image_url
+          if (post.og_image === post.image_url) {
+            post.og_image = optimizedUrl;
+          }
+        }
+      }
+    }
+
     // Sort each group by date separately (newest first within each group)
     ghostPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     babylovePosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -248,13 +323,13 @@ async function main() {
     // Combine: Ghost posts FIRST, then Babylove posts (maintain group order, NOT date order)
     const allPosts = [...ghostPosts, ...babylovePosts];
 
-    console.log(` Generated ${allPosts.length} total posts (${ghostPosts.length} from Ghost + ${babylovePosts.length} from Babylove)`);
+    console.log(`\n Generated ${allPosts.length} total posts (${ghostPosts.length} from Ghost + ${babylovePosts.length} from Babylove)`);
     console.log(` Generated ${ghostPages.length} Ghost pages`);
 
     await generateStaticBlogData(allPosts);
     await generateStaticPagesData(ghostPages);
 
-    console.log('<✅ Static content generation completed successfully!');
+    console.log('\n<✅ Static content generation completed successfully!');
   } catch (error) {
     console.error('=❌ Static content generation failed:', error);
     process.exit(1);
