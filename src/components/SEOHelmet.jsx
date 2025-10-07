@@ -14,17 +14,25 @@ function toAbsoluteUrl(pathOrUrl) {
   }
 }
 
-// Check if page is prerendered with correct meta tags
+// Check if page is a BLOG POST or GHOST PAGE with prerendered meta tags
+// We only want to disable React Helmet on these specific content pages
 function hasPrerenderedMeta() {
   if (typeof window === 'undefined') return false;
 
-  // Check if we have an og:title meta tag (injected by our script)
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  // Check if we have JSON-LD schema (injected by our script)
+  // Only disable on blog posts (/blog/slug) and Ghost pages (/p/slug)
+  const path = window.location.pathname;
+  const isBlogPost = path.startsWith('/blog/') && path !== '/blog' && path !== '/blog/';
+  const isGhostPage = path.startsWith('/p/');
+
+  if (!isBlogPost && !isGhostPage) {
+    return false; // Allow React Helmet on all other pages
+  }
+
+  // For blog/ghost pages, check if properly prerendered
   const jsonLd = document.querySelector('script[type="application/ld+json"]');
 
-  // If both exist, the page was properly prerendered and we should NOT override
-  return !!(ogTitle && jsonLd);
+  // If JSON-LD exists, the page was properly prerendered
+  return !!jsonLd;
 }
 
 /**

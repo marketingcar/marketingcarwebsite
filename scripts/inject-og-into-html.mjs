@@ -67,6 +67,74 @@ if (existsSync(pagesDataPath)) {
   }
 }
 
+// Load services data - extract just the meta information we need
+const servicesDataPath = path.join(root, 'src/data/servicesData.js');
+let services = [];
+if (existsSync(servicesDataPath)) {
+  try {
+    const servicesDataContent = readFileSync(servicesDataPath, 'utf8');
+    // Extract each service object's slug and meta info
+    const serviceMatches = servicesDataContent.matchAll(/\{\s*slug:\s*["']([^"']+)["'][\s\S]*?meta:\s*\{([^}]+)\}/g);
+    for (const match of serviceMatches) {
+      const slug = match[1];
+      const metaContent = match[2];
+
+      // Extract meta fields
+      const titleMatch = metaContent.match(/title:\s*["']([^"']+)["']/);
+      const descriptionMatch = metaContent.match(/description:\s*["']([^"']+)["']/);
+      const ogTitleMatch = metaContent.match(/ogTitle:\s*["']([^"']+)["']/);
+      const ogDescriptionMatch = metaContent.match(/ogDescription:\s*["']([^"']+)["']/);
+
+      services.push({
+        slug,
+        meta: {
+          title: titleMatch ? titleMatch[1] : null,
+          description: descriptionMatch ? descriptionMatch[1] : null,
+          ogTitle: ogTitleMatch ? ogTitleMatch[1] : null,
+          ogDescription: ogDescriptionMatch ? ogDescriptionMatch[1] : null
+        }
+      });
+    }
+    console.log('[og-inject] Loaded', services.length, 'services');
+  } catch (e) {
+    console.warn('[og-inject] Could not parse services data:', e.message);
+  }
+}
+
+// Load who we help data - extract just the meta information we need
+const whoWeHelpDataPath = path.join(root, 'src/data/whoWeHelpData.jsx');
+let professionals = [];
+if (existsSync(whoWeHelpDataPath)) {
+  try {
+    const whoWeHelpDataContent = readFileSync(whoWeHelpDataPath, 'utf8');
+    // Extract each professional object's slug and meta info
+    const professionalMatches = whoWeHelpDataContent.matchAll(/\{\s*slug:\s*['"]([^'"]+)['"][\s\S]*?meta:\s*\{([^}]+)\}/g);
+    for (const match of professionalMatches) {
+      const slug = match[1];
+      const metaContent = match[2];
+
+      // Extract meta fields
+      const titleMatch = metaContent.match(/title:\s*["']([^"']+)["']/);
+      const descriptionMatch = metaContent.match(/description:\s*["']([^"']+)["']/);
+      const ogTitleMatch = metaContent.match(/ogTitle:\s*["']([^"']+)["']/);
+      const ogDescriptionMatch = metaContent.match(/ogDescription:\s*["']([^"']+)["']/);
+
+      professionals.push({
+        slug,
+        meta: {
+          title: titleMatch ? titleMatch[1] : null,
+          description: descriptionMatch ? descriptionMatch[1] : null,
+          ogTitle: ogTitleMatch ? ogTitleMatch[1] : null,
+          ogDescription: ogDescriptionMatch ? ogDescriptionMatch[1] : null
+        }
+      });
+    }
+    console.log('[og-inject] Loaded', professionals.length, 'who-we-help pages');
+  } catch (e) {
+    console.warn('[og-inject] Could not parse who-we-help data:', e.message);
+  }
+}
+
 // Create blog post overrides
 const blogOverrides = {};
 for (const post of blogPosts) {
@@ -124,8 +192,32 @@ for (const page of ghostPages) {
   };
 }
 
+// Create service overrides
+const serviceOverrides = {};
+for (const service of services) {
+  const routePath = `/services/${service.slug}`;
+  serviceOverrides[routePath] = {
+    title: service.meta?.title,
+    description: service.meta?.description,
+    image: '/og/og-default.png',
+    type: 'website'
+  };
+}
+
+// Create who-we-help overrides
+const whoWeHelpOverrides = {};
+for (const professional of professionals) {
+  const routePath = `/who-we-help/${professional.slug}`;
+  whoWeHelpOverrides[routePath] = {
+    title: professional.meta?.title,
+    description: professional.meta?.description,
+    image: '/og/og-default.png',
+    type: 'website'
+  };
+}
+
 // Merge all overrides
-overrides = { ...overrides, ...blogOverrides, ...pageOverrides };
+overrides = { ...overrides, ...blogOverrides, ...pageOverrides, ...serviceOverrides, ...whoWeHelpOverrides };
 
 function walk(dir) {
   const out = [];

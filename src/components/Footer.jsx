@@ -30,6 +30,9 @@ const Footer = React.memo(() => {
 
               <p className="font-body">&copy; {new Date().getFullYear()} MarketingCar™. All Rights Reserved.</p>
               <p className="font-body">Driving Your Success, One Mile at a Time.</p>
+              <p className="font-body mt-2">
+                <Link to="/privacy-policy" className="hover:text-primary transition">Privacy Policy</Link>
+              </p>
 
               <div className="mt-4 flex gap-4">
                 {socialLinks.map(link => (

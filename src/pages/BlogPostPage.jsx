@@ -93,15 +93,8 @@ const BlogPostPage = () => {
 
   return (
     <PageTransition>
-      <SEOHelmet
-        title={pageTitle}
-        description={post.excerpt}
-        path={`/blog/${post.slug}`}
-        image={post.image_url}
-        type="article"
-      />
-
-      <SchemaMarkup schema={blogPostingSchema} />
+      {/* SEO metadata is injected during build - no React Helmet needed */}
+      {/* Schema is also injected during build */}
 
       <div className="container mx-auto px-4 py-16 md:py-24">
         <motion.div

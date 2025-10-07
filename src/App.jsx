@@ -35,6 +35,7 @@ const LpFreeMarketingTips = lazy(() => import('@/pages/LpFreeMarketingTips'));
 const LpWebinar1 = lazy(() => import('@/pages/LpWebinar1'));
 const LpWebinar2 = lazy(() => import('@/pages/LpWebinar2'));
 const GhostPage = lazy(() => import('@/pages/GhostPage'));
+const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading component
@@ -107,6 +108,7 @@ const App = () => {
                 <Route path="/lp-webinar-1" element={<LpWebinar1 />} />
                 <Route path="/lp-webinar-2" element={<LpWebinar2 />} />
                 <Route path="/p/:slug" element={<GhostPage />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AnimatePresence>
