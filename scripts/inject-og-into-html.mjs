@@ -51,6 +51,22 @@ if (existsSync(blogDataPath)) {
   }
 }
 
+// Load Ghost pages data
+const pagesDataPath = path.join(root, 'src/data/staticPages.js');
+let ghostPages = [];
+if (existsSync(pagesDataPath)) {
+  try {
+    const pagesDataContent = readFileSync(pagesDataPath, 'utf8');
+    const pagesMatch = pagesDataContent.match(/export const pages = (\[[\s\S]*?\]);/);
+    if (pagesMatch) {
+      ghostPages = JSON.parse(pagesMatch[1]);
+      console.log('[og-inject] Loaded', ghostPages.length, 'Ghost pages');
+    }
+  } catch (e) {
+    console.warn('[og-inject] Could not parse Ghost pages:', e.message);
+  }
+}
+
 // Create blog post overrides
 const blogOverrides = {};
 for (const post of blogPosts) {
@@ -59,12 +75,57 @@ for (const post of blogPosts) {
     title: `${post.title} | Marketing Car Blog`,
     description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim() + '...',
     image: post.image_url || '/og/og-default.png',
-    type: 'article'
+    type: 'article',
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt || post.meta_description,
+      "image": post.image_url || post.og_image,
+      "datePublished": post.created_at,
+      "author": {
+        "@type": "Organization",
+        "name": "Marketing Car",
+        "url": "https://www.marketingcar.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Marketing Car",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.marketingcar.com/mainlogo.png"
+        }
+      }
+    }
   };
 }
 
-// Merge blog overrides with manual overrides
-overrides = { ...overrides, ...blogOverrides };
+// Create Ghost page overrides
+const pageOverrides = {};
+for (const page of ghostPages) {
+  const routePath = `/p/${page.slug}`;
+  pageOverrides[routePath] = {
+    title: `${page.title} | Marketing Car`,
+    description: page.excerpt || page.meta_description || page.title,
+    image: page.image_url || page.og_image || '/og/og-default.png',
+    type: 'website',
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "headline": page.title,
+      "description": page.meta_description || page.excerpt,
+      "image": page.image_url,
+      "datePublished": page.created_at,
+      "author": {
+        "@type": "Organization",
+        "name": page.author || "Marketing Car"
+      }
+    }
+  };
+}
+
+// Merge all overrides
+overrides = { ...overrides, ...blogOverrides, ...pageOverrides };
 
 function walk(dir) {
   const out = [];
@@ -79,18 +140,21 @@ function walk(dir) {
 }
 
 function ensure($, sel, attr, value) {
-  const el = $(sel).first();
-  if (el.length) {
-    // Update existing element
-    el.attr(attr, value);
-    return;
+  // ALWAYS remove existing tags first to prevent duplicates and ensure our values win
+  if (sel.startsWith('meta[')) {
+    const m = sel.match(/\[(name|property)=["']([^"']+)["']\]/);
+    if (m) {
+      const [, attrName, attrValue] = m;
+      $(`meta[${attrName}="${attrValue}"]`).remove();
+    }
+  } else if (sel.startsWith('link[')) {
+    const m = sel.match(/\[rel=["']([^"']+)["']\]/);
+    if (m) {
+      $(`link[rel="${m[1]}"]`).remove();
+    }
   }
 
-  // Special handling for meta description - remove any duplicates first
-  if (sel === 'meta[name="description"]') {
-    $('meta[name="description"]').remove();
-  }
-
+  // Now add the new tag with our value
   if (sel.startsWith('meta[')) {
     const $m = $('<meta/>');
     const m = sel.match(/\[(name|property)=["']([^"']+)["']\]/);
@@ -136,6 +200,9 @@ for (const file of htmlFiles) {
   const finalImg   = absUrl(ov.image || DEFAULTS.image);
   const robotsNoIndex = typeof ov.noIndex === 'boolean' ? ov.noIndex : false;
 
+  // ALWAYS update title tag with the final title (don't trust React Helmet)
+  $('title').first().text(finalTitle);
+
   // Canonical
   ensure($, 'link[rel="canonical"]', 'href', url);
 
@@ -161,6 +228,17 @@ for (const file of htmlFiles) {
 
   // Robots
   ensure($, 'meta[name="robots"]', 'content', robotsNoIndex ? 'noindex,nofollow' : 'index,follow');
+
+  // JSON-LD Schema
+  if (ov.schema) {
+    // Remove any existing JSON-LD schema first
+    $('script[type="application/ld+json"]').remove();
+
+    // Add new schema
+    const schemaScript = $('<script type="application/ld+json"></script>');
+    schemaScript.text(JSON.stringify(ov.schema));
+    $('head').append(schemaScript);
+  }
 
   writeFileSync(file, $.html());
   console.log('[og-inject] updated', routePath || '/');

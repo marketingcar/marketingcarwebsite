@@ -188,10 +188,10 @@ const BlogPage = () => {
                 variant="outline"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="flex items-center gap-1 sm:gap-2"
+                className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4"
                 size="sm"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-5 w-5 sm:h-4 sm:w-4" />
                 <span className="hidden sm:inline">Previous</span>
               </Button>
 
@@ -237,11 +237,11 @@ const BlogPage = () => {
                 variant="outline"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="flex items-center gap-1 sm:gap-2"
+                className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4"
                 size="sm"
               >
                 <span className="hidden sm:inline">Next</span>
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-5 w-5 sm:h-4 sm:w-4" />
               </Button>
             </motion.div>
           )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "@/seo/ogConfig";
 // NEW: route-based overrides that both your app and the injector can read
@@ -12,6 +12,19 @@ function toAbsoluteUrl(pathOrUrl) {
   } catch {
     return pathOrUrl;
   }
+}
+
+// Check if page is prerendered with correct meta tags
+function hasPrerenderedMeta() {
+  if (typeof window === 'undefined') return false;
+
+  // Check if we have an og:title meta tag (injected by our script)
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  // Check if we have JSON-LD schema (injected by our script)
+  const jsonLd = document.querySelector('script[type="application/ld+json"]');
+
+  // If both exist, the page was properly prerendered and we should NOT override
+  return !!(ogTitle && jsonLd);
 }
 
 /**
@@ -33,6 +46,20 @@ export default function SEOHelmet({
   noIndex = false,
   locale = "en_US",
 }) {
+  const [shouldRender, setShouldRender] = useState(true);
+
+  useEffect(() => {
+    // Check if page already has prerendered meta tags
+    if (hasPrerenderedMeta()) {
+      setShouldRender(false);
+    }
+  }, []);
+
+  // If prerendered meta exists, don't render anything (keep the injected tags)
+  if (!shouldRender) {
+    return null;
+  }
+
   // Resolve effective route key for overrides
   const runtimePath =
     path ||

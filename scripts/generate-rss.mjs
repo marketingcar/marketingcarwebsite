@@ -1,9 +1,7 @@
 // scripts/generate-rss.mjs
 import { fileURLToPath } from 'node:url';
-import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import matter from 'gray-matter';
-import { fetchAndTransformBabyloveArticles } from '../src/lib/babyloveApi.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -16,62 +14,38 @@ const SITE_DESCRIPTION = 'Expert small business marketing solutions that drive r
 async function generateRSSFeed() {
   console.log('=📡 Starting RSS feed generation...');
 
-  const blogDirectory = path.join(root, 'content', 'blog');
   const posts = [];
 
-  // Load static markdown blog posts
-  if (existsSync(blogDirectory)) {
+  // Load ALL blog posts from staticBlogPosts.js (includes Ghost + BabyLove)
+  const staticBlogFile = path.join(root, 'src', 'data', 'staticBlogPosts.js');
+  if (existsSync(staticBlogFile)) {
     try {
-      const files = readdirSync(blogDirectory);
-      console.log(`📁 Found ${files.length} blog files`);
+      const fileContents = readFileSync(staticBlogFile, 'utf8');
+      const match = fileContents.match(/export const blogPosts = (\[[\s\S]*?\]);/);
 
-      for (const file of files) {
-        if (file.endsWith('.md')) {
-          const fullPath = path.join(blogDirectory, file);
-          const fileContents = readFileSync(fullPath, 'utf8');
-          const { data, content } = matter(fileContents);
+      if (match) {
+        const blogPosts = JSON.parse(match[1]);
+        console.log(`📁 Found ${blogPosts.length} total blog posts (Ghost + BabyLove)`);
 
-          // Only include published posts
-          if (data.published !== false) {
-            posts.push({
-              title: data.title || 'Untitled',
-              slug: data.slug || file.replace(/\.md$/, ''),
-              description: data.excerpt || content.substring(0, 200).replace(/[#*`]/g, '').trim() + '...',
-              date: new Date(data.date || Date.now()),
-              author: data.author || 'Marketing Car',
-              content: content.trim()
-            });
-          }
+        for (const post of blogPosts) {
+          posts.push({
+            title: post.title || 'Untitled',
+            slug: post.slug,
+            description: post.excerpt || post.meta_description || post.title,
+            date: new Date(post.created_at || Date.now()),
+            author: post.author || 'Marketing Car',
+            content: post.content || '',
+            image: post.image_url || post.og_image
+          });
         }
-      }
 
-      console.log(`✅ Processed ${posts.length} static blog posts`);
+        console.log(`✅ Processed ${posts.length} blog posts for RSS`);
+      }
     } catch (error) {
-      console.warn('📁 Error reading blog directory:', error.message);
+      console.warn('📁 Error reading staticBlogPosts.js:', error.message);
     }
   } else {
-    console.log('📁 No blog directory found');
-  }
-
-  // Load API blog posts from Babylove
-  try {
-    console.log('🌐 Fetching API blog posts...');
-    const apiPosts = await fetchAndTransformBabyloveArticles();
-
-    for (const apiPost of apiPosts) {
-      posts.push({
-        title: apiPost.title || 'Untitled',
-        slug: apiPost.slug,
-        description: apiPost.excerpt || apiPost.title,
-        date: new Date(apiPost.created_at || Date.now()),
-        author: 'Marketing Car',
-        content: apiPost.content || ''
-      });
-    }
-
-    console.log(`✅ Processed ${apiPosts.length} API blog posts`);
-  } catch (error) {
-    console.warn('🌐 Error fetching API blog posts:', error.message);
+    console.warn('📁 staticBlogPosts.js not found - run build-blog-static.mjs first');
   }
 
   // Sort posts by date (newest first)

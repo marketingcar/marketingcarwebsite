@@ -17,6 +17,54 @@ const babyloveHeaders = {
 const GHOST_API_URL = 'https://mc.marketingcarcontent.com';
 const GHOST_CONTENT_API_KEY = 'de3290ace76f6e6e4a1404c591';
 
+async function fetchGhostPages() {
+  console.log('= Fetching pages from Ghost CMS...');
+
+  try {
+    const url = `${GHOST_API_URL}/ghost/api/content/pages/?key=${GHOST_CONTENT_API_KEY}&include=tags,authors&limit=all&fields=id,title,slug,html,feature_image,published_at,excerpt,meta_description,meta_title,og_image,og_title,og_description,twitter_image,twitter_title,twitter_description,custom_excerpt`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Ghost API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const pages = data.pages || [];
+
+    console.log(` Fetched ${pages.length} pages from Ghost CMS`);
+
+    // Transform Ghost pages to our format
+    const transformedPages = pages.map(page => ({
+      id: `ghost_page_${page.id}`,
+      created_at: page.published_at,
+      title: page.title,
+      slug: page.slug,
+      content: page.html,
+      excerpt: page.custom_excerpt || page.excerpt || '',
+      image_url: page.feature_image || '',
+      published: true,
+      author: page.primary_author?.name || 'Marketing Car',
+      source: 'ghost',
+      type: 'page',
+      tags: page.tags?.map(tag => tag.name) || [],
+      meta_title: page.meta_title || page.title,
+      meta_description: page.meta_description || page.excerpt,
+      og_image: page.og_image || page.feature_image,
+      og_title: page.og_title || page.title,
+      og_description: page.og_description || page.excerpt,
+      twitter_image: page.twitter_image || page.feature_image,
+      twitter_title: page.twitter_title || page.title,
+      twitter_description: page.twitter_description || page.excerpt,
+    }));
+
+    return transformedPages;
+  } catch (error) {
+    console.error('Error fetching Ghost pages:', error);
+    return [];
+  }
+}
+
 async function fetchGhostPosts() {
   console.log('= Fetching posts from Ghost CMS...');
 
@@ -151,31 +199,64 @@ export function getAllBlogPosts() {
   return outputFile;
 }
 
+async function generateStaticPagesData(allPages) {
+  const outputDir = path.join(__dirname, '..', 'src', 'data');
+  const outputFile = path.join(outputDir, 'staticPages.js');
+
+  await fs.mkdir(outputDir, { recursive: true });
+
+  const fileContent = `// This file is auto-generated during build time
+// Do not edit manually - changes will be overwritten
+
+export const pages = ${JSON.stringify(allPages, null, 2)};
+
+export const pagesMap = new Map(
+  pages.map(page => [page.slug, page])
+);
+
+export function getPageBySlug(slug) {
+  return pagesMap.get(slug);
+}
+
+export function getAllPages() {
+  return pages;
+}
+`;
+
+  await fs.writeFile(outputFile, fileContent, 'utf-8');
+  console.log(` Generated static pages data at: ${outputFile}`);
+
+  return outputFile;
+}
+
 async function main() {
   try {
-    console.log('=📝 Starting static blog generation (Ghost + Babylove)...');
+    console.log('=📝 Starting static content generation (Ghost Posts/Pages + Babylove)...');
 
-    // Fetch posts from both sources
-    const [ghostPosts, babylovePosts] = await Promise.all([
+    // Fetch posts and pages from all sources
+    const [ghostPosts, ghostPages, babylovePosts] = await Promise.all([
       fetchGhostPosts(),
+      fetchGhostPages(),
       fetchBabyloveArticles()
     ]);
 
-    // Combine: Ghost posts FIRST, then Babylove posts
+    // Sort each group by date separately (newest first within each group)
+    ghostPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    babylovePosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    ghostPages.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    // Combine: Ghost posts FIRST, then Babylove posts (maintain group order, NOT date order)
     const allPosts = [...ghostPosts, ...babylovePosts];
 
-    // Sort by creation date (newest first)
-    allPosts.sort((a, b) => {
-      return new Date(b.created_at) - new Date(a.created_at);
-    });
-
     console.log(` Generated ${allPosts.length} total posts (${ghostPosts.length} from Ghost + ${babylovePosts.length} from Babylove)`);
+    console.log(` Generated ${ghostPages.length} Ghost pages`);
 
     await generateStaticBlogData(allPosts);
+    await generateStaticPagesData(ghostPages);
 
-    console.log('<✅ Static blog generation completed successfully!');
+    console.log('<✅ Static content generation completed successfully!');
   } catch (error) {
-    console.error('=❌ Static blog generation failed:', error);
+    console.error('=❌ Static content generation failed:', error);
     process.exit(1);
   }
 }

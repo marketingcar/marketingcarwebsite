@@ -1,7 +1,11 @@
-# --- MIME types for YAML ---
+# --- MIME types ---
 <IfModule mod_mime.c>
   AddType text/yaml .yml
   AddType application/x-yaml .yaml
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType text/css .css
+  AddType text/html .html
 </IfModule>
 
 # --- SPA rewrites (add an early exception for the CMS config) ---

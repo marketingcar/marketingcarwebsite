@@ -68,6 +68,7 @@ const caseStudiesFile = path.join(root, 'src', 'data', 'caseStudiesData.jsx');
 const blogFiles = [
   path.join(root, 'src', 'data', 'staticBlogPosts.js'),
 ];
+const pagesFile = path.join(root, 'src', 'data', 'staticPages.js');
 
 const serviceSlugs = extractSlugsFrom(servicesFile);
 const whoSlugs = extractSlugsFrom(whoFile);
@@ -92,6 +93,17 @@ for (const f of blogFiles) {
   if (blogSlugs.length) break;
 }
 
+// Extract Ghost page slugs
+let pageSlugs = [];
+if (existsSync(pagesFile)) {
+  const src = read(pagesFile);
+  const found = new Set();
+  const jsonSlugRegex = /"slug":\s*"([^"]+)"/g;
+  let m;
+  while ((m = jsonSlugRegex.exec(src))) found.add(m[1]);
+  pageSlugs = Array.from(found);
+}
+
 // 3) Build routes
 const base = new Set([
   '/', '/about/', '/services/', '/who-we-help/', '/contact/', '/book-now/',
@@ -114,6 +126,7 @@ const needsServices = declaredRoutes.some(p => typeof p === 'string' && p.includ
 const needsWho = declaredRoutes.some(p => typeof p === 'string' && p.includes('/who-we-help/:slug'));
 const needsCase = declaredRoutes.some(p => typeof p === 'string' && (p.includes('/about/case-studies/:slug') || p.includes('/case-studies/:slug')));
 const needsBlog = declaredRoutes.some(p => typeof p === 'string' && p.includes('/blog/:slug'));
+const needsPages = declaredRoutes.some(p => typeof p === 'string' && p.includes('/p/:slug'));
 
 if (needsServices) serviceSlugs.forEach(s => base.add(joinRoute('/services', s)));
 if (needsWho) whoSlugs.forEach(s => base.add(joinRoute('/who-we-help', s)));
@@ -123,6 +136,9 @@ if (needsCase) {
 }
 if (needsBlog) {
   blogSlugs.forEach(s => base.add(joinRoute('/blog', s)));
+}
+if (needsPages) {
+  pageSlugs.forEach(s => base.add(joinRoute('/p', s)));
 }
 
 // 4) Clean, sort, write
@@ -134,5 +150,5 @@ const routes = Array.from(base)
 writeFileSync(path.join(root, '.prerender-routes.json'), JSON.stringify(routes, null, 2));
 
 console.log(`[prerender] Declared routes: ${declaredRoutes.length}`);
-console.log(`[prerender] Slugs — services:${serviceSlugs.length} who:${whoSlugs.length} case:${caseSlugs.length} blog:${blogSlugs.length}`);
+console.log(`[prerender] Slugs — services:${serviceSlugs.length} who:${whoSlugs.length} case:${caseSlugs.length} blog:${blogSlugs.length} pages:${pageSlugs.length}`);
 console.log(`[prerender] Total routes written: ${routes.length}`);
