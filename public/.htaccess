@@ -35,7 +35,11 @@
   # Redirect old FAQ URL to new location
   RewriteRule ^about/faq/?$ /faq [R=301,L]
 
-  # 3) Your SPA catch-all
+  # 3) Explicitly skip rewriting for static assets
+  RewriteCond %{REQUEST_URI} \.(js|css|json|xml|txt|ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot|pdf)$ [NC]
+  RewriteRule ^ - [L]
+
+  # 4) Your SPA catch-all (only for routes that aren't files or directories)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
