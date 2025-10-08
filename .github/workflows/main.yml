@@ -39,6 +39,9 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Install sharp for linux-x64
+        run: npm install --os=linux --cpu=x64 sharp
+
       - name: Build
         env:
           CI: true
