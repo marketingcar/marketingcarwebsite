@@ -52,7 +52,7 @@ const BookNowPage = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="prose prose-invert max-w-none lg:prose-xl">
             <h1 className="bg-gradient-to-r from-primary via-highlight to-secondary bg-clip-text text-transparent pb-4">
-              Let’s Grow Your Business — Together
+              Let’s Grow Your Business Together
             </h1>
             <p className="text-lg text-muted-foreground">
               This free 30-minute consultation is all about helping you connect with more of the right clients or customers.
