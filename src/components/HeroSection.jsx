@@ -48,7 +48,7 @@ const HeroSection = () => {
   return (
     <motion.section
       id="home"
-      className="flex-grow flex items-center py-20 px-4 sm:px-8 relative overflow-hidden min-h-[calc(100vh-100px)]"
+      className="flex-grow flex items-center py-20 relative overflow-hidden min-h-[calc(100vh-100px)]"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -62,11 +62,12 @@ const HeroSection = () => {
           height={1080}
           style={{aspectRatio: '16/9'}}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
       </div>
 
-      <div className="relative z-10 max-w-3xl ml-0 md:ml-12 lg:ml-24 text-left">
-      <div className="h-[8rem] sm:h-[10rem] md:h-[12rem] flex items-start justify-start mb-6" style={{minHeight: '200px'}}>
+      <div className="container mx-auto px-4 sm:px-8">
+        <div className="relative z-10 max-w-2xl text-left">
+          <div className="mb-8">
           <AnimatePresence mode="wait">
             <motion.h1
               key={titleIndex}
@@ -74,9 +75,9 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
-              className="text-5xl sm:text-6xl md:text-7xl font-black font-heading mb-6 leading-tight text-foreground will-change-transform"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-heading leading-tight text-foreground will-change-transform"
             >
-              <span className="block font-black">{titles[titleIndex].line1}</span>
+              <span className="block font-black mb-2">{titles[titleIndex].line1}</span>
               {titles[titleIndex].line2 && (
                 <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-highlight to-secondary font-black">
                   {titles[titleIndex].line2}
@@ -86,16 +87,17 @@ const HeroSection = () => {
           </AnimatePresence>
         </div>
 
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl font-body">
+        <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl font-body leading-relaxed">
           We're your expert mechanics for marketing. Each part of our "car" propels your business forward, turning complexity into a smooth ride to your goals.
         </motion.p>
-        <motion.div variants={itemVariants} className="space-x-4 flex justify-start">
+        <motion.div variants={itemVariants}>
           <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl will-change-transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold" asChild>
             <Link to="/book-now">
               Ignite Your Growth <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </Link>
           </Button>
         </motion.div>
+        </div>
       </div>
     </motion.section>
   );
