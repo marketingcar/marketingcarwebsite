@@ -43,30 +43,30 @@ const HeroSection = () => {
   // Disable animations if user prefers reduced motion
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const heroImageUrl = "/elements/hero.png";
-  
+  const heroImageUrl = "/marketing-car.webp";
+
   return (
-    <motion.section 
-      id="home" 
-      className="flex-grow flex items-center justify-center py-20 px-4 sm:px-8 text-center relative overflow-hidden min-h-[calc(100vh-100px)]"
-      variants={containerVariants} 
-      initial="hidden" 
+    <motion.section
+      id="home"
+      className="flex-grow flex items-center py-20 px-4 sm:px-8 relative overflow-hidden min-h-[calc(100vh-100px)]"
+      variants={containerVariants}
+      initial="hidden"
       animate="visible"
     >
       <div className="absolute inset-0">
         <LazyHeroImage
           src={heroImageUrl}
-          alt="Abstract hero background showing a stylized roadmap or navigation interface with glowing lines and waypoints, symbolizing a journey to success."
-          className="w-full h-full object-cover object-center"
+          alt="3D abstract geometric shapes in purple, blue and teal gradient colors representing modern marketing technology"
+          className="w-full h-full object-cover object-right"
           width={1920}
           height={1080}
           style={{aspectRatio: '16/9'}}
         />
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto">
-      <div className="h-[8rem] sm:h-[10rem] md:h-[12rem] flex items-center justify-center mb-6" style={{minHeight: '200px'}}>
+      <div className="relative z-10 max-w-3xl ml-0 md:ml-12 lg:ml-24 text-left">
+      <div className="h-[8rem] sm:h-[10rem] md:h-[12rem] flex items-start justify-start mb-6" style={{minHeight: '200px'}}>
           <AnimatePresence mode="wait">
             <motion.h1
               key={titleIndex}
@@ -86,10 +86,10 @@ const HeroSection = () => {
           </AnimatePresence>
         </div>
 
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto font-body">
+        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl font-body">
           We're your expert mechanics for marketing. Each part of our "car" propels your business forward, turning complexity into a smooth ride to your goals.
         </motion.p>
-        <motion.div variants={itemVariants} className="space-x-4">
+        <motion.div variants={itemVariants} className="space-x-4 flex justify-start">
           <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl will-change-transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold" asChild>
             <Link to="/book-now">
               Ignite Your Growth <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
