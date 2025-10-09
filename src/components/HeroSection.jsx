@@ -57,7 +57,7 @@ const HeroSection = () => {
         <LazyHeroImage
           src={heroImageUrl}
           alt="3D abstract geometric shapes in purple, blue and teal gradient colors representing modern marketing technology"
-          className="w-full h-full object-cover object-right"
+          className="w-full h-full object-cover object-center md:object-right"
           width={1920}
           height={1080}
           style={{aspectRatio: '16/9'}}
