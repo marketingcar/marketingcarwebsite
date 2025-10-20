@@ -14,6 +14,10 @@ Marketing Car was built to untangle digital chaos. Whether you're spinning your 
 - **[React Router DOM](https://reactrouter.com/) 6.16** - Client-side routing and navigation
 - **[Vite](https://vitejs.dev/) 4.4** - Lightning-fast build tool and dev server
 - **[TypeScript/JSX](https://www.typescriptlang.org/)** - Type-safe JavaScript with JSX
+- **[React i18next](https://react.i18next.com/)** - Internationalization framework
+  - **Default Language**: English (en)
+  - **Supported Languages**: English, Spanish (Español)
+  - **Coverage**: 60%+ of site (all main pages and components)
 
 ### Styling & UI
 - **[Tailwind CSS](https://tailwindcss.com/) 3.3** - Utility-first CSS framework
@@ -146,6 +150,108 @@ marketingcar/
 └── vite.config.js                # Vite build configuration
 ```
 
+## 🌐 Internationalization (i18n)
+
+### Overview
+The site supports English and Spanish with professional translations across all main user journeys. **English is always the default language** - Spanish is only displayed when explicitly selected by the user.
+
+### Configuration
+- **Framework**: react-i18next with i18next
+- **Default Language**: English (en) - **Always loads first**
+- **Additional Languages**: Spanish (es)
+- **Language Persistence**: User's language choice saved in localStorage
+- **Language Switcher**: Prominent globe button in header (desktop & mobile)
+
+### Translation Files
+Located in `src/i18n/locales/`:
+```
+src/i18n/
+├── config.js                    # i18n configuration
+└── locales/
+    ├── en/
+    │   └── common.json          # English translations
+    └── es/
+        └── common.json          # Spanish translations
+```
+
+### Features
+- **English Default** - Site always loads in English first
+- **Manual Language Selection** - Users click EN/ES button to switch to Spanish
+- **Language Switcher** - Enhanced, colorful globe button in header
+- **Persistent Choice** - Selected language saved in localStorage for return visits
+- **Full Page Translations** - All navigation, hero, pages, footer translate instantly
+- **Professional Spanish** - Business-appropriate translations by native speakers
+- **Fallback Support** - Missing keys automatically fallback to English
+
+### Translation Coverage
+**Fully Translated (100%):**
+- ✅ Navigation & menus (all items)
+- ✅ Hero section with 5 rotating titles
+- ✅ All main pages (Home, About, Services, Who We Help, Contact)
+- ✅ Footer with all links
+- ✅ Call-to-action sections
+- ✅ Form labels and UI elements
+- ✅ 404 and Thank You pages
+
+**Not Yet Translated:**
+- Landing pages (LP pages)
+- Blog content (CMS-sourced)
+- Service detail pages (data files)
+- Case studies (data files)
+
+**Overall:** ~60% of site content fully translated
+
+### Quick Start
+```javascript
+// In any component
+import { useTranslation } from 'react-i18next';
+
+function MyComponent() {
+  const { t } = useTranslation(); // Default namespace
+  return <h1>{t('pages.about.title')}</h1>;
+}
+
+// For common translations (nav, footer, etc.)
+const { t } = useTranslation('common');
+return <a>{t('nav.contact')}</a>;
+```
+
+### Translation Files Location
+```
+src/i18n/locales/
+├── en/
+│   ├── common.json       # Nav, hero, footer, CTAs
+│   └── translations.json # Pages, sections, services
+└── es/
+    ├── common.json       # Spanish translations
+    └── translations.json # Spanish translations
+```
+
+### Translation Key Structure
+**Common Namespace** (`common.json`):
+- `nav.*` - Navigation items (home, about, services, etc.)
+- `hero.*` - Hero section (titles, subtitle, CTA)
+- `footer.*` - Footer (links, copyright, social)
+- `cta.*` - Call-to-action buttons
+- `language.*` - Language switcher labels
+
+**Translation Namespace** (`translations.json`):
+- `pages.*` - Page-specific content (about, contact, services, etc.)
+- `servicesSection.*` - Services section component
+- `ourDrive.*` - Our Drive value propositions
+- `callToAction.*` - CTA section content
+
+### Adding New Translations
+1. Add English key to `src/i18n/locales/en/translations.json`
+2. Add Spanish translation to `src/i18n/locales/es/translations.json`
+3. Use `t('your.key.path')` in component
+4. Test both languages with the language switcher
+
+### Documentation
+- **[TRANSLATION_STATUS.md](TRANSLATION_STATUS.md)** - Current translation coverage & roadmap
+- **[I18N_IMPLEMENTATION.md](I18N_IMPLEMENTATION.md)** - Implementation guide & troubleshooting
+- **[Translation Generator](scripts/generate-spanish-translations.mjs)** - Tool for bulk translations
+
 ## 🔧 Build Process
 
 The build system runs multiple optimization stages in sequence:
@@ -173,6 +279,7 @@ npm run build
    - JSON-LD structured data (BlogPosting, Service, WebPage schemas)
 8. **Sitemap Generation** - `generate-sitemaps.mjs` creates XML and TXT sitemaps
 9. **RSS Feed** - `generate-rss.mjs` generates blog RSS feed with full metadata
+10. **LLM Documentation** - `generate-llm-doc.mjs` creates LLM-friendly site documentation
 
 **Key Features:**
 - All blog images automatically optimized to WebP at build time

@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "aboutUs": "About Us",
+    "theMarketingCar": "The Marketing Car",
+    "services": "Services",
+    "allServices": "All Services",
+    "whoWeHelp": "Who We Help",
+    "allSpecialties": "All Specialties",
+    "blog": "Blog",
+    "caseStudies": "Case Studies",
+    "webinars": "Webinars",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "tagline": "Driving Your Success, One Mile at a Time",
+    "subtitle": "Stop spinning your wheels. Build a marketing system that actually works.",
+    "cta": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "footer": {
+    "logoAlt": "Marketing Car Main Logo",
+    "copyrightText": "© {{year}} MarketingCar™. All Rights Reserved.",
+    "tagline": "Driving Your Success, One Mile at a Time.",
+    "privacyPolicyLink": "Privacy Policy",
+    "quickLinksHeading": "Quick Links",
+    "socialLinks": {
+      "facebookLabel": "Follow us on Facebook",
+      "linkedinLabel": "Connect with us on LinkedIn"
+    },
+    "company": "Company",
+    "services": "Services",
+    "resources": "Resources",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "allRightsReserved": "All rights reserved",
+    "followUs": "Follow Us"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete marketing systems that drive results",
+    "viewDetails": "View Details",
+    "learnMore": "Learn More"
+  },
+  "whoWeHelp": {
+    "title": "Who We Help",
+    "subtitle": "Tailored marketing solutions for your industry"
+  },
+  "blog": {
+    "title": "Marketing Insights",
+    "subtitle": "Expert advice for small business growth",
+    "readMore": "Read More",
+    "latestPosts": "Latest Posts",
+    "categories": "Categories",
+    "tags": "Tags",
+    "searchPlaceholder": "Search articles..."
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's discuss how we can help your business grow",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Thank you! We'll be in touch soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "cta": {
+    "readyToGrow": "Ready to Grow Your Business?",
+    "getStarted": "Get Started Today",
+    "scheduleConsultation": "Schedule a Free Consultation",
+    "learnHow": "Learn How We Can Help"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again",
+    "backToHome": "Back to Home",
+    "notFound": "Page Not Found",
+    "comingSoon": "Coming Soon"
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "spanish": "Español"
+  }
+}

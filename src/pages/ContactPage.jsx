@@ -8,18 +8,21 @@ import HubSpotContactForm from '@/components/HubSpotContactForm';
 import { Phone, MapPin, Mail, Facebook, Linkedin, CalendarCheck } from 'lucide-react';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 const ContactPage = () => {
-  const pageTitle = "Contact Us | Marketing Car";
-  const pageDescription = "Get in touch with Marketing Car. Whether you have a question or want to start a project, we're here to help you accelerate your marketing.";
+  const { t } = useTranslation();
+
+  const pageTitle = t('pages.contact.pageTitle');
+  const pageDescription = t('pages.contact.pageDescription');
 
   const socialLinks = [{
     href: "https://facebook.com/themarketingcar",
-    label: "Follow us on Facebook",
+    label: t('pages.contact.social.facebook'),
     icon: <Facebook size={24} />
   }, {
     href: "https://www.linkedin.com/company/marketingcar/",
-    label: "Connect with us on LinkedIn",
+    label: t('pages.contact.social.linkedin'),
     icon: <Linkedin size={24} />
   }];
 
@@ -89,7 +92,7 @@ const ContactPage = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-black tracking-tight text-white sm:text-6xl font-heading"
           >
-            Get in Touch
+            {t('pages.contact.title')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -97,7 +100,7 @@ const ContactPage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto"
           >
-            Have a question or ready to start your engine? We'd love to hear from you. Fill out the form below or use the contact details to reach us.
+            {t('pages.contact.subtitle')}
           </motion.p>
         </div>
       </div>
@@ -112,7 +115,7 @@ const ContactPage = () => {
               className="space-y-8"
             >
               <motion.div variants={itemVariants}>
-                <h2 className="text-3xl font-bold text-white mb-6">Contact Form</h2>
+                <h2 className="text-3xl font-bold text-white mb-6">{t('pages.contact.form.title')}</h2>
                 <HubSpotContactForm />
               </motion.div>
             </motion.div>
@@ -126,14 +129,14 @@ const ContactPage = () => {
               <motion.div variants={itemVariants} className="bg-secondary/10 p-8 rounded-lg shadow-lg">
                 <h3 className="text-2xl font-semibold text-white mb-4 flex items-center">
                   <CalendarCheck className="h-6 w-6 mr-3 text-primary" />
-                  Ready to Go?
+                  {t('pages.contact.booking.title')}
                 </h3>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Book a free consultation with a marketing mechanic now.
+                  {t('pages.contact.booking.subtitle')}
                 </p>
                 <Button asChild size="lg">
                   <Link to="/book-now">
-                    Book Your Free Consultation
+                    {t('pages.contact.booking.button')}
                   </Link>
                 </Button>
               </motion.div>
@@ -141,36 +144,36 @@ const ContactPage = () => {
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-semibold text-white mb-4 flex items-center">
                   <Phone className="h-6 w-6 mr-3 text-primary" />
-                  Phone
+                  {t('pages.contact.phone.title')}
                 </h3>
                 <a href="tel:312-741-9028" className="text-lg text-muted-foreground hover:text-highlight transition-colors">
-                  312-741-9028
+                  {t('pages.contact.phone.number')}
                 </a>
               </motion.div>
 
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-semibold text-white mb-4 flex items-center">
                   <Mail className="h-6 w-6 mr-3 text-primary" />
-                  General Inquiries
+                  {t('pages.contact.email.title')}
                 </h3>
                 <a href="mailto:mechanic@marketingcar.com" className="text-lg text-muted-foreground hover:text-highlight transition-colors">
-                  mechanic@marketingcar.com
+                  {t('pages.contact.email.address')}
                 </a>
-                 <p className="text-sm text-muted-foreground mt-2">For the fastest response, please use the contact form.</p>
+                 <p className="text-sm text-muted-foreground mt-2">{t('pages.contact.email.note')}</p>
               </motion.div>
 
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-semibold text-white mb-4 flex items-center">
                   <MapPin className="h-6 w-6 mr-3 text-primary" />
-                  Location
+                  {t('pages.contact.location.title')}
                 </h3>
                 <p className="text-lg text-muted-foreground">
-                  Our founder is based in Minnesota, and our virtual team brings together talent from coast to coast across the U.S.
+                  {t('pages.contact.location.description')}
                 </p>
               </motion.div>
 
                <motion.div variants={itemVariants}>
-                <h3 className="text-2xl font-semibold text-white mb-4">Connect With Us</h3>
+                <h3 className="text-2xl font-semibold text-white mb-4">{t('pages.contact.social.title')}</h3>
                 <div className="flex space-x-6">
                   {socialLinks.map(link => (
                     <a key={link.label} href={link.href} className="text-muted-foreground hover:text-primary transition-colors" aria-label={link.label} target="_blank" rel="noopener noreferrer">

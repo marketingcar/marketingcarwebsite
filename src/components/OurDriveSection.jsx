@@ -1,33 +1,35 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Target, BarChart, Users, TrendingUp } from 'lucide-react';
 
-const driveItems = [
-  {
-    icon: <Target size={40} className="text-white" />,
-    title: "Small Business Marketing Solutions",
-    description: "We adapt our strategies to fit your budget, pace, and goals, giving small businesses the freedom to grow on their own terms.",
-  },
-  {
-    icon: <BarChart size={40} className="text-white" />,
-    title: "Data-Driven Strategy",
-    description: "Our decisions are backed by analytics to ensure optimal performance.",
-  },
-  {
-    icon: <Users size={40} className="text-white" />,
-    title: "Custom-Tailored Solutions",
-    description: "We design unique strategies for every business, never relying on templates or one-size-fits-all packages.",
-  },
-  {
-    icon: <TrendingUp size={40} className="text-white" />,
-    title: "Continuous Growth",
-    description: "We constantly adapt and refine strategies to keep you ahead of the curve.",
-  },
-];
-
 const OurDriveSection = () => {
+  const { t } = useTranslation();
+
+  const driveItems = [
+    {
+      icon: <Target size={40} className="text-white" />,
+      title: t('ourDrive.items.smallBusiness.title'),
+      description: t('ourDrive.items.smallBusiness.description'),
+    },
+    {
+      icon: <BarChart size={40} className="text-white" />,
+      title: t('ourDrive.items.dataStrategy.title'),
+      description: t('ourDrive.items.dataStrategy.description'),
+    },
+    {
+      icon: <Users size={40} className="text-white" />,
+      title: t('ourDrive.items.customSolutions.title'),
+      description: t('ourDrive.items.customSolutions.description'),
+    },
+    {
+      icon: <TrendingUp size={40} className="text-white" />,
+      title: t('ourDrive.items.continuousGrowth.title'),
+      description: t('ourDrive.items.continuousGrowth.description'),
+    },
+  ];
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -60,9 +62,9 @@ const OurDriveSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-white tracking-tight">The Marketing Car Difference</h2>
+          <h2 className="text-4xl font-bold text-white tracking-tight">{t('ourDrive.heading')}</h2>
           <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
-            We don’t just create marketing plans—we give small businesses a clear roadmap, practical tools, and steady guidance so every part of their growth engine works together.
+            {t('ourDrive.description')}
           </p>
         </motion.div>
         <motion.div

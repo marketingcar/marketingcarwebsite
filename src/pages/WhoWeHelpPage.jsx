@@ -7,14 +7,17 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from "@/components/ui/button";
 import { professionals } from '@/data/whoWeHelpData.jsx';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import { useTranslation } from 'react-i18next';
 
 const WhoWeHelpPage = () => {
+  const { t } = useTranslation();
+
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.marketingcar.com/who-we-help",
-    "name": "Who We Help | Marketing Car",
-    "description": "Marketing Car specializes in providing tailored marketing solutions for a variety of professionals, including therapists, contractors, and small business owners.",
+    "name": t('pages.whoWeHelp.pageTitle'),
+    "description": t('pages.whoWeHelp.pageDescription'),
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": professionals.map((prof, index) => ({
@@ -32,8 +35,8 @@ const WhoWeHelpPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Who We Help | Marketing Car</title>
-        <meta name="description" content="Marketing Car specializes in providing tailored marketing solutions for a variety of professionals, including therapists, contractors, and small business owners." />
+        <title>{t('pages.whoWeHelp.pageTitle')}</title>
+        <meta name="description" content={t('pages.whoWeHelp.pageDescription')} />
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
@@ -46,7 +49,7 @@ const WhoWeHelpPage = () => {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-4xl md:text-6xl font-black mb-4 font-heading"
           >
-            Specialized Marketing for Your Industry
+            {t('pages.whoWeHelp.title')}
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -54,7 +57,7 @@ const WhoWeHelpPage = () => {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
           >
-            We understand that every industry has unique challenges and opportunities. We provide tailored strategies to help you connect with your ideal clients.
+            {t('pages.whoWeHelp.subtitle')}
           </motion.p>
         </div>
       </div>
@@ -76,7 +79,7 @@ const WhoWeHelpPage = () => {
                   </CardHeader>
                   <CardContent>
                     <Button asChild className="w-full">
-                      <Link to={`/who-we-help/${prof.slug}`}>Learn More</Link>
+                      <Link to={`/who-we-help/${prof.slug}`}>{t('pages.whoWeHelp.learnMore')}</Link>
                     </Button>
                   </CardContent>
                 </Card>

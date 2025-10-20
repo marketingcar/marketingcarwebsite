@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { services } from '@/data/servicesData';
 import { professionals } from '@/data/whoWeHelpData';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const NavItem = ({
   to,
@@ -65,6 +67,7 @@ const DropdownLink = ({
     {children}
   </NavLink>;
 const Header = () => {
+  const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -100,33 +103,33 @@ const Header = () => {
   
   // Memoize navigation links to prevent recreation
   const navLinks = useMemo(() => (isMobile = false) => <>
-      <NavItem to="/" isMobile={isMobile} closeMenu={closeMenu}>Home</NavItem>
-      <DropdownNavItem title="About" isMobile={isMobile} closeMenu={closeMenu}>
-        <DropdownLink to="/about" isMobile={isMobile} closeMenu={closeMenu}>About Us</DropdownLink>
-        <DropdownLink to="/about/the-marketing-car" isMobile={isMobile} closeMenu={closeMenu}>The Marketing Car</DropdownLink>
-        <DropdownLink to="/faq" isMobile={isMobile} closeMenu={closeMenu}>FAQ</DropdownLink>
-        <DropdownLink to="/about/webinars" isMobile={isMobile} closeMenu={closeMenu}>Webinars</DropdownLink>
-        <DropdownLink to="/about/case-studies" isMobile={isMobile} closeMenu={closeMenu}>Case Studies</DropdownLink>
-        <DropdownLink to="/blog" isMobile={isMobile} closeMenu={closeMenu}>Blog</DropdownLink>
+      <NavItem to="/" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.home')}</NavItem>
+      <DropdownNavItem title={t('nav.about')} isMobile={isMobile} closeMenu={closeMenu}>
+        <DropdownLink to="/about" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.aboutUs')}</DropdownLink>
+        <DropdownLink to="/about/the-marketing-car" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.theMarketingCar')}</DropdownLink>
+        <DropdownLink to="/faq" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.faq')}</DropdownLink>
+        <DropdownLink to="/about/webinars" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.webinars')}</DropdownLink>
+        <DropdownLink to="/about/case-studies" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.caseStudies')}</DropdownLink>
+        <DropdownLink to="/blog" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.blog')}</DropdownLink>
       </DropdownNavItem>
-      <DropdownNavItem title="Services" isMobile={isMobile} closeMenu={closeMenu}>
-        <DropdownLink to="/services" isMobile={isMobile} closeMenu={closeMenu}>All Services</DropdownLink>
+      <DropdownNavItem title={t('nav.services')} isMobile={isMobile} closeMenu={closeMenu}>
+        <DropdownLink to="/services" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.allServices')}</DropdownLink>
         {navigationData.services.map(service => (
           <DropdownLink key={service.slug} to={`/services/${service.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
             {service.title}
           </DropdownLink>
         ))}
       </DropdownNavItem>
-      <DropdownNavItem title="Who We Help" isMobile={isMobile} closeMenu={closeMenu}>
-         <DropdownLink to="/who-we-help" isMobile={isMobile} closeMenu={closeMenu}>All Specialties</DropdownLink>
+      <DropdownNavItem title={t('nav.whoWeHelp')} isMobile={isMobile} closeMenu={closeMenu}>
+         <DropdownLink to="/who-we-help" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.allSpecialties')}</DropdownLink>
         {navigationData.professionals.map(prof => (
           <DropdownLink key={prof.slug} to={`/who-we-help/${prof.slug}`} isMobile={isMobile} closeMenu={closeMenu}>
             {prof.title}
           </DropdownLink>
         ))}
       </DropdownNavItem>
-      <NavItem to="/contact" isMobile={isMobile} closeMenu={closeMenu}>Contact</NavItem>
-    </>, [navigationData, closeMenu]);
+      <NavItem to="/contact" isMobile={isMobile} closeMenu={closeMenu}>{t('nav.contact')}</NavItem>
+    </>, [navigationData, closeMenu, t]);
   return <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? 'bg-background/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
@@ -136,9 +139,10 @@ const Header = () => {
           <nav className="hidden xl:flex items-center space-x-8">
             {navLinks()}
           </nav>
-          <div className="hidden xl:flex items-center">
+          <div className="hidden xl:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button asChild className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300">
-              <Link to="/book-now">Book Now</Link>
+              <Link to="/book-now">{t('nav.bookNow')}</Link>
             </Button>
           </div>
           <div className="xl:hidden">
@@ -163,9 +167,12 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks(true)}
             </div>
+            <div className="px-4 py-3 flex items-center justify-center border-t border-border">
+              <LanguageSwitcher />
+            </div>
             <div className="px-4 py-4">
               <Button asChild className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-semibold shadow-lg">
-                <Link to="/book-now" onClick={closeMenu}>Book Now</Link>
+                <Link to="/book-now" onClick={closeMenu}>{t('nav.bookNow')}</Link>
               </Button>
             </div>
           </motion.div>}

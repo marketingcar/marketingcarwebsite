@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LazyHeroImage from '@/components/LazyHeroImage';
+import { useTranslation } from 'react-i18next';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -22,7 +23,7 @@ const itemVariants = {
   }
 };
 
-const titles = [
+const titlesEn = [
   { line1: "Steering Small Businesses", line2: "To Success" },
   { line1: "Shift Your Marketing", line2: "Into High Gear" },
   { line1: "Drive Your", line2: "Small Business Forward" },
@@ -31,7 +32,19 @@ const titles = [
 ];
 
 const HeroSection = () => {
+  const { t, i18n } = useTranslation('common');
   const [titleIndex, setTitleIndex] = useState(0);
+
+  // Get titles based on current language
+  const titles = i18n.language?.startsWith('es')
+    ? [
+        { line1: t('hero.titles.0.line1'), line2: t('hero.titles.0.line2') },
+        { line1: t('hero.titles.1.line1'), line2: t('hero.titles.1.line2') },
+        { line1: t('hero.titles.2.line1'), line2: t('hero.titles.2.line2') },
+        { line1: t('hero.titles.3.line1'), line2: t('hero.titles.3.line2') },
+        { line1: t('hero.titles.4.line1'), line2: t('hero.titles.4.line2') },
+      ]
+    : titlesEn;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,12 +101,12 @@ const HeroSection = () => {
         </div>
 
         <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl font-body leading-relaxed">
-          We're your expert mechanics for marketing. Each part of our "car" propels your business forward, turning complexity into a smooth ride to your goals.
+          {t('hero.subtitle')}
         </motion.p>
         <motion.div variants={itemVariants}>
           <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg px-8 py-6 shadow-xl will-change-transform hover:scale-105 transition-transform duration-300 text-primary-foreground font-semibold" asChild>
             <Link to="/book-now">
-              Ignite Your Growth <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              {t('hero.cta')} <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </Link>
           </Button>
         </motion.div>

@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "aboutUs": "Sobre Nosotros",
+    "theMarketingCar": "El Carro de Marketing",
+    "services": "Servicios",
+    "allServices": "Todos los Servicios",
+    "whoWeHelp": "A Quién Ayudamos",
+    "allSpecialties": "Todas las Especialidades",
+    "blog": "Blog",
+    "caseStudies": "Casos de Éxito",
+    "webinars": "Webinars",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "bookNow": "Reservar Ahora"
+  },
+  "hero": {
+    "tagline": "Impulsando Tu Éxito, Milla por Milla",
+    "subtitle": "Somos tus mecánicos expertos en marketing. Cada parte de nuestro \"carro\" impulsa tu negocio hacia adelante, convirtiendo la complejidad en un camino suave hacia tus objetivos.",
+    "cta": "Enciende Tu Crecimiento",
+    "learnMore": "Saber Más",
+    "titles": {
+      "0": {
+        "line1": "Dirigiendo Pequeñas Empresas",
+        "line2": "Hacia el Éxito"
+      },
+      "1": {
+        "line1": "Cambia Tu Marketing",
+        "line2": "A Alta Velocidad"
+      },
+      "2": {
+        "line1": "Impulsa Tu",
+        "line2": "Pequeña Empresa Adelante"
+      },
+      "3": {
+        "line1": "De Obstáculos",
+        "line2": "A Resultados"
+      },
+      "4": {
+        "line1": "Marketing Que Impulsa",
+        "line2": "Tu Pequeña Empresa"
+      }
+    }
+  },
+  "footer": {
+    "logoAlt": "Logo Principal de Marketing Car",
+    "copyrightText": "© {{year}} MarketingCar™. Todos los Derechos Reservados.",
+    "tagline": "Impulsando Tu Éxito, Milla por Milla.",
+    "privacyPolicyLink": "Política de Privacidad",
+    "quickLinksHeading": "Enlaces Rápidos",
+    "socialLinks": {
+      "facebookLabel": "Síguenos en Facebook",
+      "linkedinLabel": "Conéctate con nosotros en LinkedIn"
+    },
+    "company": "Empresa",
+    "services": "Servicios",
+    "resources": "Recursos",
+    "legal": "Legal",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "allRightsReserved": "Todos los derechos reservados",
+    "followUs": "Síguenos"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Sistemas completos de marketing que generan resultados",
+    "viewDetails": "Ver Detalles",
+    "learnMore": "Saber Más"
+  },
+  "whoWeHelp": {
+    "title": "A Quién Ayudamos",
+    "subtitle": "Soluciones de marketing personalizadas para tu industria"
+  },
+  "blog": {
+    "title": "Perspectivas de Marketing",
+    "subtitle": "Consejos de expertos para el crecimiento de pequeñas empresas",
+    "readMore": "Leer Más",
+    "latestPosts": "Publicaciones Recientes",
+    "categories": "Categorías",
+    "tags": "Etiquetas",
+    "searchPlaceholder": "Buscar artículos..."
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "subtitle": "Hablemos sobre cómo podemos ayudar a crecer tu negocio",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "submit": "Enviar Mensaje",
+    "success": "¡Gracias! Nos pondremos en contacto pronto.",
+    "error": "Algo salió mal. Por favor, inténtalo de nuevo."
+  },
+  "cta": {
+    "readyToGrow": "¿Listo para Hacer Crecer Tu Negocio?",
+    "getStarted": "Comienza Hoy",
+    "scheduleConsultation": "Programa una Consulta Gratuita",
+    "learnHow": "Descubre Cómo Podemos Ayudarte"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "tryAgain": "Intentar de Nuevo",
+    "backToHome": "Volver al Inicio",
+    "notFound": "Página No Encontrada",
+    "comingSoon": "Próximamente"
+  },
+  "language": {
+    "select": "Seleccionar Idioma",
+    "english": "English",
+    "spanish": "Español"
+  }
+}

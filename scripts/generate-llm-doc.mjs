@@ -76,12 +76,10 @@ function getMarkdownContent() {
   return content;
 }
 
-// Read services data from the whoWeHelpData.jsx file
+// Read services data based on the site structure
 function getServicesData() {
-  const services = [];
-
   // Key service areas based on the site structure
-  const coreServices = [
+  return [
     {
       title: 'Complete Marketing Systems',
       description: 'We build comprehensive marketing systems that integrate strategy, content, ads, and brand messaging to drive real business results for small businesses.',
@@ -98,8 +96,6 @@ function getServicesData() {
       slug: 'services/lead-generation'
     }
   ];
-
-  return coreServices;
 }
 
 // Get who we help data
@@ -145,7 +141,7 @@ function getBlogPosts() {
 // Generate the LLM-friendly documentation
 function generateLLMDoc() {
   const markdownContent = getMarkdownContent();
-  const services = getServicesData();
+  const coreServices = getServicesData();
   const audiences = getWhoWeHelpData();
   const blogPosts = getBlogPosts();
 
@@ -164,7 +160,7 @@ function generateLLMDoc() {
 
   // Service Offerings
   doc += `## Service Offerings and Solutions\n`;
-  for (const service of services) {
+  for (const service of coreServices) {
     doc += `- ${service.title}: ${service.description}\n`;
   }
   doc += `\n`;

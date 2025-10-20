@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,6 +27,7 @@ const itemVariants = {
 };
 
 const CallToActionSection = () => {
+  const { t } = useTranslation();
   const consultationLink = "https://marketingcar.com/book-now";
 
   return (
@@ -38,9 +40,9 @@ const CallToActionSection = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="container mx-auto text-center">
-        <motion.h3 variants={itemVariants} className="text-4xl sm:text-5xl font-bold mb-6">Ready to Hit the Road?</motion.h3>
+        <motion.h3 variants={itemVariants} className="text-4xl sm:text-5xl font-bold mb-6">{t('callToAction.heading')}</motion.h3>
         <motion.p variants={itemVariants} className="text-xl mb-10 max-w-2xl mx-auto">
-          Let's discuss how we can customize your marketing vehicle for an unparalleled journey to success.
+          {t('callToAction.description')}
         </motion.p>
         <motion.div variants={itemVariants}>
           <Button 
@@ -50,7 +52,7 @@ const CallToActionSection = () => {
             asChild
           >
             <a href={consultationLink} target="_blank" rel="noopener noreferrer">
-              Schedule Your Free Consultation
+              {t('callToAction.buttonText')}
             </a>
           </Button>
         </motion.div>

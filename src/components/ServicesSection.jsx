@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Settings, Map, Eye, Brush, Link2, Factory, BrainCircuit, Search, Newspaper, Zap, Annoyed, Mail, Code } from 'lucide-react';
 import { services as servicesData } from '@/data/servicesData';
@@ -60,6 +61,8 @@ const itemVariants = {
 };
 
 const ServicesSection = () => {
+  const { t } = useTranslation();
+
   // Memoize processed services data to prevent recreation on every render
   const services = useMemo(() => {
     return orderedServices.map(slug => {
@@ -84,9 +87,9 @@ const ServicesSection = () => {
         <motion.div variants={itemVariants} className="text-center mb-16">
           <Settings className="h-16 w-16 text-accent mx-auto mb-4" aria-label="Settings icon" />
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.
+            {t('servicesSection.description')}
           </p>
-          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">Our Marketing Components</h3>
+          <h3 className="text-4xl sm:text-5xl font-bold mb-4 mt-2">{t('servicesSection.heading')}</h3>
         </motion.div>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"

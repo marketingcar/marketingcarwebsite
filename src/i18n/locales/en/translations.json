@@ -1,0 +1,243 @@
+{
+  "footer": {
+    "logoAlt": "Marketing Car Main Logo",
+    "copyrightText": "© {year} MarketingCar™. All Rights Reserved.",
+    "tagline": "Driving Your Success, One Mile at a Time.",
+    "privacyPolicyLink": "Privacy Policy",
+    "quickLinksHeading": "Quick Links",
+    "socialLinks": {
+      "facebookLabel": "Follow us on Facebook",
+      "linkedinLabel": "Connect with us on LinkedIn"
+    }
+  },
+  "servicesSection": {
+    "description": "Each component of our strategy is a vital part of your marketing vehicle, meticulously tuned for peak performance.",
+    "heading": "Our Marketing Components",
+    "learnMore": "Learn More"
+  },
+  "ourDrive": {
+    "heading": "The Marketing Car Difference",
+    "description": "We don't just create marketing plans—we give small businesses a clear roadmap, practical tools, and steady guidance so every part of their growth engine works together.",
+    "items": {
+      "smallBusiness": {
+        "title": "Small Business Marketing Solutions",
+        "description": "We adapt our strategies to fit your budget, pace, and goals, giving small businesses the freedom to grow on their own terms."
+      },
+      "dataStrategy": {
+        "title": "Data-Driven Strategy",
+        "description": "Our decisions are backed by analytics to ensure optimal performance."
+      },
+      "customSolutions": {
+        "title": "Custom-Tailored Solutions",
+        "description": "We design unique strategies for every business, never relying on templates or one-size-fits-all packages."
+      },
+      "continuousGrowth": {
+        "title": "Continuous Growth",
+        "description": "We constantly adapt and refine strategies to keep you ahead of the curve."
+      }
+    }
+  },
+  "callToAction": {
+    "heading": "Ready to Hit the Road?",
+    "description": "Let's discuss how we can customize your marketing vehicle for an unparalleled journey to success.",
+    "buttonText": "Schedule Your Free Consultation"
+  },
+  "pages": {
+    "services": {
+      "metaTitle": "Our Marketing Services | Marketing Car",
+      "metaDescription": "Explore the full range of digital marketing services offered by Marketing Car, from SEO and web design to content marketing and paid advertising.",
+      "pageTitle": "Our Marketing Services | Marketing Car",
+      "pageDescription": "Explore the full range of digital marketing services offered by Marketing Car, from SEO and web design to content marketing and paid advertising.",
+      "title": "Our Marketing Services",
+      "subtitle": "A complete toolkit to build, tune, and accelerate your business growth. We offer a full range of services to get you where you want to go.",
+      "heading": "Our Marketing Services",
+      "description": "A complete toolkit to build, tune, and accelerate your business growth. We offer a full range of services to get you where you want to go.",
+      "learnMore": "Learn More"
+    },
+    "whoWeHelp": {
+      "metaTitle": "Who We Help | Marketing Car",
+      "metaDescription": "Marketing Car specializes in providing tailored marketing solutions for a variety of professionals, including therapists, contractors, and small business owners.",
+      "pageTitle": "Who We Help | Marketing Car",
+      "pageDescription": "Marketing Car specializes in providing tailored marketing solutions for a variety of professionals, including therapists, contractors, and small business owners.",
+      "title": "Specialized Marketing for Your Industry",
+      "subtitle": "We understand that every industry has unique challenges and opportunities. We provide tailored strategies to help you connect with your ideal clients.",
+      "heading": "Specialized Marketing for Your Industry",
+      "description": "We understand that every industry has unique challenges and opportunities. We provide tailored strategies to help you connect with your ideal clients.",
+      "learnMore": "Learn More"
+    },
+    "about": {
+      "metaTitle": "About Marketing Car | Our Mission and Story",
+      "metaDescription": "Learn about Marketing Car's mission to provide small businesses with clear, effective, and custom-tailored marketing solutions that drive real growth.",
+      "pageTitle": "About Marketing Car | Our Mission and Story",
+      "pageDescription": "Learn about Marketing Car's mission to provide small businesses with clear, effective, and custom-tailored marketing solutions that drive real growth.",
+      "heroAlt": "Marketing Car team working on business growth strategies",
+      "title": "About Us",
+      "subtitle": "At Marketing Car, we're the mechanics for your business growth vehicle, dedicated to equipping small businesses with the roadmap and tools they need to drive lasting success.",
+      "heroHeading": "About Us",
+      "heroDescription": "At Marketing Car, we're the mechanics for your business growth vehicle, dedicated to equipping small businesses with the roadmap and tools they need to drive lasting success.",
+      "philosophy": {
+        "title": "Our Philosophy",
+        "paragraph1": "Marketing Car is built on the fact that there is no magic pill or single solution for growth—it takes a combination of components working together to build your marketing vehicle and move your business forward. Just like a car, every part matters. From strategy and branding to content, design, and advertising, we help align each piece so the whole engine runs smoothly.",
+        "paragraph2": "We believe every small business deserves a marketing strategy that's as unique as they are. That's why we throw out the one-size-fits-all playbook and instead focus on creating custom-tailored solutions that fit your goals, budget, and pace.",
+        "paragraph3": "Our mission is to demystify digital marketing, transforming complex concepts into a clear, actionable roadmap. We empower you with the knowledge and tools to not just compete, but to thrive in your market."
+      },
+      "philosophyHeading": "Our Philosophy",
+      "philosophyParagraphs": [
+        "Marketing Car is built on the fact that there is no magic pill or single solution for growth—it takes a combination of components working together to build your marketing vehicle and move your business forward. Just like a car, every part matters. From strategy and branding to content, design, and advertising, we help align each piece so the whole engine runs smoothly.",
+        "We believe every small business deserves a marketing strategy that's as unique as they are. That's why we throw out the one-size-fits-all playbook and instead focus on creating custom-tailored solutions that fit your goals, budget, and pace.",
+        "Our mission is to demystify digital marketing, transforming complex concepts into a clear, actionable roadmap. We empower you with the knowledge and tools to not just compete, but to thrive in your market."
+      ],
+      "roots": {
+        "title": "Our Roots",
+        "paragraph": "Founded by Kelly Baltzell, M.A., a 30+ year marketing agency owner, Marketing Car builds on decades of expertise helping businesses of every size grow. Today, that legacy continues with a focus on supporting small business owners who are ready to take the driver's seat in their marketing journey."
+      },
+      "rootsHeading": "Our Roots",
+      "rootsDescription": "Founded by Kelly Baltzell, M.A., a 30+ year marketing agency owner, Marketing Car builds on decades of expertise helping businesses of every size grow. Today, that legacy continues with a focus on supporting small business owners who are ready to take the driver's seat in their marketing journey.",
+      "cta": {
+        "preTitle": "Ready to Talk?",
+        "title": "Let's Build Your Marketing Vehicle",
+        "subtitle": "Whether you need a full strategy or just a tune-up, we're here to help. Get in touch to discuss how we can accelerate your growth.",
+        "button": "Contact Us"
+      },
+      "ctaEyebrow": "Ready to Talk?",
+      "ctaHeading": "Let's Build Your Marketing Vehicle",
+      "ctaDescription": "Whether you need a full strategy or just a tune-up, we're here to help. Get in touch to discuss how we can accelerate your growth.",
+      "ctaButton": "Contact Us"
+    },
+    "contact": {
+      "metaTitle": "Contact Us | Marketing Car",
+      "metaDescription": "Get in touch with Marketing Car. Whether you have a question or want to start a project, we're here to help you accelerate your marketing.",
+      "pageTitle": "Contact Us | Marketing Car",
+      "pageDescription": "Get in touch with Marketing Car. Whether you have a question or want to start a project, we're here to help you accelerate your marketing.",
+      "title": "Get in Touch",
+      "subtitle": "Have a question or ready to start your engine? We'd love to hear from you. Fill out the form below or use the contact details to reach us.",
+      "heading": "Get in Touch",
+      "description": "Have a question or ready to start your engine? We'd love to hear from you. Fill out the form below or use the contact details to reach us.",
+      "form": {
+        "title": "Contact Form"
+      },
+      "formHeading": "Contact Form",
+      "booking": {
+        "title": "Ready to Go?",
+        "subtitle": "Book a free consultation with a marketing mechanic now.",
+        "button": "Book Your Free Consultation"
+      },
+      "readyHeading": "Ready to Go?",
+      "readyDescription": "Book a free consultation with a marketing mechanic now.",
+      "readyButton": "Book Your Free Consultation",
+      "phone": {
+        "title": "Phone",
+        "number": "312-741-9028"
+      },
+      "phoneHeading": "Phone",
+      "phoneNumber": "312-741-9028",
+      "email": {
+        "title": "General Inquiries",
+        "address": "mechanic@marketingcar.com",
+        "note": "For the fastest response, please use the contact form."
+      },
+      "inquiriesHeading": "General Inquiries",
+      "inquiriesEmail": "mechanic@marketingcar.com",
+      "inquiriesNote": "For the fastest response, please use the contact form.",
+      "location": {
+        "title": "Location",
+        "description": "Our founder is based in Minnesota, and our virtual team brings together talent from coast to coast across the U.S."
+      },
+      "locationHeading": "Location",
+      "locationDescription": "Our founder is based in Minnesota, and our virtual team brings together talent from coast to coast across the U.S.",
+      "social": {
+        "title": "Connect With Us",
+        "facebook": "Follow us on Facebook",
+        "linkedin": "Connect with us on LinkedIn"
+      },
+      "connectHeading": "Connect With Us"
+    },
+    "notFound": {
+      "heading": "404",
+      "message": "Looks like we took a wrong exit. Let's get you back on the road.",
+      "goHomeButton": "Go Home",
+      "blogLink": "Read the Blog"
+    },
+    "thankYou": {
+      "metaTitle": "Thank You! | Marketing Car",
+      "metaDescription": "Thank you for contacting Marketing Car. We've received your message and will be in touch shortly.",
+      "heading": "Booking Confirmed!",
+      "message": "Thank you for scheduling a session with us. We've received your request and will send a confirmation email with all the details shortly.",
+      "buttonText": "Return to Homepage"
+    }
+  },
+  "services": {
+    "marketingstrategy": {
+      "name": "GPS",
+      "subName": "Marketing Strategy",
+      "title": "Marketing Strategy",
+      "description": "Develop a comprehensive plan to achieve your business goals."
+    },
+    "localnearmemarketing": {
+      "name": "Headlights",
+      "subName": "Local/Near Me Marketing",
+      "title": "Local/Near Me Marketing",
+      "description": "Attract local customers and dominate your geographic market."
+    },
+    "graphicdesign": {
+      "name": "Paint Job",
+      "subName": "Graphic Design",
+      "title": "Graphic Design",
+      "description": "Create stunning visuals that capture attention and convey your message."
+    },
+    "b2bmarketing": {
+      "name": "Hitch",
+      "subName": "B2B Marketing",
+      "title": "B2B Marketing",
+      "description": "Drive growth with strategies tailored for business-to-business clients."
+    },
+    "brandstrategydesign": {
+      "name": "Body",
+      "subName": "Brand Strategy & Design",
+      "title": "Brand Strategy & Design",
+      "description": "Build a powerful and memorable brand identity from the ground up."
+    },
+    "marketingconsultation": {
+      "name": "Mechanic",
+      "subName": "Marketing Consultation",
+      "title": "Marketing Consultation",
+      "description": "Get expert advice and actionable insights tailored to your unique challenges."
+    },
+    "seostrategy": {
+      "name": "Engine",
+      "subName": "SEO",
+      "title": "SEO",
+      "description": "Climb search rankings and drive organic traffic."
+    },
+    "contentmarketing": {
+      "name": "Gas",
+      "subName": "Content Marketing",
+      "title": "Content Marketing",
+      "description": "Engage your audience with compelling stories and content."
+    },
+    "paidadvertising": {
+      "name": "Accelerator",
+      "subName": "Paid Advertising",
+      "title": "Paid Advertising",
+      "description": "Maximize ROI with targeted PPC campaigns."
+    },
+    "socialmediamanagement": {
+      "name": "Horn",
+      "subName": "Social Media",
+      "title": "Social Media",
+      "description": "Build a vibrant community around your brand."
+    },
+    "emailmarketing": {
+      "name": "Steering Wheel",
+      "subName": "Email Marketing",
+      "title": "Email Marketing",
+      "description": "Nurture leads and retain customers effectively."
+    },
+    "webdesigndevelopment": {
+      "name": "Wheels",
+      "subName": "Web Design & Development",
+      "title": "Web Design & Development",
+      "description": "Create stunning, high-performance websites."
+    }
+  }
+}

@@ -7,14 +7,30 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from "@/components/ui/button";
 import { services } from '@/data/servicesData.js';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import { useTranslation } from 'react-i18next';
 
 const ServicesPage = () => {
+  const { t, i18n } = useTranslation();
+
+  // Helper to get translated service info
+  const getServiceInfo = (service) => {
+    const serviceName = service.slug.replace(/-/g, '');
+    // Try to get translation, fallback to original if not available
+    const titleKey = `services.${serviceName}.title`;
+    const descKey = `services.${serviceName}.description`;
+
+    return {
+      title: i18n.exists(titleKey) ? t(titleKey) : service.title,
+      description: i18n.exists(descKey) ? t(descKey) : service.description
+    };
+  };
+
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.marketingcar.com/services",
-    "name": "Our Marketing Services | Marketing Car",
-    "description": "Explore the full range of digital marketing services offered by Marketing Car, from SEO and web design to content marketing and paid advertising.",
+    "name": t('pages.services.pageTitle'),
+    "description": t('pages.services.pageDescription'),
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": services.map((service, index) => ({
@@ -32,8 +48,8 @@ const ServicesPage = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Our Marketing Services | Marketing Car</title>
-        <meta name="description" content="Explore the full range of digital marketing services offered by Marketing Car, from SEO and web design to content marketing and paid advertising." />
+        <title>{t('pages.services.pageTitle')}</title>
+        <meta name="description" content={t('pages.services.pageDescription')} />
         <link rel="icon" href="/favicon.svg" type="image/x-icon" />
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
@@ -46,7 +62,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-4xl md:text-6xl font-black mb-4 font-heading"
           >
-            Our Marketing Services
+            {t('pages.services.title')}
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -54,7 +70,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
           >
-            A complete toolkit to build, tune, and accelerate your business growth. We offer a full range of services to get you where you want to go.
+            {t('pages.services.subtitle')}
           </motion.p>
         </div>
       </div>
@@ -71,12 +87,12 @@ const ServicesPage = () => {
                 <Card className="h-full flex flex-col transform hover:-translate-y-2 transition-transform duration-300 ease-in-out shadow-lg hover:shadow-primary/20">
                   <CardHeader className="flex-grow">
                     <div className="mb-4 text-4xl">{service.icon}</div>
-                    <CardTitle className="font-heading text-2xl">{service.title}</CardTitle>
-                    <CardDescription>{service.description}</CardDescription>
+                    <CardTitle className="font-heading text-2xl">{getServiceInfo(service).title}</CardTitle>
+                    <CardDescription>{getServiceInfo(service).description}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Button asChild className="w-full">
-                      <Link to={`/services/${service.slug}`}>Learn More</Link>
+                      <Link to={`/services/${service.slug}`}>{t('pages.services.learnMore')}</Link>
                     </Button>
                   </CardContent>
                 </Card>
