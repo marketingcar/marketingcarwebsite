@@ -25,7 +25,7 @@ const CaseStudyDetailPage = () => {
           <h1 className="text-4xl font-bold">Case Study Not Found</h1>
           <p className="text-muted-foreground mt-4">Sorry, we couldn't find the case study you're looking for.</p>
           <Button asChild className="mt-8">
-            <Link to="/case-studies">Back to Case Studies</Link>
+            <Link to="/about/case-studies">Back to Case Studies</Link>
           </Button>
         </div>
       </PageTransition>
@@ -93,7 +93,7 @@ const CaseStudyDetailPage = () => {
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <Button asChild variant="ghost" className="mb-8">
-              <Link to="/case-studies">
+              <Link to="/about/case-studies">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Case Studies
               </Link>
@@ -126,8 +126,8 @@ const CaseStudyDetailPage = () => {
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <motion.div variants={itemVariants} className="mb-12">
-              <img src={study.image} alt={study.imageAlt} className="rounded-lg shadow-xl w-full" />
+            <motion.div variants={itemVariants} className="mb-12 flex justify-center">
+              <img src={study.image} alt={study.imageAlt} className="rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm lg:max-w-md" />
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-12">
@@ -163,18 +163,18 @@ const CaseStudyDetailPage = () => {
 
           <aside className="lg:col-span-1">
             <motion.div variants={itemVariants} className="sticky top-28">
-              <Card className="shadow-lg bg-secondary/20">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold font-heading text-center">Key Results</CardTitle>
+              <Card className="shadow-lg bg-card border-2 border-primary/20">
+                <CardHeader className="border-b border-primary/10">
+                  <CardTitle className="text-3xl font-bold font-heading text-center text-foreground">Key Results</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4">
+                <CardContent className="pt-6">
+                  <ul className="space-y-6">
                     {study.resultsSummary.map((res, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                        <CheckCircle className="h-7 w-7 text-primary mr-3 mt-1 flex-shrink-0" />
                         <div>
-                          <span className="font-bold text-xl text-primary">{res.metric}</span>
-                          <p className="text-muted-foreground">{res.description}</p>
+                          <span className="font-bold text-2xl text-foreground block mb-1">{res.metric}</span>
+                          <p className="text-base text-muted-foreground leading-relaxed">{res.description}</p>
                         </div>
                       </li>
                     ))}
