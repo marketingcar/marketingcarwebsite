@@ -27,34 +27,48 @@ function loadServicesData() {
   try {
     const servicesDataContent = readFileSync(servicesDataPath, 'utf8');
 
-    // Extract services array using regex
-    // Match pattern: { slug: "...", title: "...", description: "...", ... }
-    const servicesMatch = servicesDataContent.match(/export const services = \[([\s\S]*?)\];/);
+    // Extract services array - split by service objects
+    const servicesMatch = servicesDataContent.match(/export const services = \[([\s\S]*?)\n\];/);
 
     if (!servicesMatch) {
       console.warn('[generate-facts] Could not extract services array');
       return [];
     }
 
-    // Parse services individually
-    const services = [];
-    const servicePattern = /\{\s*slug:\s*["']([^"']+)["'][^}]*?title:\s*["']([^"']+)["'][^}]*?description:\s*["']([^"']+)["'][^}]*?tldr:\s*["']([^"']*?)["']/gs;
+    const servicesArrayContent = servicesMatch[1];
 
-    let match;
-    while ((match = servicePattern.exec(servicesDataContent)) !== null) {
-      const [, slug, title, description, tldr] = match;
+    // Split by top-level braces (each service object)
+    // Match service objects: { ... },
+    const serviceObjects = servicesArrayContent.split(/\n  \},\n  \{/).map((obj, index, arr) => {
+      // Add back the braces we split on
+      if (index === 0) return obj + '\n  }';
+      if (index === arr.length - 1) return '  {\n' + obj;
+      return '  {\n' + obj + '\n  }';
+    });
+
+    const services = [];
+
+    for (const serviceObj of serviceObjects) {
+      // Extract individual fields from this service object
+      const slugMatch = serviceObj.match(/slug:\s*["']([^"']+)["']/);
+      const titleMatch = serviceObj.match(/title:\s*["']([^"']+)["']/);
+      const descriptionMatch = serviceObj.match(/description:\s*["']([^"']+)["']/);
+      const tldrMatch = serviceObj.match(/tldr:\s*["']([^"']*?)["']/);
+
+      if (!slugMatch || !titleMatch || !descriptionMatch) {
+        continue; // Skip if essential fields are missing
+      }
+
+      const slug = slugMatch[1];
+      const title = titleMatch[1];
+      const description = descriptionMatch[1];
+      const tldr = tldrMatch ? tldrMatch[1] : '';
 
       // Extract pricing and timeline from TLDR if available
       let priceFrom = null;
       let timeline = null;
 
       if (tldr) {
-        // Extract price (e.g., "Starting at $1,200/month" or "$3,500")
-        const priceMatch = tldr.match(/(?:Starting at |from )?\$([0-9,]+)/i);
-        if (priceMatch) {
-          priceFrom = parseInt(priceMatch[1].replace(/,/g, ''));
-        }
-
         // Extract timeline (e.g., "2-4 weeks", "1-3 months", "6-10 weeks")
         const timelineMatch = tldr.match(/(\d+-\d+\s+(?:weeks?|months?))/i);
         if (timelineMatch) {
@@ -67,7 +81,6 @@ function loadServicesData() {
         slug: slug,
         description: description,
         url: `${SITE_URL}/services/${slug}`,
-        ...(priceFrom && { priceFrom }),
         ...(timeline && { timeline })
       });
     }
@@ -91,12 +104,14 @@ function generateFacts() {
       description: "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems."
     },
     services: services,
+    bookingUrl: `${SITE_URL}/book-now`,
+    contactEmail: "honk@marketingcar.com",
     booking: {
       url: `${SITE_URL}/book-now`,
       callToAction: "Book Your Free Consultation"
     },
     contact: {
-      email: "hello@marketingcar.com",
+      email: "honk@marketingcar.com",
       phone: null // Add if available
     },
     socialMedia: {

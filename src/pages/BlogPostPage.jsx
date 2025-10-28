@@ -59,7 +59,7 @@ const BlogPostPage = () => {
   }
 
   const pageUrl = `https://www.marketingcar.com/blog/${post.slug}`;
-  const pageTitle = `${post.title} | Marketing Car Blog`;
+  const pageTitle = post.title;
 
   // Get processed and sanitized content
   const sanitizedContent = getProcessedContent(post);

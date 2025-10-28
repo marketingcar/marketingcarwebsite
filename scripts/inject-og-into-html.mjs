@@ -140,7 +140,7 @@ const blogOverrides = {};
 for (const post of blogPosts) {
   const routePath = `/blog/${post.slug}`;
   blogOverrides[routePath] = {
-    title: `${post.title} | Marketing Car Blog`,
+    title: post.title,
     description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim() + '...',
     image: post.image_url || '/og/og-default.png',
     type: 'article',
@@ -278,7 +278,7 @@ function generateOrganizationSchema() {
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Service",
-      "email": "hello@marketingcar.com"
+      "email": "honk@marketingcar.com"
     },
     "sameAs": [
       "https://www.linkedin.com/company/marketingcar",
