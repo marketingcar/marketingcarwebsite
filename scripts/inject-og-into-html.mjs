@@ -19,7 +19,7 @@ const SITE_NAME = 'Marketing Car';
 
 const DEFAULTS = {
   title: 'Marketing Car',
-  desc: 'Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation today!',
+  desc: 'Expert small business marketing that drives real growth with SEO, local marketing, content strategy, branding & paid ads. Book your free consultation!',
   image: '/og/og-default.png',
 };
 
@@ -135,13 +135,50 @@ if (existsSync(whoWeHelpDataPath)) {
   }
 }
 
+// Load case studies data - extract just the meta information we need
+const caseStudiesDataPath = path.join(root, 'src/data/caseStudiesData.jsx');
+let caseStudies = [];
+if (existsSync(caseStudiesDataPath)) {
+  try {
+    const caseStudiesDataContent = readFileSync(caseStudiesDataPath, 'utf8');
+    // Extract each case study object's slug and meta info
+    const caseStudyMatches = caseStudiesDataContent.matchAll(/\{\s*slug:\s*["']([^"']+)["'][\s\S]*?meta:\s*\{([^}]+)\}/g);
+    for (const match of caseStudyMatches) {
+      const slug = match[1];
+      const metaContent = match[2];
+
+      // Extract meta fields
+      const titleMatch = metaContent.match(/title:\s*["']([^"']+)["']/);
+      const descriptionMatch = metaContent.match(/description:\s*["']([^"']+)["']/);
+      const ogTitleMatch = metaContent.match(/ogTitle:\s*["']([^"']+)["']/);
+      const ogDescriptionMatch = metaContent.match(/ogDescription:\s*["']([^"']+)["']/);
+
+      caseStudies.push({
+        slug,
+        meta: {
+          title: titleMatch ? titleMatch[1] : null,
+          description: descriptionMatch ? descriptionMatch[1] : null,
+          ogTitle: ogTitleMatch ? ogTitleMatch[1] : null,
+          ogDescription: ogDescriptionMatch ? ogDescriptionMatch[1] : null
+        }
+      });
+    }
+    console.log('[og-inject] Loaded', caseStudies.length, 'case studies');
+  } catch (e) {
+    console.warn('[og-inject] Could not parse case studies data:', e.message);
+  }
+}
+
 // Create blog post overrides
 const blogOverrides = {};
 for (const post of blogPosts) {
   const routePath = `/blog/${post.slug}`;
+  const rawTitle = post.title;
+  const rawDescription = post.excerpt || post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim();
+
   blogOverrides[routePath] = {
-    title: post.title,
-    description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160).trim() + '...',
+    title: truncateTitle(rawTitle),
+    description: truncateDescription(rawDescription),
     image: post.image_url || '/og/og-default.png',
     type: 'article',
     schema: {
@@ -172,9 +209,12 @@ for (const post of blogPosts) {
 const pageOverrides = {};
 for (const page of ghostPages) {
   const routePath = `/p/${page.slug}`;
+  const rawTitle = `${page.title} | Marketing Car`;
+  const rawDescription = page.excerpt || page.meta_description || page.title;
+
   pageOverrides[routePath] = {
-    title: `${page.title} | Marketing Car`,
-    description: page.excerpt || page.meta_description || page.title,
+    title: truncateTitle(rawTitle),
+    description: truncateDescription(rawDescription),
     image: page.image_url || page.og_image || '/og/og-default.png',
     type: 'website',
     schema: {
@@ -197,8 +237,8 @@ const serviceOverrides = {};
 for (const service of services) {
   const routePath = `/services/${service.slug}`;
   serviceOverrides[routePath] = {
-    title: service.meta?.title,
-    description: service.meta?.description,
+    title: truncateTitle(service.meta?.title),
+    description: truncateDescription(service.meta?.description),
     image: '/og/og-default.png',
     type: 'website'
   };
@@ -209,15 +249,27 @@ const whoWeHelpOverrides = {};
 for (const professional of professionals) {
   const routePath = `/who-we-help/${professional.slug}`;
   whoWeHelpOverrides[routePath] = {
-    title: professional.meta?.title,
-    description: professional.meta?.description,
+    title: truncateTitle(professional.meta?.title),
+    description: truncateDescription(professional.meta?.description),
+    image: '/og/og-default.png',
+    type: 'website'
+  };
+}
+
+// Create case study overrides
+const caseStudyOverrides = {};
+for (const caseStudy of caseStudies) {
+  const routePath = `/about/case-studies/${caseStudy.slug}`;
+  caseStudyOverrides[routePath] = {
+    title: truncateTitle(caseStudy.meta?.title),
+    description: truncateDescription(caseStudy.meta?.description),
     image: '/og/og-default.png',
     type: 'website'
   };
 }
 
 // Merge all overrides
-overrides = { ...overrides, ...blogOverrides, ...pageOverrides, ...serviceOverrides, ...whoWeHelpOverrides };
+overrides = { ...overrides, ...blogOverrides, ...pageOverrides, ...serviceOverrides, ...whoWeHelpOverrides, ...caseStudyOverrides };
 
 function walk(dir) {
   const out = [];
@@ -264,6 +316,20 @@ function ensure($, sel, attr, value) {
 
 function absUrl(pathOrUrl) {
   try { return new URL(pathOrUrl, SITE_URL).href; } catch { return pathOrUrl; }
+}
+
+// Truncate title to SEO-friendly length (max 60 characters)
+function truncateTitle(title, maxLength = 60) {
+  if (!title) return title;
+  if (title.length <= maxLength) return title;
+  return title.substring(0, maxLength - 3).trim() + '...';
+}
+
+// Truncate description to SEO-friendly length (max 160 characters)
+function truncateDescription(description, maxLength = 160) {
+  if (!description) return description;
+  if (description.length <= maxLength) return description;
+  return description.substring(0, maxLength - 3).trim() + '...';
 }
 
 // Generate Organization schema (global)
@@ -369,8 +435,9 @@ for (const file of htmlFiles) {
 
   const ov = overrides[routePath] || {};
 
-  const finalTitle = ov.title || docTitle || DEFAULTS.title;
-  const finalDesc  = ov.description || docDesc || DEFAULTS.desc;
+  // Apply truncation as final safety net
+  const finalTitle = truncateTitle(ov.title || docTitle || DEFAULTS.title);
+  const finalDesc  = truncateDescription(ov.description || docDesc || DEFAULTS.desc);
   const finalType  = ov.type || 'website';
   const finalImg   = absUrl(ov.image || DEFAULTS.image);
   const robotsNoIndex = typeof ov.noIndex === 'boolean' ? ov.noIndex : false;

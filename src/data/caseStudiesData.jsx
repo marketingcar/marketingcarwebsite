@@ -82,9 +82,9 @@ export const caseStudies = [
       "https://storage.googleapis.com/hostinger-horizons-assets-prod/4d4ac5ee-065d-4104-9e56-34e1c9915a10/c3dcff069aab2055b29836cd34d8f989.png",
 
     meta: {
-      title: "Case Study: Launching The Crow River Market in Hanover, MN",
+      title: "Crow River Market Launch | Marketing Car Case Study",
       description:
-        "Discover how The Crow River Market grew from scratch into a bustling Saturday event through strategic branding, grassroots outreach, and digital marketing—including social media, email, and Meta Ads.",
+        "How The Crow River Market grew from zero to 600+ attendees through strategic branding, grassroots outreach, and digital marketing.",
       ogTitle: "The Crow River Market: From Zero to a Saturday Staple",
       ogDescription:
         "See how a new farmers market in Hanover, MN captured hearts and foot traffic with community-first marketing, vendor buzz, and sold-out cinnamon rolls.",
@@ -176,9 +176,9 @@ export const caseStudies = [
     },
 
     meta: {
-      title: "Case Study: Liam Counseling & Body Kind, Mind Strong",
+      title: "Liam Counseling Growth | Marketing Car Case Study",
       description:
-        "How a new brand identity, movement-first content, and cross-platform execution produced rapid growth for Liam Counseling across TikTok, Instagram, Facebook, and LinkedIn.",
+        "How movement-first content and cross-platform execution produced +800% TikTok growth and doubled engagement for Liam Counseling.",
       ogTitle: "Liam Counseling: Body Kind, Mind Strong",
       ogDescription:
         "Therapy in motion. See how a grounded, athletic brand voice translated into real social growth and efficient paid performance.",
