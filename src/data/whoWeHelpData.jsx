@@ -1,9 +1,96 @@
 
 import React from 'react';
-import { BrainCircuit, Wrench, HeartPulse, Calculator, ShieldCheck, Languages, Store, Users } from 'lucide-react';
+import { BrainCircuit, Wrench, HeartPulse, Calculator, ShieldCheck, Languages, Store, Users, Rocket } from 'lucide-react';
 
 export const professionals = [
-  { 
+  {
+    slug: 'new-business-startups',
+    icon: <Rocket size={48} className="text-white" />,
+    title: 'New Business Owners & Startups',
+    description: 'You're building something new. We'll help you launch with momentum. Get your first customers, build your brand, and establish market presence from day one.',
+    subtitle: 'Launch with momentum. Market from day one.',
+    longDescription: `
+      <h3>Built for Launch Mode</h3>
+      <p>Starting a business is exhilarating and terrifying. You're building something from nothing, often with limited resources and no track record. You need customers immediately, but you can't afford to make expensive marketing mistakes or waste time on tactics that don't work.</p>
+
+      <p>We specialize in helping new businesses launch smart—building foundational marketing systems that scale as you grow, without the bloat or complexity that can drain early-stage budgets.</p>
+
+      <h4>Your Pre-Launch Marketing Foundation</h4>
+      <p>The work you do before launch determines how quickly you gain traction. We help you build your brand identity, establish your digital presence, and create buzz before your doors open. This includes brand messaging, website development, social media setup, and pre-launch campaigns that generate interest and early customers.</p>
+
+      <p>We ensure your foundation is solid so you're not scrambling to fix basics after launch when you should be focused on growth.</p>
+
+      <h4>First 100 Customers Strategy</h4>
+      <p>Getting your first customers is fundamentally different from scaling an established business. We develop targeted campaigns that prioritize quick wins—local search optimization, introductory offers, community partnerships, and word-of-mouth strategies that don't require massive ad budgets.</p>
+
+      <p>We help you identify the fastest path to revenue so you can prove your concept and reinvest in growth.</p>
+
+      <h4>Budget-Conscious Growth</h4>
+      <p>Startups operate on tight margins. Every dollar needs to work hard. We prioritize high-ROI tactics—free tools when possible, organic channels before paid, and scalable systems that grow with your revenue. We're transparent about what will and won't work at your stage, so you avoid expensive experiments.</p>
+
+      <h4>Brand Building from Scratch</h4>
+      <p>You don't have years of reputation to lean on. We help you build credibility quickly through professional branding, customer testimonials (even from beta users or early adopters), strategic content, and positioning that communicates value despite being new to market.</p>
+
+      <p>Your newness can be an advantage—we position you as fresh, innovative, and customer-focused rather than inexperienced.</p>
+
+      <h4>Lean Marketing Systems</h4>
+      <p>You need systems that work without hiring a marketing team. We implement simple, maintainable processes for social media, email marketing, content creation, and lead capture that you or a small team can manage without becoming overwhelmed.</p>
+
+      <p>Automation handles repetitive tasks. Templates speed up execution. Simple dashboards track what matters most.</p>
+
+      <h4>Pivot-Ready Approach</h4>
+      <p>Early-stage businesses often adjust their offering, target audience, or approach based on market feedback. Our marketing systems are flexible enough to adapt quickly when you pivot, without requiring complete rebuilds that waste time and money.</p>
+
+      <h4>Market Validation and Testing</h4>
+      <p>Before investing heavily, you need to validate assumptions. We help you test messaging, pricing, and channel fit through small-scale campaigns that provide real market feedback without burning your budget.</p>
+
+      <p>Learn what resonates, then scale what works and cut what doesn't.</p>
+
+      <h4>Competitive Positioning</h4>
+      <p>Entering an established market means competing with businesses that have more resources and recognition. We help you find your angle—whether it's better service, specialized focus, modern approach, or underserved niche—and communicate it clearly to cut through the noise.</p>
+    `,
+    howWeHelp: [
+      'Pre-Launch Brand Development & Website',
+      'First 100 Customers Acquisition Strategy',
+      'Budget-Optimized Digital Marketing Setup',
+      'Social Media & Content Launch Plan',
+      'Local SEO & Google Business Profile Setup',
+    ],
+    meta: {
+      title: "Marketing for New Businesses & Startups | Marketing Car",
+      description: "Launch your new business with smart marketing. We help startups get their first customers and build sustainable growth from day one.",
+      ogTitle: "Launch Your Startup with Strategic Marketing",
+      ogDescription: "You're building something new. We help you launch with momentum, get your first customers, and establish market presence without wasting your budget.",
+    },
+    tldr: "For entrepreneurs launching new businesses who need to build everything from scratch. We deliver foundational systems, first-customer strategies, and lean marketing that fits startup budgets. Results in 1-3 months.",
+    faq: [
+      {
+        question: "When should I start marketing—before launch or after?",
+        answer: "Before launch. Building your website, brand presence, and audience before you open means you have customers ready on day one. We help with pre-launch campaigns that generate interest and early sales."
+      },
+      {
+        question: "What's the minimum marketing budget for a new business?",
+        answer: "Realistically, $800-$1,500/month for managed services, or $2,500-$5,000 for foundational setup if you'll manage it yourself. We prioritize free and low-cost channels first, then add paid ads as revenue grows."
+      },
+      {
+        question: "How do you help when I have no customers or reviews yet?",
+        answer: "We focus on your expertise, your story, early testimonials from beta users or personal connections, and positioning that emphasizes your fresh approach. Credibility builds through professional presentation and early wins."
+      },
+      {
+        question: "Can you help validate my business idea?",
+        answer: "Yes. We run small-scale test campaigns to gauge market interest, validate messaging, and get real feedback before you invest heavily. This reduces risk and informs your strategy."
+      },
+      {
+        question: "What if my business pivots or changes direction?",
+        answer: "We build flexible systems that adapt quickly. If you pivot, we adjust messaging, targeting, and channels without starting from scratch. Startups evolve—your marketing should too."
+      },
+      {
+        question: "Do I need to hire a marketing team or can you handle it?",
+        answer: "We can handle it. Most startups can't afford a full marketing hire yet. We provide experienced marketing execution at a fraction of the cost of hiring, giving you expert help without the overhead."
+      }
+    ]
+  },
+  {
     slug: 'small-business-owners',
     icon: <Users size={48} className="text-white" />, 
     title: 'Small Business Owners', 
@@ -44,7 +131,34 @@ export const professionals = [
       description: "We help small business owners attract more local customers and stand out in a crowded market with tailored marketing solutions.",
       ogTitle: "Marketing Solutions for Small Business Owners",
       ogDescription: "Your passion is your business. Our passion is marketing it. Let us help you grow with effective, affordable marketing strategies.",
-    }
+    },
+    tldr: "For small business owners who need marketing that works without the complexity. We deliver local SEO, social media, reputation management, and affordable websites that drive real customers. Results in 1-3 months.",
+    faq: [
+      {
+        question: "How much should a small business spend on marketing?",
+        answer: "Most small businesses thrive with 5-10% of revenue allocated to marketing. If you're new or growing fast, 10-15% makes sense. We design packages that fit your budget and scale as you grow."
+      },
+      {
+        question: "What marketing channels work best for local businesses?",
+        answer: "Google Business Profile, local SEO, targeted social media ads, and email marketing to existing customers. These channels deliver high ROI for businesses that depend on local traffic."
+      },
+      {
+        question: "How long before I see results?",
+        answer: "Google Business Profile optimization shows impact in weeks. Local SEO takes 1-3 months. Paid ads drive traffic immediately. We set realistic timelines based on your goals."
+      },
+      {
+        question: "Do I need a big marketing budget to compete?",
+        answer: "No. Small businesses win by being local, personal, and responsive. We focus on high-impact tactics that let you compete without matching big-brand budgets."
+      },
+      {
+        question: "Can you help if I'm just starting out?",
+        answer: "Absolutely. We build foundational systems—website, local listings, social profiles—then add channels as your business and budget grow."
+      },
+      {
+        question: "What if I don't have time to manage marketing?",
+        answer: "That's why we're here. You focus on serving customers. We handle strategy, execution, and reporting so marketing runs without adding to your workload."
+      }
+    ]
   },
   { 
     slug: 'therapists-counselors',
@@ -90,7 +204,34 @@ export const professionals = [
       description: "Grow your private practice with our ethical and effective marketing strategies for therapists, counselors, and mental health professionals.",
       ogTitle: "Attract More Ideal Clients to Your Therapy Practice",
       ogDescription: "Focus on your clients, we'll handle the marketing. We help therapists connect with those who need their help through sensitive, professional marketing.",
-    }
+    },
+    tldr: "For therapists and counselors who need ethical, HIPAA-compliant marketing. We build trust through content, optimize Psychology Today profiles, and run specialization-focused campaigns. Results in 2-4 months.",
+    faq: [
+      {
+        question: "Is marketing ethical for therapists?",
+        answer: "Yes, when done properly. We follow all ethical guidelines, never exploit vulnerabilities, and focus on education and trust-building. Marketing helps people find the help they need."
+      },
+      {
+        question: "How do you ensure HIPAA compliance?",
+        answer: "We use secure contact forms, encrypted communications, and never share client information. All testimonials and materials are handled with strict confidentiality protocols."
+      },
+      {
+        question: "Can you help me attract clients for my specialization?",
+        answer: "Absolutely. Whether you specialize in anxiety, trauma, couples therapy, or other areas, we target people actively seeking help for those specific issues."
+      },
+      {
+        question: "Do I need to be on social media as a therapist?",
+        answer: "Not necessarily. We focus on channels that work for your practice—Psychology Today, Google, and content marketing often deliver better results for therapists than social media."
+      },
+      {
+        question: "How do you handle sensitive mental health topics?",
+        answer: "With care and professionalism. Our messaging is always supportive, non-judgmental, and emphasizes hope while respecting therapeutic boundaries."
+      },
+      {
+        question: "What about client privacy in marketing materials?",
+        answer: "We never share client stories without explicit written consent. Most marketing focuses on your expertise, approach, and the issues you treat—not individual client details."
+      }
+    ]
   },
   { 
     slug: 'trades-contractors',
@@ -136,7 +277,34 @@ export const professionals = [
       description: "Get more leads for your trade business. We specialize in local SEO and ads for electricians, plumbers, HVAC, and other contractors.",
       ogTitle: "Book More Jobs with Marketing for the Trades",
       ogDescription: "We help contractors get found by local customers who need their services now. Let's get your phone ringing.",
-    }
+    },
+    tldr: "For electricians, plumbers, HVAC, and contractors who need emergency-ready marketing. We dominate 'near me' searches, run 24/7 Google Ads, and build trust through reviews. Results in 1-2 months.",
+    faq: [
+      {
+        question: "How do you get my business to show up for 'near me' searches?",
+        answer: "We optimize your Google Business Profile, build local citations, create service-area pages, and target emergency keywords that trigger when people need immediate help."
+      },
+      {
+        question: "Can you run ads even at 2 AM when emergencies happen?",
+        answer: "Yes. We set up 24/7 Google Ads campaigns that capture emergency searches at any hour, ensuring you don't miss late-night or weekend jobs."
+      },
+      {
+        question: "How do you help with trust and credibility?",
+        answer: "We showcase your licenses and certifications, implement review generation systems, respond to reviews professionally, and highlight your local experience and community involvement."
+      },
+      {
+        question: "What if I only serve certain areas?",
+        answer: "We create location-specific landing pages and geofenced ads that target customers within your service radius, ensuring you only attract local leads."
+      },
+      {
+        question: "My business is very seasonal. Can you adjust campaigns?",
+        answer: "Absolutely. We ramp up campaigns during your busy seasons (HVAC in summer/winter, plumbing during cold snaps) and scale back during slower periods."
+      },
+      {
+        question: "How fast can I get my phone ringing?",
+        answer: "Google Ads can drive calls within days. Local SEO takes 1-2 months for sustainable organic traffic. We recommend both for consistent lead flow."
+      }
+    ]
   },
   { 
     slug: 'veterinarians',
@@ -185,7 +353,34 @@ export const professionals = [
       description: "Attract more clients to your veterinary clinic with our specialized marketing services. We help you connect with local pet owners.",
       ogTitle: "Grow Your Veterinary Practice with Expert Marketing",
       ogDescription: "You care for pets, we'll fetch the clients. Our marketing services for veterinarians help you build a thriving practice.",
-    }
+    },
+    tldr: "For veterinary clinics that want to attract caring pet owners. We build emotional connections through storytelling, optimize for local search, and manage your reputation. Results in 2-3 months.",
+    faq: [
+      {
+        question: "How do you attract new pet owners to our clinic?",
+        answer: "Local SEO for 'vet near me' searches, engaging social media content featuring your team and patients (with permission), and targeted ads reaching new pet owners and people relocating to your area."
+      },
+      {
+        question: "Can you help with our online reputation?",
+        answer: "Yes. We help generate positive reviews, respond professionally to all feedback, and showcase testimonials that highlight your compassionate care and expertise."
+      },
+      {
+        question: "What about emergency and after-hours services?",
+        answer: "We clearly communicate your hours and emergency policies on your website and listings, ensuring pet owners know when and how to reach you for urgent care."
+      },
+      {
+        question: "How do you showcase our specialized services?",
+        answer: "We create dedicated pages for services like surgery, dentistry, or exotic animal care, targeting pet owners specifically looking for those specialized treatments."
+      },
+      {
+        question: "Can you help with client education?",
+        answer: "Absolutely. We create blog content and social posts about pet health, seasonal care tips, and preventive medicine that position your clinic as a trusted resource."
+      },
+      {
+        question: "What about promoting wellness plans and preventive care?",
+        answer: "We develop campaigns that emphasize the value of regular check-ups and wellness plans, helping you build recurring revenue while keeping pets healthy."
+      }
+    ]
   },
   { 
     slug: 'financial-professionals',
@@ -234,7 +429,34 @@ export const professionals = [
       description: "Attract high-value clients with our marketing services for accountants, financial advisors, and other financial professionals.",
       ogTitle: "Marketing That Builds Trust for Financial Experts",
       ogDescription: "We help financial professionals elevate their standing and attract high-quality clients through sophisticated, authority-building marketing.",
-    }
+    },
+    tldr: "For accountants, financial advisors, and wealth managers who need trust-building marketing. We position you as an authority through content, LinkedIn campaigns, and compliant lead generation. Results in 3-6 months.",
+    faq: [
+      {
+        question: "How do you handle compliance in financial services marketing?",
+        answer: "We ensure all content follows FINRA, SEC, or other regulatory guidelines for your profession. Every campaign is reviewed for compliance before launch."
+      },
+      {
+        question: "Can you help attract high-net-worth individuals?",
+        answer: "Yes. We use targeted LinkedIn campaigns, content marketing, and strategic networking initiatives to reach decision-makers and affluent individuals who need your expertise."
+      },
+      {
+        question: "What about building referral relationships?",
+        answer: "We help you develop relationships with attorneys, accountants, and real estate professionals who regularly encounter clients who need financial services."
+      },
+      {
+        question: "How do you showcase expertise without being too salesy?",
+        answer: "We focus on educational content—market insights, tax planning tips, retirement strategies—that demonstrates your knowledge while providing genuine value to prospects."
+      },
+      {
+        question: "Can you help with client retention?",
+        answer: "Absolutely. We develop email campaigns and content strategies that keep you top-of-mind with existing clients and position additional services as their needs evolve."
+      },
+      {
+        question: "What platforms work best for financial professionals?",
+        answer: "LinkedIn for B2B and professional networking, targeted Google Ads for specific services, and email marketing for nurturing relationships. We avoid platforms that don't align with professional standards."
+      }
+    ]
   },
   { 
     slug: 'bilingual-businesses',
@@ -283,7 +505,34 @@ export const professionals = [
       description: "Reach the Spanish-speaking community with our culturally relevant bilingual marketing services. Conectamos con tu comunidad.",
       ogTitle: "Effective Bilingual Marketing to Reach Your Audience",
       ogDescription: "We create authentic marketing campaigns that connect with your Spanish-speaking customers on a cultural level. Hablemos.",
-    }
+    },
+    tldr: "For businesses serving Spanish-speaking communities. We deliver culturally authentic marketing—not just translations. Includes bilingual SEO, social media, and community engagement. Results in 2-4 months.",
+    faq: [
+      {
+        question: "Do you just translate our English content to Spanish?",
+        answer: "No. We create culturally relevant content that resonates with Hispanic communities, not direct translations. Native speakers ensure authenticity and cultural nuance."
+      },
+      {
+        question: "Can you target specific Hispanic communities?",
+        answer: "Yes. We tailor messaging to your local community, whether Mexican, Puerto Rican, Cuban, or other Hispanic demographics, respecting regional differences."
+      },
+      {
+        question: "What platforms work best for reaching Spanish speakers?",
+        answer: "Facebook, Instagram, WhatsApp, and Spanish-language radio work well. We customize based on your community's preferences and demographics."
+      },
+      {
+        question: "How do you optimize for Spanish-language searches?",
+        answer: "We research Spanish keywords, create bilingual content, optimize your Google Business Profile in both languages, and run Spanish-language ad campaigns."
+      },
+      {
+        question: "Can you help build trust in Hispanic communities?",
+        answer: "Absolutely. We focus on community engagement, partnerships with Hispanic organizations, family-centered messaging, and long-term relationship building."
+      },
+      {
+        question: "Do you handle both B2B and B2C bilingual marketing?",
+        answer: "Yes. We adapt our approach based on your audience—whether you're reaching Hispanic business owners or Spanish-speaking consumers."
+      }
+    ]
   },
   { 
     slug: 'farmers-markets',
@@ -333,7 +582,34 @@ export const professionals = [
       description: "Attract more visitors and boost vendor sales with our marketing services for farmers markets. We help you cultivate a thriving community.",
       ogTitle: "Grow Your Farmers Market with Targeted Marketing",
       ogDescription: "From local roots to loyal customers, we help you attract more visitors to your market and support your community of vendors.",
-    }
+    },
+    tldr: "For farmers markets that want to grow attendance and support vendors. We promote events, spotlight vendors, build social communities, and run geotargeted ads. Results in 1-2 months.",
+    faq: [
+      {
+        question: "How do you help increase market attendance?",
+        answer: "Social media promotion, event marketing, vendor spotlights, email newsletters, partnerships with food bloggers, and geotargeted ads that reach people within driving distance."
+      },
+      {
+        question: "Can you help individual vendors or just the market?",
+        answer: "We market the market as a whole, which benefits all vendors. Vendor spotlights and story-telling help individual vendors gain visibility while driving overall traffic."
+      },
+      {
+        question: "What about seasonal challenges?",
+        answer: "We adapt campaigns to match agricultural seasons—spring excitement, summer abundance, fall harvests, winter preserved goods—keeping messaging relevant year-round."
+      },
+      {
+        question: "How do you handle weather-related cancellations?",
+        answer: "We develop weather-responsive communication strategies, promote indoor alternatives, and keep customers engaged even when market days are canceled."
+      },
+      {
+        question: "Can you help us attract younger customers?",
+        answer: "Yes. We use Instagram and TikTok to reach younger audiences, emphasize farm-to-table trends, sustainability, and create content that makes markets feel relevant to millennials and Gen Z."
+      },
+      {
+        question: "What about building community partnerships?",
+        answer: "We help you connect with local restaurants, schools, and organizations for cross-promotions, field trips, and catering opportunities that expand your reach."
+      }
+    ]
   },
   { 
     slug: 'licensed-professionals',
@@ -387,6 +663,33 @@ export const professionals = [
       description: "We provide sophisticated marketing solutions for architects, engineers, consultants, and other licensed professionals to attract high-caliber clients.",
       ogTitle: "Expert Marketing for Licensed Professionals",
       ogDescription: "You're an expert in your field. We're experts in marketing it. Let us help you build your reputation and attract the clients you deserve.",
-    }
+    },
+    tldr: "For architects, engineers, and consultants who need sophisticated B2B marketing. We showcase expertise through case studies, thought leadership, and professional networking. Results in 3-6 months.",
+    faq: [
+      {
+        question: "How do you help build professional authority?",
+        answer: "Through thought leadership content, industry publications, speaking engagement promotion, and professional association involvement that establishes you as a recognized expert."
+      },
+      {
+        question: "Can you help with RFP responses and proposals?",
+        answer: "Yes. We develop proposal templates, capability statements, and business development materials that clearly communicate your qualifications and value proposition."
+      },
+      {
+        question: "What about showcasing our portfolio and past work?",
+        answer: "We create compelling case studies that highlight not just what you built, but the problems you solved, value created, and results achieved for clients."
+      },
+      {
+        question: "How do you generate B2B leads for professional services?",
+        answer: "LinkedIn marketing, industry publication advertising, conference marketing, and strategic networking that reaches decision-makers in target industries."
+      },
+      {
+        question: "Can you help build referral networks?",
+        answer: "Absolutely. We help you develop relationships with complementary service providers and past clients who can provide qualified referrals."
+      },
+      {
+        question: "What about compliance and professional standards?",
+        answer: "All marketing respects professional licensing requirements, ethical standards, and risk management needs while achieving business development objectives."
+      }
+    ]
   },
 ];

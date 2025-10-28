@@ -51,6 +51,17 @@ jobs:
         run: |
           test -d dist && echo "dist/ found" || (echo "dist/ not found. Check your build." && exit 1)
 
+      - name: Run validators
+        run: npm run validate
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: ops/llm-audit/report.json
+          retention-days: 30
+
       - name: Deploy files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

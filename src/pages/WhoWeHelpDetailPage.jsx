@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -9,6 +9,7 @@ import { professionals } from '@/data/whoWeHelpData.jsx';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import SchemaMarkup from '@/components/SchemaMarkup';
+import { addHeadingAnchors } from '@/utils/addHeadingAnchors';
 
 const WhoWeHelpDetailPage = () => {
   const { slug } = useParams();
@@ -53,6 +54,25 @@ const WhoWeHelpDetailPage = () => {
     "description": professional.meta.description,
   };
 
+  // Generate FAQPage schema if FAQ exists
+  const faqSchema = professional.faq ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": professional.faq.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  } : null;
+
+  // Process longDescription to add id anchors to headings
+  const processedDescription = useMemo(() => {
+    return addHeadingAnchors(professional.longDescription);
+  }, [professional.longDescription]);
+
   return (
     <PageTransition>
       <Helmet>
@@ -64,6 +84,7 @@ const WhoWeHelpDetailPage = () => {
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
       </Helmet>
       <SchemaMarkup schema={pageSchema} />
+      {faqSchema && <SchemaMarkup schema={faqSchema} />}
       <div className="py-16 md:py-24 bg-gradient-to-b from-background to-accent/10">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
@@ -101,8 +122,25 @@ const WhoWeHelpDetailPage = () => {
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
+            {/* TLDR Section */}
+            {professional.tldr && (
+              <motion.div variants={itemVariants} className="mb-12">
+                <Card className="bg-accent/10 border-accent/20 tldr">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4">
+                      <div className="text-4xl">{professional.icon}</div>
+                      <div>
+                        <h2 id="tldr" className="text-xl font-bold mb-2 font-heading">TL;DR</h2>
+                        <p className="text-muted-foreground leading-relaxed">{professional.tldr}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
             <motion.div variants={itemVariants} className="prose prose-invert max-w-none lg:prose-xl prose-h3:text-accent">
-              <div dangerouslySetInnerHTML={{ __html: professional.longDescription }} />
+              <div dangerouslySetInnerHTML={{ __html: processedDescription }} />
             </motion.div>
           </div>
 
@@ -129,6 +167,34 @@ const WhoWeHelpDetailPage = () => {
             </motion.div>
           </aside>
         </div>
+
+        {/* FAQ Section */}
+        {professional.faq && professional.faq.length > 0 && (
+          <motion.div
+            variants={itemVariants}
+            className="mt-24 faq"
+          >
+            <h2 id="faq" className="text-3xl md:text-4xl font-black mb-12 font-heading text-center">
+              Frequently Asked Questions
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {professional.faq.map((item, index) => (
+                <Card key={index} className="bg-secondary/20 hover:bg-secondary/30 transition-colors faq-item">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold font-heading faq-question" data-question>
+                      {item.question}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed faq-answer" data-answer>
+                      {item.answer}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </motion.div>
     </PageTransition>
   );

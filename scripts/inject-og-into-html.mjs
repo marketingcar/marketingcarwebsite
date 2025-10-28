@@ -266,6 +266,89 @@ function absUrl(pathOrUrl) {
   try { return new URL(pathOrUrl, SITE_URL).href; } catch { return pathOrUrl; }
 }
 
+// Generate Organization schema (global)
+function generateOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Marketing Car",
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/mainlogo.png`,
+    "description": "Expert small business marketing solutions that drive real results. From digital strategy to lead generation, we help small businesses grow with proven marketing systems.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "email": "hello@marketingcar.com"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/marketingcar",
+      "https://twitter.com/marketingcar"
+    ]
+  };
+}
+
+// Generate BreadcrumbList schema from URL path
+function generateBreadcrumbSchema(routePath, pageTitle) {
+  const parts = routePath.split('/').filter(p => p.length > 0);
+
+  if (parts.length === 0) {
+    // Homepage has no breadcrumbs beyond itself
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": SITE_URL
+        }
+      ]
+    };
+  }
+
+  const items = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": SITE_URL
+    }
+  ];
+
+  let currentPath = '';
+  for (let i = 0; i < parts.length; i++) {
+    currentPath += '/' + parts[i];
+    const isLast = i === parts.length - 1;
+
+    // Create human-readable name from slug
+    let name = parts[i]
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    // Use page title for the last item if available
+    if (isLast && pageTitle && !pageTitle.includes('|')) {
+      name = pageTitle;
+    } else if (isLast && pageTitle) {
+      name = pageTitle.split('|')[0].trim();
+    }
+
+    items.push({
+      "@type": "ListItem",
+      "position": i + 2,
+      "name": name,
+      "item": absUrl(currentPath)
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items
+  };
+}
+
 const htmlFiles = walk(dist);
 const routes = (() => {
   try { return JSON.parse(readFileSync(routesFile, 'utf8')); }
@@ -321,15 +404,26 @@ for (const file of htmlFiles) {
   // Robots
   ensure($, 'meta[name="robots"]', 'content', robotsNoIndex ? 'noindex,nofollow' : 'index,follow');
 
-  // JSON-LD Schema
-  if (ov.schema) {
-    // Remove any existing JSON-LD schema first
-    $('script[type="application/ld+json"]').remove();
+  // JSON-LD Schema - Remove any existing JSON-LD schema first
+  $('script[type="application/ld+json"]').remove();
 
-    // Add new schema
-    const schemaScript = $('<script type="application/ld+json"></script>');
-    schemaScript.text(JSON.stringify(ov.schema));
-    $('head').append(schemaScript);
+  // Always add Organization schema (global)
+  const orgSchema = generateOrganizationSchema();
+  const orgScript = $('<script type="application/ld+json"></script>');
+  orgScript.text(JSON.stringify(orgSchema));
+  $('head').append(orgScript);
+
+  // Always add BreadcrumbList schema
+  const breadcrumbSchema = generateBreadcrumbSchema(routePath, finalTitle);
+  const breadcrumbScript = $('<script type="application/ld+json"></script>');
+  breadcrumbScript.text(JSON.stringify(breadcrumbSchema));
+  $('head').append(breadcrumbScript);
+
+  // Add page-specific schema if present (BlogPosting, Service, FAQPage, etc.)
+  if (ov.schema) {
+    const pageSchemaScript = $('<script type="application/ld+json"></script>');
+    pageSchemaScript.text(JSON.stringify(ov.schema));
+    $('head').append(pageSchemaScript);
   }
 
   writeFileSync(file, $.html());

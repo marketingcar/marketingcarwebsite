@@ -105,6 +105,7 @@ function getServicesData() {
 // Get who we help data
 function getWhoWeHelpData() {
   const audiences = [
+    'New Business Owners & Startups',
     'Small Business Owners',
     'Therapists & Counselors',
     'Trades & Contractors',

@@ -5,11 +5,19 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs && node scripts/generate-llm-doc.mjs",
+    "build": "rimraf dist && node scripts/optimize-images.mjs && node scripts/build-blog-static.mjs && node scripts/prerender.routes.mjs && vite build && node scripts/spa-copy-routes.mjs && node scripts/inject-og-into-html.mjs && node scripts/generate-sitemaps.mjs && node scripts/generate-rss.mjs && node scripts/generate-llm-doc.mjs && node scripts/generate-facts.mjs",
+    "build:with-validation": "npm run build && npm run validate",
     "build:analyze": "npm run build && npx rollup-plugin-visualizer",
     "preview": "vite preview",
     "build:routes": "node scripts/prerender.routes.mjs",
-    "optimize-images": "node scripts/optimize-images.mjs"
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "validate": "node ops/validators/run-all.mjs",
+    "validate:schema": "node ops/validators/schema-validator.mjs",
+    "validate:html": "node ops/validators/html-proofer.mjs",
+    "validate:content": "node ops/validators/content-linter.mjs",
+    "validate:sitemap": "node ops/validators/sitemap-validator.mjs",
+    "validate:images": "node ops/validators/image-checker.mjs",
+    "validate:facts": "node ops/validators/facts-validator.mjs"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.1",
