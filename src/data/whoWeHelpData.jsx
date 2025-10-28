@@ -4,6 +4,149 @@ import { BrainCircuit, Wrench, HeartPulse, Calculator, ShieldCheck, Languages, S
 
 export const professionals = [
   {
+    slug: 'small-business-owners',
+    icon: <Users size={48} className="text-white" />,
+    title: 'Small Business Owners',
+    description: 'Your passion is your business. Our passion is marketing it. We help you attract more local customers and stand out in a crowded market.',
+    subtitle: 'Your passion is your business. Our passion is marketing it.',
+    longDescription: `
+      <h3>Your Dedicated Marketing Partner</h3>
+      <p>As a small business owner, you wear many hats – CEO, accountant, customer service rep, and everything in between. Marketing shouldn't add to your stress; it should be the engine that drives your growth while you focus on what you do best: serving your customers and community.</p>
+
+      <h4>Understanding the Small Business Challenge</h4>
+      <p>We know the challenges you face: limited budgets, time constraints, and the pressure to compete with larger businesses that have dedicated marketing teams. You need marketing solutions that work immediately, don't require a marketing degree to understand, and deliver measurable results that directly impact your bottom line.</p>
+
+      <p>That's why we've designed our services specifically for small businesses – focusing on high-impact, cost-effective strategies that generate real customers, not just vanity metrics.</p>
+
+      <h4>Local Market Domination</h4>
+      <p>Your strength as a small business is your local presence and community connections. We amplify these advantages through strategic local SEO, targeted social media campaigns, and community engagement initiatives that establish you as the go-to choice in your area.</p>
+
+      <p>We help you capture the "near me" searches that drive foot traffic, build relationships with local influencers and organizations, and create marketing campaigns that speak directly to your local community's needs and values.</p>
+
+      <h4>Building Customer Loyalty</h4>
+      <p>Small businesses thrive on repeat customers and word-of-mouth referrals. We implement retention marketing strategies, reputation management systems, and customer engagement campaigns that turn first-time buyers into loyal advocates who actively promote your business to friends and family.</p>
+
+      <h4>Affordable, Scalable Solutions</h4>
+      <p>Our marketing solutions are designed to grow with your business. We start with foundational strategies that fit your current budget and scale up as your business grows. No long-term contracts, no paying for services you don't need – just effective marketing that adapts to your business's changing needs.</p>
+
+      <h4>Measurable Results You Can Bank On</h4>
+      <p>We focus on metrics that matter to your business: new customers, increased sales, higher profit margins, and improved customer retention. Every strategy we implement is tracked and measured so you can see exactly how your marketing investment is paying off.</p>
+    `,
+    howWeHelp: [
+      'Local SEO & Google Business Profile Optimization',
+      'Hyper-targeted Social Media Advertising',
+      'Community Engagement Campaigns',
+      'Affordable, High-Performance Website Design',
+      'Reputation Management & Review Generation',
+    ],
+    meta: {
+      title: "Marketing for Small Business Owners | Marketing Car",
+      description: "We help small business owners attract more local customers and stand out in a crowded market with tailored marketing solutions.",
+      ogTitle: "Marketing Solutions for Small Business Owners",
+      ogDescription: "Your passion is your business. Our passion is marketing it. Let us help you grow with effective, affordable marketing strategies.",
+    },
+    tldr: "For small business owners who need marketing that works without the complexity. We deliver local SEO, social media, reputation management, and affordable websites that drive real customers. Results in 1-3 months.",
+    faq: [
+      {
+        question: "How much should a small business spend on marketing?",
+        answer: "Most small businesses thrive with 5-10% of revenue allocated to marketing. If you're new or growing fast, 10-15% makes sense. We design packages that fit your budget and scale as you grow."
+      },
+      {
+        question: "What marketing channels work best for local businesses?",
+        answer: "Google Business Profile, local SEO, targeted social media ads, and email marketing to existing customers. These channels deliver high ROI for businesses that depend on local traffic."
+      },
+      {
+        question: "How long before I see results?",
+        answer: "Google Business Profile optimization shows impact in weeks. Local SEO takes 1-3 months. Paid ads drive traffic immediately. We set realistic timelines based on your goals."
+      },
+      {
+        question: "Do I need a big marketing budget to compete?",
+        answer: "No. Small businesses win by being local, personal, and responsive. We focus on high-impact tactics that let you compete without matching big-brand budgets."
+      },
+      {
+        question: "Can you help if I'm just starting out?",
+        answer: "Absolutely. We build foundational systems—website, local listings, social profiles—then add channels as your business and budget grow."
+      },
+      {
+        question: "What if I don't have time to manage marketing?",
+        answer: "That's why we're here. You focus on serving customers. We handle strategy, execution, and reporting so marketing runs without adding to your workload."
+      }
+    ]
+  },
+  {
+    slug: 'therapists-counselors',
+    icon: <BrainCircuit size={48} className="text-white" />,
+    title: 'Therapists & Counselors',
+    description: 'Focus on your clients while we handle your digital presence. We create sensitive and effective marketing to connect you with those who need your help.',
+    subtitle: 'Ethical, effective marketing for mental health professionals.',
+    longDescription: `
+      <h3>Marketing with Empathy and Ethics</h3>
+      <p>As a mental health professional, your work involves the most sensitive and important aspects of human experience. Your marketing should reflect the same level of professionalism, ethics, and care that you bring to your practice. We understand the unique challenges you face in growing your practice while maintaining therapeutic boundaries and professional standards.</p>
+
+      <h4>Ethical Marketing Practices</h4>
+      <p>Every marketing strategy we develop adheres to the highest ethical standards and professional guidelines. We never use sensationalist tactics, exploit vulnerabilities, or make unrealistic promises. Instead, we focus on building trust and credibility through authentic, professional communication that respects your clients' privacy and dignity.</p>
+
+      <p>Our approach emphasizes education, empowerment, and hope while remaining sensitive to the stigma that can still surround mental health treatment.</p>
+
+      <h4>HIPAA-Compliant Systems</h4>
+      <p>We implement marketing systems that fully comply with HIPAA requirements, ensuring that all client information remains confidential and secure. This includes secure contact forms, encrypted communications, and careful handling of any testimonials or case study materials.</p>
+
+      <h4>Building Trust Through Content</h4>
+      <p>Potential clients need to feel confident in your expertise and approach before they'll book their first appointment. We help you create educational content that demonstrates your knowledge, explains your therapeutic methods, and addresses common concerns or misconceptions about therapy.</p>
+
+      <p>This includes blog posts about mental health topics, videos explaining your approach, and resources that provide immediate value to people who are considering therapy.</p>
+
+      <h4>Specialization-Focused Marketing</h4>
+      <p>Whether you specialize in anxiety, depression, couples therapy, trauma, or other areas, we help you attract clients who specifically need your expertise. Our targeting strategies ensure your marketing reaches people who are actively seeking help for the issues you're most passionate about treating.</p>
+
+      <h4>Local Community Integration</h4>
+      <p>Mental health treatment often works best when therapists are connected to their local community. We help you build relationships with local healthcare providers, community organizations, and other professionals who can provide appropriate referrals.</p>
+
+      <h4>Crisis-Sensitive Messaging</h4>
+      <p>We understand that people seeking therapy are often in vulnerable states. Our messaging is always supportive, non-judgmental, and emphasizes hope and healing while being clear about the boundaries of your practice and when immediate professional help is needed.</p>
+    `,
+    howWeHelp: [
+      'HIPAA-compliant Marketing Strategies',
+      'Psychology Today & Directory Optimization',
+      'Content Creation for Building Trust',
+      'Targeted ads for specific specializations',
+      'Professional Website Design with Secure Contact Forms',
+    ],
+    meta: {
+      title: "Marketing for Therapists & Counselors | Marketing Car",
+      description: "Grow your private practice with our ethical and effective marketing strategies for therapists, counselors, and mental health professionals.",
+      ogTitle: "Attract More Ideal Clients to Your Therapy Practice",
+      ogDescription: "Focus on your clients, we'll handle the marketing. We help therapists connect with those who need their help through sensitive, professional marketing.",
+    },
+    tldr: "For therapists and counselors who need ethical, HIPAA-compliant marketing. We build trust through content, optimize Psychology Today profiles, and run specialization-focused campaigns. Results in 2-4 months.",
+    faq: [
+      {
+        question: "Is marketing ethical for therapists?",
+        answer: "Yes, when done properly. We follow all ethical guidelines, never exploit vulnerabilities, and focus on education and trust-building. Marketing helps people find the help they need."
+      },
+      {
+        question: "How do you ensure HIPAA compliance?",
+        answer: "We use secure contact forms, encrypted communications, and never share client information. All testimonials and materials are handled with strict confidentiality protocols."
+      },
+      {
+        question: "Can you help me attract clients for my specialization?",
+        answer: "Absolutely. Whether you specialize in anxiety, trauma, couples therapy, or other areas, we target people actively seeking help for those specific issues."
+      },
+      {
+        question: "Do I need to be on social media as a therapist?",
+        answer: "Not necessarily. We focus on channels that work for your practice—Psychology Today, Google, and content marketing often deliver better results for therapists than social media."
+      },
+      {
+        question: "How do you handle sensitive mental health topics?",
+        answer: "With care and professionalism. Our messaging is always supportive, non-judgmental, and emphasizes hope while respecting therapeutic boundaries."
+      },
+      {
+        question: "What about client privacy in marketing materials?",
+        answer: "We never share client stories without explicit written consent. Most marketing focuses on your expertise, approach, and the issues you treat—not individual client details."
+      }
+    ]
+  },
+  {
     slug: 'new-business-startups',
     icon: <Rocket size={48} className="text-white" />,
     title: 'New Business Owners & Startups',
@@ -87,149 +230,6 @@ export const professionals = [
       {
         question: "Do I need to hire a marketing team or can you handle it?",
         answer: "We can handle it. Most startups can't afford a full marketing hire yet. We provide experienced marketing execution at a fraction of the cost of hiring, giving you expert help without the overhead."
-      }
-    ]
-  },
-  {
-    slug: 'small-business-owners',
-    icon: <Users size={48} className="text-white" />, 
-    title: 'Small Business Owners', 
-    description: 'Your passion is your business. Our passion is marketing it. We help you attract more local customers and stand out in a crowded market.',
-    subtitle: 'Your passion is your business. Our passion is marketing it.',
-    longDescription: `
-      <h3>Your Dedicated Marketing Partner</h3>
-      <p>As a small business owner, you wear many hats – CEO, accountant, customer service rep, and everything in between. Marketing shouldn't add to your stress; it should be the engine that drives your growth while you focus on what you do best: serving your customers and community.</p>
-
-      <h4>Understanding the Small Business Challenge</h4>
-      <p>We know the challenges you face: limited budgets, time constraints, and the pressure to compete with larger businesses that have dedicated marketing teams. You need marketing solutions that work immediately, don't require a marketing degree to understand, and deliver measurable results that directly impact your bottom line.</p>
-
-      <p>That's why we've designed our services specifically for small businesses – focusing on high-impact, cost-effective strategies that generate real customers, not just vanity metrics.</p>
-
-      <h4>Local Market Domination</h4>
-      <p>Your strength as a small business is your local presence and community connections. We amplify these advantages through strategic local SEO, targeted social media campaigns, and community engagement initiatives that establish you as the go-to choice in your area.</p>
-
-      <p>We help you capture the "near me" searches that drive foot traffic, build relationships with local influencers and organizations, and create marketing campaigns that speak directly to your local community's needs and values.</p>
-
-      <h4>Building Customer Loyalty</h4>
-      <p>Small businesses thrive on repeat customers and word-of-mouth referrals. We implement retention marketing strategies, reputation management systems, and customer engagement campaigns that turn first-time buyers into loyal advocates who actively promote your business to friends and family.</p>
-
-      <h4>Affordable, Scalable Solutions</h4>
-      <p>Our marketing solutions are designed to grow with your business. We start with foundational strategies that fit your current budget and scale up as your business grows. No long-term contracts, no paying for services you don't need – just effective marketing that adapts to your business's changing needs.</p>
-
-      <h4>Measurable Results You Can Bank On</h4>
-      <p>We focus on metrics that matter to your business: new customers, increased sales, higher profit margins, and improved customer retention. Every strategy we implement is tracked and measured so you can see exactly how your marketing investment is paying off.</p>
-    `,
-    howWeHelp: [
-      'Local SEO & Google Business Profile Optimization',
-      'Hyper-targeted Social Media Advertising',
-      'Community Engagement Campaigns',
-      'Affordable, High-Performance Website Design',
-      'Reputation Management & Review Generation',
-    ],
-    meta: {
-      title: "Marketing for Small Business Owners | Marketing Car",
-      description: "We help small business owners attract more local customers and stand out in a crowded market with tailored marketing solutions.",
-      ogTitle: "Marketing Solutions for Small Business Owners",
-      ogDescription: "Your passion is your business. Our passion is marketing it. Let us help you grow with effective, affordable marketing strategies.",
-    },
-    tldr: "For small business owners who need marketing that works without the complexity. We deliver local SEO, social media, reputation management, and affordable websites that drive real customers. Results in 1-3 months.",
-    faq: [
-      {
-        question: "How much should a small business spend on marketing?",
-        answer: "Most small businesses thrive with 5-10% of revenue allocated to marketing. If you're new or growing fast, 10-15% makes sense. We design packages that fit your budget and scale as you grow."
-      },
-      {
-        question: "What marketing channels work best for local businesses?",
-        answer: "Google Business Profile, local SEO, targeted social media ads, and email marketing to existing customers. These channels deliver high ROI for businesses that depend on local traffic."
-      },
-      {
-        question: "How long before I see results?",
-        answer: "Google Business Profile optimization shows impact in weeks. Local SEO takes 1-3 months. Paid ads drive traffic immediately. We set realistic timelines based on your goals."
-      },
-      {
-        question: "Do I need a big marketing budget to compete?",
-        answer: "No. Small businesses win by being local, personal, and responsive. We focus on high-impact tactics that let you compete without matching big-brand budgets."
-      },
-      {
-        question: "Can you help if I'm just starting out?",
-        answer: "Absolutely. We build foundational systems—website, local listings, social profiles—then add channels as your business and budget grow."
-      },
-      {
-        question: "What if I don't have time to manage marketing?",
-        answer: "That's why we're here. You focus on serving customers. We handle strategy, execution, and reporting so marketing runs without adding to your workload."
-      }
-    ]
-  },
-  { 
-    slug: 'therapists-counselors',
-    icon: <BrainCircuit size={48} className="text-white" />, 
-    title: 'Therapists & Counselors', 
-    description: 'Focus on your clients while we handle your digital presence. We create sensitive and effective marketing to connect you with those who need your help.',
-    subtitle: 'Ethical, effective marketing for mental health professionals.',
-    longDescription: `
-      <h3>Marketing with Empathy and Ethics</h3>
-      <p>As a mental health professional, your work involves the most sensitive and important aspects of human experience. Your marketing should reflect the same level of professionalism, ethics, and care that you bring to your practice. We understand the unique challenges you face in growing your practice while maintaining therapeutic boundaries and professional standards.</p>
-
-      <h4>Ethical Marketing Practices</h4>
-      <p>Every marketing strategy we develop adheres to the highest ethical standards and professional guidelines. We never use sensationalist tactics, exploit vulnerabilities, or make unrealistic promises. Instead, we focus on building trust and credibility through authentic, professional communication that respects your clients' privacy and dignity.</p>
-
-      <p>Our approach emphasizes education, empowerment, and hope while remaining sensitive to the stigma that can still surround mental health treatment.</p>
-
-      <h4>HIPAA-Compliant Systems</h4>
-      <p>We implement marketing systems that fully comply with HIPAA requirements, ensuring that all client information remains confidential and secure. This includes secure contact forms, encrypted communications, and careful handling of any testimonials or case study materials.</p>
-
-      <h4>Building Trust Through Content</h4>
-      <p>Potential clients need to feel confident in your expertise and approach before they'll book their first appointment. We help you create educational content that demonstrates your knowledge, explains your therapeutic methods, and addresses common concerns or misconceptions about therapy.</p>
-
-      <p>This includes blog posts about mental health topics, videos explaining your approach, and resources that provide immediate value to people who are considering therapy.</p>
-
-      <h4>Specialization-Focused Marketing</h4>
-      <p>Whether you specialize in anxiety, depression, couples therapy, trauma, or other areas, we help you attract clients who specifically need your expertise. Our targeting strategies ensure your marketing reaches people who are actively seeking help for the issues you're most passionate about treating.</p>
-
-      <h4>Local Community Integration</h4>
-      <p>Mental health treatment often works best when therapists are connected to their local community. We help you build relationships with local healthcare providers, community organizations, and other professionals who can provide appropriate referrals.</p>
-
-      <h4>Crisis-Sensitive Messaging</h4>
-      <p>We understand that people seeking therapy are often in vulnerable states. Our messaging is always supportive, non-judgmental, and emphasizes hope and healing while being clear about the boundaries of your practice and when immediate professional help is needed.</p>
-    `,
-    howWeHelp: [
-      'HIPAA-compliant Marketing Strategies',
-      'Psychology Today & Directory Optimization',
-      'Content Creation for Building Trust',
-      'Targeted ads for specific specializations',
-      'Professional Website Design with Secure Contact Forms',
-    ],
-    meta: {
-      title: "Marketing for Therapists & Counselors | Marketing Car",
-      description: "Grow your private practice with our ethical and effective marketing strategies for therapists, counselors, and mental health professionals.",
-      ogTitle: "Attract More Ideal Clients to Your Therapy Practice",
-      ogDescription: "Focus on your clients, we'll handle the marketing. We help therapists connect with those who need their help through sensitive, professional marketing.",
-    },
-    tldr: "For therapists and counselors who need ethical, HIPAA-compliant marketing. We build trust through content, optimize Psychology Today profiles, and run specialization-focused campaigns. Results in 2-4 months.",
-    faq: [
-      {
-        question: "Is marketing ethical for therapists?",
-        answer: "Yes, when done properly. We follow all ethical guidelines, never exploit vulnerabilities, and focus on education and trust-building. Marketing helps people find the help they need."
-      },
-      {
-        question: "How do you ensure HIPAA compliance?",
-        answer: "We use secure contact forms, encrypted communications, and never share client information. All testimonials and materials are handled with strict confidentiality protocols."
-      },
-      {
-        question: "Can you help me attract clients for my specialization?",
-        answer: "Absolutely. Whether you specialize in anxiety, trauma, couples therapy, or other areas, we target people actively seeking help for those specific issues."
-      },
-      {
-        question: "Do I need to be on social media as a therapist?",
-        answer: "Not necessarily. We focus on channels that work for your practice—Psychology Today, Google, and content marketing often deliver better results for therapists than social media."
-      },
-      {
-        question: "How do you handle sensitive mental health topics?",
-        answer: "With care and professionalism. Our messaging is always supportive, non-judgmental, and emphasizes hope while respecting therapeutic boundaries."
-      },
-      {
-        question: "What about client privacy in marketing materials?",
-        answer: "We never share client stories without explicit written consent. Most marketing focuses on your expertise, approach, and the issues you treat—not individual client details."
       }
     ]
   },
