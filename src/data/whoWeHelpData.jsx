@@ -7,7 +7,7 @@ export const professionals = [
     slug: 'new-business-startups',
     icon: <Rocket size={48} className="text-white" />,
     title: 'New Business Owners & Startups',
-    description: 'You're building something new. We'll help you launch with momentum. Get your first customers, build your brand, and establish market presence from day one.',
+    description: "You're building something new. We'll help you launch with momentum. Get your first customers, build your brand, and establish market presence from day one.",
     subtitle: 'Launch with momentum. Market from day one.',
     longDescription: `
       <h3>Built for Launch Mode</h3>
