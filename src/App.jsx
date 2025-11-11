@@ -56,14 +56,6 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-      import('react-gtm-module').then((TagManager) => {
-        TagManager.default?.initialize({ gtmId: 'GTM-MT4W7K78' });
-      }).catch(() => {
-        // GTM initialization failed, continue without it
-      });
-    }
-
     // Initialize intelligent module preloading
     modulePreloader.init();
   }, []);
