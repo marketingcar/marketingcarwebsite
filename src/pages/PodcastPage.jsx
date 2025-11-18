@@ -3,9 +3,10 @@ import { motion } from 'framer-motion';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Mic, CheckCircle2, Youtube, Music } from 'lucide-react';
+import { Mic, CheckCircle2, Youtube, Music, Lightbulb } from 'lucide-react';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import SEOHelmet from '@/components/SEOHelmet';
+import FormspreeForm from '@/components/FormspreeForm';
 
 const PodcastPage = () => {
   const pageTitle = "Under The Hood Podcast | Marketing Car";
@@ -37,6 +38,91 @@ const PodcastPage = () => {
     "You're comfortable speaking openly about one major challenge",
     "You're willing to share what worked and what didn't",
     "You want to help other owners learn from your experience"
+  ];
+
+  const guestFormFields = [
+    {
+      name: 'name',
+      label: 'Your Name',
+      type: 'text',
+      placeholder: 'John Doe',
+      required: true
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      type: 'email',
+      placeholder: 'you@company.com',
+      required: true
+    },
+    {
+      name: 'business',
+      label: 'Business Name',
+      type: 'text',
+      placeholder: 'Your Business Name',
+      required: true
+    },
+    {
+      name: 'industry',
+      label: 'Industry',
+      type: 'text',
+      placeholder: 'e.g., Retail, Healthcare, Construction',
+      required: true
+    },
+    {
+      name: 'years',
+      label: 'Years in Business',
+      type: 'select',
+      options: ['1-2 years', '3-5 years', '6-10 years', '10+ years'],
+      required: true
+    },
+    {
+      name: 'challenge',
+      label: 'What challenge would you like to discuss?',
+      type: 'textarea',
+      placeholder: 'Briefly describe the challenge you faced and overcame...',
+      rows: 4,
+      required: true
+    },
+    {
+      name: 'website',
+      label: 'Website (Optional)',
+      type: 'url',
+      placeholder: 'https://yourwebsite.com',
+      required: false
+    }
+  ];
+
+  const topicFormFields = [
+    {
+      name: 'name',
+      label: 'Your Name',
+      type: 'text',
+      placeholder: 'John Doe',
+      required: true
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      type: 'email',
+      placeholder: 'you@company.com',
+      required: true
+    },
+    {
+      name: 'topic',
+      label: 'Suggested Topic',
+      type: 'text',
+      placeholder: 'What topic would you like us to cover?',
+      required: true
+    },
+    {
+      name: 'details',
+      label: 'Why this topic?',
+      type: 'textarea',
+      placeholder: 'Tell us why this topic would be valuable for small business owners...',
+      rows: 4,
+      required: true
+    }
   ];
 
   const containerVariants = {
@@ -188,9 +274,11 @@ const PodcastPage = () => {
                     </div>
                   </div>
                   <div className="pt-6 border-t border-border/20">
-                    <p className="text-muted-foreground italic">
-                      A short application form will appear here once live.
-                    </p>
+                    <FormspreeForm
+                      formId="xeonoyrv"
+                      fields={guestFormFields}
+                      submitButtonText="Apply to Be a Guest"
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -255,8 +343,50 @@ const PodcastPage = () => {
         </div>
       </section>
 
-      {/* Behind the Mic Section */}
+      {/* Suggest a Topic Section */}
       <section className="py-20 bg-background">
+        <div className="container mx-auto px-6 lg:px-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="max-w-4xl mx-auto"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl font-bold font-heading mb-8 text-center text-white"
+            >
+              Suggest a Topic
+            </motion.h2>
+            <motion.div variants={itemVariants}>
+              <Card className="bg-secondary/10 border-primary/20">
+                <CardHeader>
+                  <div className="flex items-center justify-center mb-4">
+                    <Lightbulb className="h-12 w-12 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl font-heading text-white text-center">
+                    Have an idea for a topic?
+                  </CardTitle>
+                  <CardDescription className="text-lg text-center">
+                    We're always looking for relevant challenges and topics that matter to small business owners. Let us know what you'd like to hear about.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <FormspreeForm
+                    formId="xeonoyrv"
+                    fields={topicFormFields}
+                    submitButtonText="Submit Topic Suggestion"
+                  />
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Behind the Mic Section */}
+      <section className="py-20 bg-secondary/5">
         <div className="container mx-auto px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
